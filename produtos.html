@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Produtos Ana Evelyn - eBooks, Tutoriais e Videoaulas sobre QA, Automação e IA. Transforme sua carreira com conteúdo especializado.">
+    <meta name="keywords" content="eBooks QA, Automação IA, Tutoriais Testes, Ana Evelyn Produtos">
+    <meta property="og:title" content="Produtos Ana Evelyn - eBooks e Cursos QA">
+    <meta property="og:description" content="Acesse eBooks, tutoriais e videoaulas especializadas em QA e IA">
+    <meta property="og:type" content="website">
+    
+    <title>Produtos - Ana Evelyn | eBooks e Cursos QA</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Additional styles for products page */
+        .products-hero {
+            padding: 120px 0 80px;
+            background: linear-gradient(135deg, #f0fdf4 0%, #eff6ff 100%);
+            text-align: center;
+        }
+
+        .products-hero h1 {
+            font-size: 3rem;
+            color: var(--dark-gray);
+            margin-bottom: 1rem;
+        }
+
+        .products-hero p {
+            font-size: 1.25rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .carousel-container {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .carousel {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 20px;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card {
+            min-width: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+        }
+
+        .product-image {
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-blue));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem;
+            position: relative;
+        }
+
+        .product-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="25" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="25" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+        }
+
+        .product-icon {
+            font-size: 4rem;
+            color: white;
+            z-index: 1;
+        }
+
+        .product-content {
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .product-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            background: var(--light-green);
+            color: var(--primary-green);
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            width: fit-content;
+        }
+
+        .product-title {
+            font-size: 1.875rem;
+            color: var(--dark-gray);
+            margin-bottom: 1rem;
+        }
+
+        .product-description {
+            color: var(--medium-gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .product-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .product-features li {
+            padding: 0.5rem 0;
+            color: var(--dark-gray);
+            display: flex;
+            align-items: center;
+        }
+
+        .product-features li::before {
+            content: "✓";
+            color: var(--primary-green);
+            font-weight: bold;
+            margin-right: 0.75rem;
+        }
+
+        .product-price {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .price-current {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-green);
+        }
+
+        .price-original {
+            font-size: 1.25rem;
+            color: var(--medium-gray);
+            text-decoration: line-through;
+        }
+
+        .discount-badge {
+            background: #ef4444;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .buy-button {
+            background: linear-gradient(135deg, var(--primary-green), var(--light-green));
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 1.125rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
+        }
+
+        .buy-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+        }
+
+        .carousel-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .carousel-btn {
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.25rem;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-btn:hover {
+            background: var(--light-green);
+            transform: scale(1.1);
+        }
+
+        .carousel-btn:disabled {
+            background: var(--medium-gray);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .carousel-dots {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--medium-gray);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: var(--primary-green);
+        }
+
+        .why-choose {
+            padding: 80px 0;
+            background: var(--light-gray);
+        }
+
+        .testimonials {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid var(--primary-green);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1rem;
+            color: var(--medium-gray);
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--dark-gray);
+        }
+
+        .platforms-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-blue));
+            text-align: center;
+        }
+
+        .platforms-section h2 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .platforms-section p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.125rem;
+            margin-bottom: 3rem;
+        }
+
+        .platforms-grid {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .platform {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 16px;
+            color: white;
+            min-width: 200px;
+        }
+
+        .platform-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .platform h4 {
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .products-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .product-card {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .product-image {
+                padding: 2rem;
+            }
+
+            .product-content {
+                padding: 2rem;
+            }
+
+            .platforms-grid {
+                gap: 1.5rem;
+            }
+
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav container">
+            <div class="nav-brand">
+                <h2>Ana Evelyn</h2>
+                <span class="nav-tagline">QA & IA Expert</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Início</a></li>
+                <li><a href="index.html#about" class="nav-link">Sobre</a></li>
+                <li><a href="produtos.html" class="nav-link">Produtos</a></li>
+                <li><a href="index.html#contact" class="nav-link">Contato</a></li>
+            </ul>
+            <button class="nav-toggle" aria-label="Abrir menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="products-hero">
+        <div class="container">
+            <h1>Transforme Sua Carreira em <span class="highlight">QA e IA</span></h1>
+            <p>
+                Acesse eBooks, tutoriais e videoaulas especializadas que uso no meu dia a dia 
+                para automatizar processos e aumentar produtividade com inteligência artificial.
+            </p>
+        </div>
+    </section>
+
+    <!-- Product Carousel -->
+    <section class="carousel-container">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Produtos Exclusivos</span>
+                <h2 class="section-title">Meus eBooks e Cursos</h2>
+                <p class="section-subtitle">
+                    Conteúdo prático e aplicável, baseado em mais de 5 anos de experiência em QA e IA
+                </p>
+            </div>
+
+            <div class="carousel">
+                <div class="carousel-track" id="carouselTrack">
+                    <!-- Product 1: eBook Claude IA -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <div class="product-icon">🤖</div>
+                        </div>
+                        <div class="product-content">
+                            <span class="product-badge">Guia Prático</span>
+                            <h3 class="product-title">DICAS DO DIA A DIA COM CLAUDE</h3>
+                            <p class="product-description">
+                                Neste guia curto e direto, utilizando a IA Claude.ai, você vai aprender como 
+                                configurar comandos, artefatos, criar memórias persistentes e iniciar conversas 
+                                sempre com a IA pronta para trabalhar do seu jeito.
+                            </p>
+                            <ul class="product-features">
+                                <li>Guia prático e direto</li>
+                                <li>Comandos prontos para usar</li>
+                                <li>Configuração de memórias persistentes</li>
+                                <li>Workflows de automação</li>
+                                <li>Economize 25+ horas semanais</li>
+                                <li>Acesso imediato após compra</li>
+                            </ul>
+                            <div class="product-price">
+                                <span class="price-current">R$ 9,90</span>
+                            </div>
+                            <a href="https://hotmart.com/pt-br/marketplace/produtos/claude-dicas-anaevelyn" 
+                               class="buy-button" target="_blank" rel="noopener">
+                                Comprar por R$ 9,90
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Product 2: Curso QA Estratégico -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <div class="product-icon">🎯</div>
+                        </div>
+                        <div class="product-content">
+                            <span class="product-badge">Videoaulas</span>
+                            <h3 class="product-title">QA Estratégico e DevOps</h3>
+                            <p class="product-description">
+                                Curso completo sobre como implementar cultura de qualidade desde o início 
+                                do desenvolvimento. Aprenda Shift Left Testing e práticas DevOps aplicadas ao QA.
+                            </p>
+                            <ul class="product-features">
+                                <li>25 videoaulas (8h de conteúdo)</li>
+                                <li>Projetos práticos inclusos</li>
+                                <li>Certificado de conclusão</li>
+                                <li>Acesso vitalício</li>
+                                <li>Grupo exclusivo no Telegram</li>
+                            </ul>
+                            <div class="product-price">
+                                <span class="price-current">R$ 297</span>
+                                <span class="price-original">R$ 497</span>
+                                <span class="discount-badge">40% OFF</span>
+                            </div>
+                            <a href="https://kiwify.com.br/qa-estrategico-anaevelyn" 
+                               class="buy-button" target="_blank" rel="noopener">
+                                Comprar Agora
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Product 3: Tutorial Heurísticas -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <div class="product-icon">🔬</div>
+                        </div>
+                        <div class="product-content">
+                            <span class="product-badge">Tutorial</span>
+                            <h3 class="product-title">Heurísticas Avançadas de API</h3>
+                            <p class="product-description">
+                                Tutorial exclusivo sobre implementação de testes inteligentes de API 
+                                utilizando heurísticas como VADER. Baseado em projetos reais da Samsung.
+                            </p>
+                            <ul class="product-features">
+                                <li>Guia passo-a-passo completo</li>
+                                <li>Códigos prontos para usar</li>
+                                <li>Exemplos práticos do mercado</li>
+                                <li>Integração com CI/CD</li>
+                                <li>Atualizações gratuitas</li>
+                            </ul>
+                            <div class="product-price">
+                                <span class="price-current">R$ 147</span>
+                                <span class="price-original">R$ 247</span>
+                                <span class="discount-badge">40% OFF</span>
+                            </div>
+                            <a href="https://gumroad.com/l/heuristicas-api-anaevelyn" 
+                               class="buy-button" target="_blank" rel="noopener">
+                                Comprar Agora
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Product 4: Bundle Completo -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <div class="product-icon">💎</div>
+                        </div>
+                        <div class="product-content">
+                            <span class="product-badge">Bundle Completo</span>
+                            <h3 class="product-title">Pacote Transformação QA</h3>
+                            <p class="product-description">
+                                Todos os meus produtos em um pacote especial com desconto exclusivo. 
+                                Tudo que você precisa para se tornar referência em QA e IA.
+                            </p>
+                            <ul class="product-features">
+                                <li>Todos os 3 produtos inclusos</li>
+                                <li>Bônus: Consultoria 1h comigo</li>
+                                <li>Acesso prioritário a novos conteúdos</li>
+                                <li>Certificados de todos os cursos</li>
+                                <li>Suporte direto por 90 dias</li>
+                            </ul>
+                            <div class="product-price">
+                                <span class="price-current">R$ 397</span>
+                                <span class="price-original">R$ 741</span>
+                                <span class="discount-badge">46% OFF</span>
+                            </div>
+                            <a href="https://hotmart.com/pt-br/marketplace/produtos/bundle-qa-anaevelyn" 
+                               class="buy-button" target="_blank" rel="noopener">
+                                Comprar Bundle
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-controls">
+                    <button class="carousel-btn" id="prevBtn">❮</button>
+                    <div class="carousel-dots" id="carouselDots"></div>
+                    <button class="carousel-btn" id="nextBtn">❯</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Section -->
+    <section class="why-choose">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Por que Escolher Meus Produtos?</h2>
+            </div>
+            
+            <div class="benefits-grid">
+                <div class="benefit">
+                    <div class="benefit-icon">💼</div>
+                    <h4>Experiência Comprovada</h4>
+                    <p>Mais de 5 anos atuando em empresas como Samsung e Ferreira Costa, com resultados mensuráveis</p>
+                </div>
+                
+                <div class="benefit">
+                    <div class="benefit-icon">🎯</div>
+                    <h4>Conteúdo Prático</h4>
+                    <p>Tudo baseado em casos reais que utilizo no meu dia a dia profissional</p>
+                </div>
+                
+                <div class="benefit">
+                    <div class="benefit-icon">🚀</div>
+                    <h4>Resultados Rápidos</h4>
+                    <p>Técnicas que você pode aplicar imediatamente para ver resultados em semanas</p>
+                </div>
+                
+                <div class="benefit">
+                    <div class="benefit-icon">🤝</div>
+                    <h4>Suporte Direto</h4>
+                    <p>Acesso direto comigo para tirar dúvidas e receber orientações personalizadas</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">O que Dizem os Profissionais</h2>
+            </div>
+            
+            <div class="testimonial-grid">
+                <div class="testimonial">
+                    <p class="testimonial-text">
+                        "O conteúdo da Ana me ajudou a implementar automação com IA na minha empresa. 
+                        Conseguimos reduzir 40% do tempo gasto em testes manuais!"
+                    </p>
+                    <div class="testimonial-author">— Carlos Silva, QA Lead</div>
+                </div>
+                
+                <div class="testimonial">
+                    <p class="testimonial-text">
+                        "Finalmente entendi como aplicar heurísticas avançadas nos meus testes de API. 
+                        O tutorial é muito didático e prático."
+                    </p>
+                    <div class="testimonial-author">— Maria Santos, Test Engineer</div>
+                </div>
+                
+                <div class="testimonial">
+                    <p class="testimonial-text">
+                        "A abordagem da Ana sobre Shift Left Testing transformou nossa cultura de qualidade. 
+                        Recomendo para todos os QAs!"
+                    </p>
+                    <div class="testimonial-author">— João Oliveira, DevOps Engineer</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Platforms Integration -->
+    <section class="platforms-section">
+        <div class="container">
+            <h2>Integração com Principais Plataformas</h2>
+            <p>Compre com segurança através das melhores plataformas de venda digital do Brasil</p>
+            
+            <div class="platforms-grid">
+                <div class="platform">
+                    <div class="platform-icon">🔥</div>
+                    <h4>Hotmart</h4>
+                    <p>Plataforma líder em produtos digitais</p>
+                </div>
+                
+                <div class="platform">
+                    <div class="platform-icon">🥝</div>
+                    <h4>Kiwify</h4>
+                    <p>Checkout otimizado para conversão</p>
+                </div>
+                
+                <div class="platform">
+                    <div class="platform-icon">🛒</div>
+                    <h4>Gumroad</h4>
+                    <p>Plataforma internacional confiável</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>Ana Evelyn</h3>
+                    <p>Senior Sofware Engineer e Criação de Agentes de IA e Ebooks</p>
+                    <p>Transformando carreiras através da automação inteligente</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Links Úteis</h4>
+                    <ul>
+                        <li><a href="index.html">Início</a></li>
+                        <li><a href="index.html#about">Sobre</a></li>
+                        <li><a href="produtos.html">Produtos</a></li>
+                        <li><a href="index.html#contact">Contato</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h4>Contato</h4>
+                    <p>📧 evelynholanda@gmail.com</p>
+                    <p>📱 (81) 98196-9163</p>
+                    <p>💼 LinkedIn: /in/anaevelynqa</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Ana Evelyn. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+Instruções para Imagens:
+
+1. ana-evelyn.jpg (300x300px)
+   - Foto profissional da Ana Evelyn
+   - Formato: JPEG, alta qualidade
+   - Fundo neutro ou profissional
+   - Expressão confiante e acessível
+
+Sugestão: Use uma foto profissional com boa iluminação, vestimenta corporativa casual-elegante, 
+e que transmita autoridade técnica e acessibilidade.
+
+Para testar o site sem a imagem real, você pode usar um placeholder temporário:
+- https://via.placeholder.com/300x300/10b981/ffffff?text=Ana+Evelyn
+
+Substitua o src no index.html por esta URL temporariamente se necessário.
