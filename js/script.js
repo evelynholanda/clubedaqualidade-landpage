@@ -339,7 +339,24 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+const heroSlides = document.querySelectorAll('#heroCarousel .hero-slide');
+let heroIndex = 0;
 
+function showHeroSlide(index) {
+    heroSlides.forEach((slide, i) => {
+        slide.style.display = i === index ? 'grid' : 'none';
+    });
+}
+
+function cycleHero() {
+    heroIndex = (heroIndex + 1) % heroSlides.length;
+    showHeroSlide(heroIndex);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    showHeroSlide(heroIndex);
+    setInterval(cycleHero, 5500);
+});
 // Performance optimization: Lazy load images
 function lazyLoadImages() {
     const images = document.querySelectorAll('img[data-src]');
