@@ -236,6 +236,14 @@ p {
     flex-wrap: wrap;
 }
 
+.hero-fixed-cta {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
 .hero-image {
     display: flex;
     justify-content: center;
@@ -478,7 +486,7 @@ p {
 
 .footer-content {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-columns: 2fr 2fr 1fr;
     gap: 3rem;
     margin-bottom: 2rem;
 }
@@ -683,4 +691,17 @@ p {
 .nav-toggle:focus {
     outline: 2px solid var(--primary-green);
     outline-offset: 2px;
+}
+
+.hero-slide .container {
+    min-height: 440px; /* ajuste conforme necessário para cobrir o maior slide */
+    display: flex;
+    align-items: center;
+}
+
+.hero-content {
+    min-height: 350px; /* ajuste esse valor conforme necessário */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }

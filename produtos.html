@@ -68,8 +68,19 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 3rem;
+            padding: 0.3rem; /* Menos padding */
             position: relative;
+            min-height: 320px; /* Aumenta a altura mínima do slot */
+        }
+
+        .product-img {
+            width: 100%;
+            height: 100%;
+            max-width: 960px;   /* Aumenta o limite máximo */
+            max-height: 900px;  /* Aumenta o limite máximo */
+            border-radius: 15%;
+            object-fit: contain;
+            display: block;
         }
 
         .product-image::before {
@@ -348,7 +359,7 @@
     <header class="header">
         <nav class="nav container">
             <div class="nav-brand">
-                <h2>Ana Evelyn</h2>
+                <h2>QA Evolution</h2>
                 <span class="nav-tagline">QA & IA Expert</span>
             </div>
             <ul class="nav-menu">
@@ -381,7 +392,7 @@
         <div class="container">
             <div class="section-header">
                 <span class="section-tag">Produtos Exclusivos</span>
-                <h2 class="section-title">Meus eBooks e Cursos</h2>
+                <h2 class="section-title">Nossos eBooks e Cursos</h2>
                 <p class="section-subtitle">
                     Conteúdo prático e aplicável, baseado em mais de 5 anos de experiência em QA e IA
                 </p>
@@ -392,7 +403,7 @@
                     <!-- Product 1: eBook Claude IA -->
                     <div class="product-card">
                         <div class="product-image">
-                            <div class="product-icon">🤖</div>
+                            <img src="assets/images/ebook_novo2.png" alt="Capa do eBook Dicas do Dia a Dia com Claude" class="product-img" />
                         </div>
                         <div class="product-content">
                             <span class="product-badge">Guia Prático</span>
@@ -615,7 +626,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer id="contact" class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-brand">
@@ -623,27 +634,31 @@
                     <p>Senior Sofware Engineer e Criação de Agentes de IA e Ebooks</p>
                     <p>Transformando carreiras através da automação inteligente</p>
                 </div>
-                
+                <div class="footer-brand">
+                    <h3>Pablo Andrade</h3>
+                    <p>Especialista em QA Estratégico e Automação com IA</p>
+                    <p>transformação de carreiras com qualidade.</p>
+                </div>
                 <div class="footer-links">
                     <h4>Links Úteis</h4>
                     <ul>
-                        <li><a href="index.html">Início</a></li>
-                        <li><a href="index.html#about">Sobre</a></li>
+                        <li><a href="#home">Início</a></li>
+                        <li><a href="#about">Sobre</a></li>
                         <li><a href="produtos.html">Produtos</a></li>
-                        <li><a href="index.html#contact">Contato</a></li>
+                        <li><a href="#contact">Contato</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-contact">
-                    <h4>Contato</h4>
-                    <p>📧 evelynholanda@gmail.com</p>
+                    <h4>Contatos</h4>
+                    <p>📧 qaevolution@gmail.com</p>
                     <p>📱 (81) 98196-9163</p>
                     <p>💼 LinkedIn: /in/anaevelynqa</p>
                 </div>
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2024 Ana Evelyn. Todos os direitos reservados.</p>
+                <p>&copy; 2025 Ana Evelyn. Todos os direitos reservados.</p>
             </div>
         </div>
     </footer>
