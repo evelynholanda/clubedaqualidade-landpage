@@ -120,7 +120,7 @@ Engenheira de qualidade com mais de 5 anos de experiência em QA e IA, especiali
 
 ### Experiência Profissional
 - **Samsung** (via Cesar) - Implementação de testes inteligentes
-- **Ferreira Costa** - Senior Software Engineer QA
+- **Ferreira Costa** - Sou Ana Evelyn, Engenheira de Qualidade Senior, Especialista na criação de Agentes de IA e Mentoria Transição de Carreira e 50+
 - **Projetos críticos** com redução de pegada de carbono
 
 ---
