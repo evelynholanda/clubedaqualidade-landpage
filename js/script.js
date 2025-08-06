@@ -314,8 +314,9 @@ function hideLoading(element, originalText) {
 
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize carousel
+    // Initialize carousels
     new ProductCarousel();
+    new AboutCarousel();
     
     // Initialize scroll animations
     animateOnScroll();
@@ -413,9 +414,68 @@ const Utils = {
     }
 };
 
+// About Carousel Functionality
+class AboutCarousel {
+    constructor() {
+        this.carousel = document.getElementById('aboutCarousel');
+        this.slides = this.carousel?.querySelectorAll('.about-slide');
+        this.prevBtn = document.getElementById('aboutPrevBtn');
+        this.nextBtn = document.getElementById('aboutNextBtn');
+        this.dots = document.querySelectorAll('.about-dot');
+        this.currentIndex = 0;
+        
+        if (this.carousel) {
+            this.init();
+        }
+    }
+    
+    init() {
+        this.showSlide(0);
+        this.bindEvents();
+    }
+    
+    showSlide(index) {
+        this.slides?.forEach((slide, i) => {
+            slide.style.display = i === index ? 'block' : 'none';
+        });
+        
+        this.dots?.forEach((dot, i) => {
+            if (i === index) {
+                dot.style.background = 'var(--primary-green)';
+                dot.classList.add('active');
+            } else {
+                dot.style.background = 'var(--medium-gray)';
+                dot.classList.remove('active');
+            }
+        });
+        
+        this.currentIndex = index;
+    }
+    
+    nextSlide() {
+        const next = (this.currentIndex + 1) % this.slides.length;
+        this.showSlide(next);
+    }
+    
+    prevSlide() {
+        const prev = (this.currentIndex - 1 + this.slides.length) % this.slides.length;
+        this.showSlide(prev);
+    }
+    
+    bindEvents() {
+        this.nextBtn?.addEventListener('click', () => this.nextSlide());
+        this.prevBtn?.addEventListener('click', () => this.prevSlide());
+        
+        this.dots?.forEach((dot, index) => {
+            dot.addEventListener('click', () => this.showSlide(index));
+        });
+    }
+}
+
 // Export for potential use in other scripts
 window.AnaEvelynSite = {
     ProductCarousel,
+    AboutCarousel,
     Utils,
     trackButtonClick
 };
