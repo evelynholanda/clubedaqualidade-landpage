@@ -100,7 +100,7 @@ page_evelyn/
 
 ## 🌐 Acesso Online
 
-**URL Principal**: https://evelynholanda.github.io/ana-evelyn-landpage
+**URL Principal**: https://evelynholanda.github.io/clubedaqualidade-landpage/
 
 ## 📞 Contato
 
