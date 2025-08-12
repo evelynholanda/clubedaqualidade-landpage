@@ -125,4 +125,4 @@ Engenheira de qualidade com mais de 5 anos de experiência em QA e IA, especiali
 
 ---
 
-**© 2024 Ana Evelyn - Transformando carreiras através da automação inteligente** 🚀
+**© 2024 Clube Qualidade - Transformando carreiras através da automação inteligente** 🚀

@@ -56,6 +56,8 @@ class ProductCarousel {
         this.cards = this.track.querySelectorAll('.product-card');
         this.currentIndex = 0;
         this.totalCards = this.cards.length;
+        this.autoPlayInterval = null;
+        this.restartTimeout = null;
         
         this.init();
     }
@@ -186,13 +188,28 @@ class ProductCarousel {
             }
             
             // Restart auto-play after swipe
-            setTimeout(() => {
+            if (this.restartTimeout) {
+                clearTimeout(this.restartTimeout);
+            }
+            this.restartTimeout = setTimeout(() => {
                 this.startAutoPlay();
             }, 12000); // Mais tempo após swipe
         }
     }
     
     startAutoPlay() {
+        // Primeiro, sempre limpa qualquer interval existente
+        if (this.autoPlayInterval) {
+            clearInterval(this.autoPlayInterval);
+            this.autoPlayInterval = null;
+        }
+        
+        // Limpa qualquer timeout de restart pendente
+        if (this.restartTimeout) {
+            clearTimeout(this.restartTimeout);
+            this.restartTimeout = null;
+        }
+        
         this.autoPlayInterval = setInterval(() => {
             this.nextSlide();
         }, 8000); // Change slide every 8 seconds
@@ -205,7 +222,10 @@ class ProductCarousel {
             
             this.track.addEventListener('mouseleave', () => {
                 // Wait 3 seconds before restarting auto-play
-                setTimeout(() => {
+                if (this.restartTimeout) {
+                    clearTimeout(this.restartTimeout);
+                }
+                this.restartTimeout = setTimeout(() => {
                     this.startAutoPlay();
                 }, 3000);
             });
@@ -223,8 +243,13 @@ class ProductCarousel {
             if (element) {
                 element.addEventListener('click', () => {
                     clearInterval(this.autoPlayInterval);
+                    this.autoPlayInterval = null;
+                    
                     // Restart after 10 seconds of no interaction
-                    setTimeout(() => {
+                    if (this.restartTimeout) {
+                        clearTimeout(this.restartTimeout);
+                    }
+                    this.restartTimeout = setTimeout(() => {
                         this.startAutoPlay();
                     }, 10000);
                 });
