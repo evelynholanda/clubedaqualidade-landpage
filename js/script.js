@@ -49,6 +49,7 @@ class ProductCarousel {
         this.prevBtn = document.getElementById('prevBtn');
         this.nextBtn = document.getElementById('nextBtn');
         this.dotsContainer = document.getElementById('carouselDots');
+        this.counter = document.getElementById('carouselCounter');
         
         if (!this.track) return;
         
@@ -88,6 +89,11 @@ class ProductCarousel {
         
         const translateX = -this.currentIndex * 100;
         this.track.style.transform = `translateX(${translateX}%)`;
+        
+        // Update counter
+        if (this.counter) {
+            this.counter.textContent = `${this.currentIndex + 1} / ${this.totalCards}`;
+        }
         
         // Update dots
         const dots = this.dotsContainer?.querySelectorAll('.dot');
@@ -166,33 +172,64 @@ class ProductCarousel {
     }
     
     handleSwipe() {
-        const swipeThreshold = 50;
+        const swipeThreshold = 30; // Mais sensível no mobile
         const swipeDistance = startX - endX;
         
         if (Math.abs(swipeDistance) > swipeThreshold) {
+            // Pause auto-play on swipe
+            clearInterval(this.autoPlayInterval);
+            
             if (swipeDistance > 0) {
                 this.nextSlide();
             } else {
                 this.prevSlide();
             }
+            
+            // Restart auto-play after swipe
+            setTimeout(() => {
+                this.startAutoPlay();
+            }, 12000); // Mais tempo após swipe
         }
     }
     
     startAutoPlay() {
         this.autoPlayInterval = setInterval(() => {
             this.nextSlide();
-        }, 5000); // Change slide every 5 seconds
+        }, 8000); // Change slide every 8 seconds
         
-        // Pause autoplay on hover
+        // Pause autoplay on hover and interaction
         if (this.track) {
             this.track.addEventListener('mouseenter', () => {
                 clearInterval(this.autoPlayInterval);
             });
             
             this.track.addEventListener('mouseleave', () => {
-                this.startAutoPlay();
+                // Wait 3 seconds before restarting auto-play
+                setTimeout(() => {
+                    this.startAutoPlay();
+                }, 3000);
             });
         }
+        
+        // Pause on button clicks
+        this.pauseAutoPlayOnInteraction();
+    }
+    
+    pauseAutoPlayOnInteraction() {
+        // Pause auto-play when user interacts with controls
+        const interactionElements = [this.prevBtn, this.nextBtn, ...this.dotsContainer?.querySelectorAll('.dot') || []];
+        
+        interactionElements.forEach(element => {
+            if (element) {
+                element.addEventListener('click', () => {
+                    clearInterval(this.autoPlayInterval);
+                    // Restart after 10 seconds of no interaction
+                    setTimeout(() => {
+                        this.startAutoPlay();
+                    }, 10000);
+                });
+            }
+        });
     }
 }
 
