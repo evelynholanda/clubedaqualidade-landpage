@@ -44,12 +44,12 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 // Product Carousel Functionality
 class ProductCarousel {
-    constructor() {
-        this.track = document.getElementById('carouselTrack');
-        this.prevBtn = document.getElementById('prevBtn');
-        this.nextBtn = document.getElementById('nextBtn');
-        this.dotsContainer = document.getElementById('carouselDots');
-        this.counter = document.getElementById('carouselCounter');
+    constructor(config = {}) {
+        this.track = document.getElementById(config.trackId || 'carouselTrack');
+        this.prevBtn = document.getElementById(config.prevBtnId || 'prevBtn');
+        this.nextBtn = document.getElementById(config.nextBtnId || 'nextBtn');
+        this.dotsContainer = document.getElementById(config.dotsId || 'carouselDots');
+        this.counter = document.getElementById(config.counterId || 'carouselCounter');
         
         if (!this.track) return;
         
@@ -377,7 +377,38 @@ function hideLoading(element, originalText) {
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize carousels
-    new ProductCarousel();
+    new ProductCarousel({
+        trackId: 'ebooksCarouselTrack',
+        prevBtnId: 'ebooksPrevBtn',
+        nextBtnId: 'ebooksNextBtn',
+        dotsId: 'ebooksCarouselDots',
+        counterId: 'ebooksCarouselCounter'
+    });
+    
+    new ProductCarousel({
+        trackId: 'agentsCarouselTrack',
+        prevBtnId: 'agentsPrevBtn',
+        nextBtnId: 'agentsNextBtn',
+        dotsId: 'agentsCarouselDots',
+        counterId: 'agentsCarouselCounter'
+    });
+    
+    new ProductCarousel({
+        trackId: 'coursesCarouselTrack',
+        prevBtnId: 'coursesPrevBtn',
+        nextBtnId: 'coursesNextBtn',
+        dotsId: 'coursesCarouselDots',
+        counterId: 'coursesCarouselCounter'
+    });
+    
+    new ProductCarousel({
+        trackId: 'aiMentoringCarouselTrack',
+        prevBtnId: 'aiMentoringPrevBtn',
+        nextBtnId: 'aiMentoringNextBtn',
+        dotsId: 'aiMentoringCarouselDots',
+        counterId: 'aiMentoringCarouselCounter'
+    });
+    
     new AboutCarousel();
     
     // Initialize scroll animations

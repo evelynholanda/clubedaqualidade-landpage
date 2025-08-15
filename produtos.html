@@ -118,6 +118,25 @@
             width: fit-content;
         }
 
+        .product-badge.highlight {
+            background: linear-gradient(45deg, #ff6b35, #f7931e) !important;
+            color: white !important;
+            animation: pulse-glow 2s ease-in-out infinite;
+            box-shadow: 0 0 20px rgba(255, 107, 53, 0.4);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 20px rgba(255, 107, 53, 0.4);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 30px rgba(255, 107, 53, 0.8);
+            }
+        }
+
         .product-title {
             font-size: 1.875rem;
             color: var(--dark-gray);
@@ -428,19 +447,19 @@
         </div>
     </section>
 
-    <!-- Product Carousel -->
+    <!-- eBooks Section -->
     <section class="carousel-container">
         <div class="container">
             <div class="section-header">
-                <span class="section-tag">Produtos Exclusivos</span>
-                <h2 class="section-title">Nossos eBooks e Cursos</h2>
+                <span class="section-tag">Aprenda na Prática</span>
+                <h2 class="section-title">eBooks Práticos para QA e IA</h2>
                 <p class="section-subtitle">
-                    Conteúdo prático e aplicável, baseado em mais de 5 anos de experiência em QA e IA
+                    Guias diretos do básico ao avançado, baseados em mais de 5 anos de experiência
                 </p>
             </div>
 
             <div class="carousel">
-                <div class="carousel-track" id="carouselTrack">
+                <div class="carousel-track" id="ebooksCarouselTrack">
                     <!-- Product 1: eBook Claude IA -->
                     <div class="product-card">
                         <div class="product-image">
@@ -532,19 +551,46 @@
                             </a>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Product 4: Agente IA JIRA -->
+                <div class="carousel-controls">
+                    <button class="carousel-btn" id="ebooksPrevBtn">❮</button>
+                    <div class="carousel-counter" id="ebooksCarouselCounter">1 / 3</div>
+                    <div class="carousel-dots" id="ebooksCarouselDots"></div>
+                    <button class="carousel-btn" id="ebooksNextBtn">❯</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Agents Section -->
+    <section class="carousel-container" style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Automação Inteligente</span>
+                <h2 class="section-title">Agentes de IA Personalizados</h2>
+                <p class="section-subtitle">
+                    Automação inteligente para seu workflow - Revolucione seu processo de QA com IA
+                </p>
+            </div>
+
+            <div class="carousel">
+                <div class="carousel-track" id="agentsCarouselTrack">
+                    <!-- Product 1: Agente IA JIRA -->
                     <div class="product-card">
                         <div class="product-image">
-                            <div class="product-icon">🔬</div>
+                            <img src="assets/images/jira_teste.jpeg" alt="Agente de IA para criação de Cenários no JIRA" class="product-img" />
                         </div>
                         <div class="product-content">
-                            <span class="product-badge">Em Breve</span>
-                            <h3 class="product-title">Agente de IA para criação de Cenários no JIRA</h3>
+                            <span class="product-badge highlight">Personalize conosco se preferir</span>
+                            <h3 class="product-title">Agente de IA para Criação Automática de Cenários no JIRA</h3>
                             <p class="product-description">
-                                Tutorial exclusivo sobre como criar e configurar agentes de IA para 
-                                automatizar a criação de cenários de teste diretamente no JIRA. 
-                                Baseado em projetos reais corporativos.
+                                Conecte-se ao JIRA e deixe a IA fazer o trabalho pesado:<br><br>
+                                • Lê automaticamente todos os critérios de aceite e o Definition of Done do ticket<br>
+                                • Gera todos os cenários de teste de forma inteligente<br>
+                                • Cria a subtask [QA] Planejamento de Testes vinculada à task principal<br><br>
+                                Tudo 100% automatizado, rápido e sem erros.<br><br>
+                                <strong>Ideal para times de QA que querem ganhar velocidade e padronização no processo de testes.</strong>
                             </p>
                             <ul class="product-features">
                                 <li>Configuração completa do agente</li>
@@ -554,49 +600,307 @@
                                 <li>Automação de workflows</li>
                             </ul>
                             <div class="product-price">
-                                <span class="price-current">Disponível em Breve
+                                <span class="price-current">R$ 199,00</span>
                             </div>
-                            <a href="#" class="buy-button" style="background: #6b7280; cursor: not-allowed;" onclick="return false;">
-                                Disponível em Breve
+                            <a href="#contact" class="buy-button">
+                                Entre em Contato
                             </a>
                         </div>
                     </div>
 
-                    <!-- Product 5: Agente IA Swagger -->
+                    <!-- Product 2: Agente IA Swagger -->
                     <div class="product-card">
                         <div class="product-image">
-                            <div class="product-icon">💎</div>
+                            <img src="assets/images/apiswagger.jpeg" alt="Agente para Testes Automatizados de API com Swagger" class="product-img" />
                         </div>
                         <div class="product-content">
-                            <span class="product-badge">Em Breve</span>
+                            <span class="product-badge highlight">Personalize conosco se preferir</span>
                             <h3 class="product-title">Agente para Testes Automatizados de API com Swagger</h3>
                             <p class="product-description">
-                                Guia completo para criar agentes de IA que automatizam testes de API 
-                                utilizando arquivos Swagger.json. Revolucione seu processo de QA com 
-                                inteligência artificial aplicada.
+                                Nosso agente lê o Swagger.json, executa todos os testes automaticamente, conecta ao banco de dados e gera um relatório inteligente com botão para retestar apenas os endpoints com falha.
+                                Rápido. Preciso. Automatizado.<br><br>
+                                <strong>O que você vai receber:</strong>
                             </p>
                             <ul class="product-features">
-                                <li>Configuração de agentes IA</li>
-                                <li>Integração com Swagger.json</li>
-                                <li>Automação completa de testes</li>
-                                <li>Relatórios inteligentes</li>
-                                <li>CI/CD com IA</li>
+                                <li>Configuração completa do agente de IA</li>
+                                <li>Integração direta com Swagger.json</li>
+                                <li>Automação de testes ponta a ponta</li>
+                                <li>Relatórios inteligentes e interativos</li>
+                                <li>Fluxo otimizado para CI/CD com IA</li>
                             </ul>
                             <div class="product-price">
-                                <span class="price-current">Disponível em Breve
+                                <span class="price-current">R$ 499,00</span>
                             </div>
-                            <a href="#" class="buy-button" style="background: #6b7280; cursor: not-allowed;" onclick="return false;">
-                                Disponível em Breve
+                            <a href="#contact" class="buy-button">
+                                Entre em Contato
                             </a>
                         </div>
                     </div>
                 </div>
 
                 <div class="carousel-controls">
-                    <button class="carousel-btn" id="prevBtn">❮</button>
-                    <div class="carousel-counter" id="carouselCounter">1 / 5</div>
-                    <div class="carousel-dots" id="carouselDots"></div>
-                    <button class="carousel-btn" id="nextBtn">❯</button>
+                    <button class="carousel-btn" id="agentsPrevBtn">❮</button>
+                    <div class="carousel-counter" id="agentsCarouselCounter">1 / 2</div>
+                    <div class="carousel-dots" id="agentsCarouselDots"></div>
+                    <button class="carousel-btn" id="agentsNextBtn">❯</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses and Mentoring Section -->
+    <section class="carousel-container">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Aprendizado Personalizado</span>
+                <h2 class="section-title">Cursos e Workshops</h2>
+                <p class="section-subtitle">
+                    Desenvolvimento personalizado com acompanhamento direto - Acelere sua carreira com orientação especializada
+                </p>
+            </div>
+
+            <div class="carousel">
+                <div class="carousel-track" id="coursesCarouselTrack">
+                    <!-- Course 1: Workshop QA -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="assets/images/cursos_mentorias.png" alt="Workshop QA e Automação" class="product-img" />
+                        </div>
+                        <div class="product-content">
+                            <span class="product-badge highlight">Sob Demanda</span>
+                            <h3 class="product-title">Workshop Intensivo em QA e Automação</h3>
+                            <p class="product-description">
+                                Desenvolvimento personalizado da sua carreira em Quality Assurance com acompanhamento direto. 
+                                Aprenda as melhores práticas, ferramentas avançadas e estratégias de mercado com quem já trilhou esse caminho.
+                                <br><br>
+                                <strong>Programa totalmente adaptado ao seu perfil e objetivos profissionais.</strong>
+                            </p>
+                            <ul class="product-features">
+                                <li>Sessões individuais personalizadas</li>
+                                <li>Plano de carreira estruturado</li>
+                                <li>Projeto prático hands-on</li>
+                                <li>Suporte contínuo via WhatsApp</li>
+                                <li>Network com profissionais da área</li>
+                            </ul>
+                            <div class="product-price">
+                                <span class="price-current">Sob Demanda</span>
+                            </div>
+                            <a href="#contact" class="buy-button">
+                                Entre em Contato
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Course 2: Curso IA para QA -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="assets/images/cursos_mentorias.png" alt="Curso IA para QA" class="product-img" />
+                        </div>
+                        <div class="product-content">
+                            <span class="product-badge highlight">Sob Demanda</span>
+                            <h3 class="product-title">Curso Intensivo: IA Aplicada ao QA</h3>
+                            <p class="product-description">
+                                Curso completo sobre como integrar Inteligência Artificial no seu dia a dia como QA. 
+                                Desde automação básica até criação de agentes inteligentes para testes.
+                                <br><br>
+                                <strong>Transforme-se no QA do futuro dominando as tecnologias emergentes.</strong>
+                            </p>
+                            <ul class="product-features">
+                                <li>Módulos teóricos e práticos</li>
+                                <li>Projetos reais de mercado</li>
+                                <li>Certificado de conclusão</li>
+                                <li>Acesso vitalício ao material</li>
+                                <li>Grupo exclusivo de alunos</li>
+                            </ul>
+                            <div class="product-price">
+                                <span class="price-current">Sob Demanda</span>
+                            </div>
+                            <a href="#contact" class="buy-button">
+                                Entre em Contato
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Course 3: Workshop Empresarial -->
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="assets/images/cursos_mentorias.png" alt="Workshop Corporativo" class="product-img" />
+                        </div>
+                        <div class="product-content">
+                            <span class="product-badge highlight">Sob Demanda</span>
+                            <h3 class="product-title">Workshop Corporativo de QA Estratégico</h3>
+                            <p class="product-description">
+                                Treinamento corporativo para times de desenvolvimento e QA. 
+                                Implementação de processos otimizados, cultura de qualidade e automação inteligente.
+                                <br><br>
+                                <strong>Ideal para empresas que querem elevar o nível de qualidade dos seus produtos.</strong>
+                            </p>
+                            <ul class="product-features">
+                                <li>Consultoria personalizada para empresa</li>
+                                <li>Treinamento da equipe interna</li>
+                                <li>Implementação de processos</li>
+                                <li>Follow-up pós-treinamento</li>
+                                <li>Material customizado para empresa</li>
+                            </ul>
+                            <div class="product-price">
+                                <span class="price-current">Sob Demanda</span>
+                            </div>
+                            <a href="#contact" class="buy-button">
+                                Entre em Contato
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-controls">
+                    <button class="carousel-btn" id="coursesPrevBtn">❮</button>
+                    <div class="carousel-counter" id="coursesCarouselCounter">1 / 3</div>
+                    <div class="carousel-dots" id="coursesCarouselDots"></div>
+                    <button class="carousel-btn" id="coursesNextBtn">❯</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Agents Mentoring Section -->
+    <section class="carousel-container" style="background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #1e40af 100%); color: white;">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag" style="background: rgba(255,255,255,0.2); color: white;">Transformação Empresarial</span>
+                <h2 class="section-title" style="color: white;">Mentoria de Criação de Agentes de IA para empresas e QAs</h2>
+                <p class="section-subtitle" style="color: rgba(255,255,255,0.9);">
+                    Implementação estratégica de IA na sua empresa - Do planejamento à execução com resultados mensuráveis
+                </p>
+            </div>
+
+            <div class="carousel">
+                <div class="carousel-track" id="aiMentoringCarouselTrack">
+                    <!-- Mentoring 1: Implementação Completa -->
+                    <div class="product-card" style="background: rgba(255,255,255,0.95); color: #1f2937;">
+                        <div class="product-image">
+                            <img src="assets/images/cursos_mentorias.png" alt="Implementação de Agentes IA" class="product-img" />
+                        </div>
+                        <div class="product-content">
+                            <span class="product-badge highlight">Exclusivo</span>
+                            <h3 class="product-title">Implementação Completa de Agentes IA</h3>
+                            <p class="product-description">
+                                Transformação digital completa da sua empresa com implementação de agentes IA personalizados. 
+                                Do diagnóstico inicial até a entrega de soluções funcionais com ROI comprovado.
+                                <br><br>
+                                <strong>Programa de 90 dias com acompanhamento integral e resultados garantidos.</strong>
+                            </p>
+                            <ul class="product-features">
+                                <li>Diagnóstico completo dos processos</li>
+                                <li>Desenvolvimento de 3-5 agentes customizados</li>
+                                <li>Treinamento da equipe interna</li>
+                                <li>Suporte pós-implementação (6 meses)</li>
+                                <li>Relatórios de ROI e métricas</li>
+                            </ul>
+                            <div class="product-price">
+                                <span class="price-current">Sob Consulta</span>
+                            </div>
+                            <a href="#contact" class="buy-button">
+                                Agendar Reunião
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Mentoring 2: Consultoria Estratégica -->
+                    <div class="product-card" style="background: rgba(255,255,255,0.95); color: #1f2937;">
+                        <div class="product-image">
+                            <img src="assets/images/cursos_mentorias.png" alt="Consultoria IA Empresarial" class="product-img" />
+                        </div>
+                        <div class="product-content">
+                            <span class="product-badge highlight">Estratégico</span>
+                            <h3 class="product-title">Consultoria Estratégica em IA Empresarial</h3>
+                            <p class="product-description">
+                                Planejamento estratégico para implementação de IA na sua empresa. 
+                                Roadmap personalizado, análise de viabilidade e definição de prioridades para máximo impacto.
+                                <br><br>
+                                <strong>Perfeito para empresas que querem começar com IA de forma estruturada.</strong>
+                            </p>
+                            <ul class="product-features">
+                                <li>Análise de maturidade em IA</li>
+                                <li>Roadmap de implementação (12 meses)</li>
+                                <li>Identificação de casos de uso prioritários</li>
+                                <li>Estimativas de ROI por projeto</li>
+                                <li>Plano de capacitação da equipe</li>
+                            </ul>
+                            <div class="product-price">
+                                <span class="price-current">Sob Consulta</span>
+                            </div>
+                            <a href="#contact" class="buy-button">
+                                Agendar Reunião
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Mentoring 3: Workshop Executivo -->
+                    <div class="product-card" style="background: rgba(255,255,255,0.95); color: #1f2937;">
+                        <div class="product-image">
+                            <img src="assets/images/cursos_mentorias.png" alt="Workshop Executivo IA" class="product-img" />
+                        </div>
+                        <div class="product-content">
+                            <span class="product-badge highlight">Executivo</span>
+                            <h3 class="product-title">Workshop Executivo: IA para Liderança</h3>
+                            <p class="product-description">
+                                Workshop intensivo para C-Level e diretores sobre oportunidades e implementação de IA. 
+                                Visão estratégica, cases de sucesso e roadmap prático para transformação digital.
+                                <br><br>
+                                <strong>Ideal para lideranças que precisam tomar decisões sobre investimentos em IA.</strong>
+                            </p>
+                            <ul class="product-features">
+                                <li>Workshop presencial ou online (8h)</li>
+                                <li>Cases reais de ROI em IA</li>
+                                <li>Framework de decisão para projetos IA</li>
+                                <li>Demonstrações práticas de agentes</li>
+                                <li>Material executivo personalizado</li>
+                            </ul>
+                            <div class="product-price">
+                                <span class="price-current">Sob Consulta</span>
+                            </div>
+                            <a href="#contact" class="buy-button">
+                                Agendar Reunião
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Mentoring 4: Workshop Ferramentas IA -->
+                    <div class="product-card" style="background: rgba(255,255,255,0.95); color: #1f2937;">
+                        <div class="product-image">
+                            <img src="assets/images/cursos_mentorias.png" alt="Workshop Ferramentas IA" class="product-img" />
+                        </div>
+                        <div class="product-content">
+                            <span class="product-badge highlight">Destaque Profissional</span>
+                            <h3 class="product-title">Workshop: Como usar ferramentas de IA para quem quer se destacar no mercado</h3>
+                            <p class="product-description">
+                                Workshop prático e intensivo sobre as principais ferramentas de IA que estão transformando o mercado de trabalho. 
+                                Aprenda a usar IA para aumentar sua produtividade, criar conteúdo de qualidade e se posicionar como referência.
+                                <br><br>
+                                <strong>Para profissionais que querem estar à frente da curva tecnológica.</strong>
+                            </p>
+                            <ul class="product-features">
+                                <li>15+ ferramentas de IA essenciais</li>
+                                <li>Hands-on com ChatGPT, Claude, Midjourney</li>
+                                <li>Estratégias de personal branding com IA</li>
+                                <li>Templates e prompts prontos para usar</li>
+                                <li>Certificado de participação</li>
+                            </ul>
+                            <div class="product-price">
+                                <span class="price-current">Sob Consulta</span>
+                            </div>
+                            <a href="#contact" class="buy-button">
+                                Quero me Inscrever
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-controls">
+                    <button class="carousel-btn" id="aiMentoringPrevBtn" style="background: rgba(255,255,255,0.9); color: #1f2937;">❮</button>
+                    <div class="carousel-counter" id="aiMentoringCarouselCounter" style="color: white;">1 / 4</div>
+                    <div class="carousel-dots" id="aiMentoringCarouselDots"></div>
+                    <button class="carousel-btn" id="aiMentoringNextBtn" style="background: rgba(255,255,255,0.9); color: #1f2937;">❯</button>
                 </div>
             </div>
         </div>
@@ -688,13 +992,13 @@
                 <div class="platform">
                     <div class="platform-icon">🥝</div>
                     <h4>Kiwify</h4>
-                    <p>Checkout otimizado para conversão</p>
+                    <p>Em breve</p>
                 </div>
                 
                 <div class="platform">
                     <div class="platform-icon">🛒</div>
                     <h4>Gumroad</h4>
-                    <p>Plataforma internacional confiável</p>
+                    <p>Em breve</p>
                 </div>
             </div>
         </div>

@@ -815,3 +815,159 @@ p {
     flex-direction: column;
     justify-content: center;
 }
+
+/* Attention Banner Styles */
+.attention-banner {
+    background: linear-gradient(135deg, #ff6b35, #f7931e, #ff6b35);
+    background-size: 200% 200%;
+    animation: gradientShift 3s ease-in-out infinite;
+    padding: 30px 20px;
+    margin: 40px 0;
+    border-radius: 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(255, 107, 53, 0.3);
+    animation: bannerPulse 4s ease-in-out infinite;
+}
+
+.attention-banner::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transform: rotate(45deg);
+    animation: shine 5s ease-in-out infinite;
+}
+
+.banner-content {
+    position: relative;
+    z-index: 2;
+    color: white;
+}
+
+.banner-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: inline-block;
+    animation: keyBounce 2s ease-in-out infinite;
+}
+
+.banner-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    line-height: 1.3;
+}
+
+.banner-subtitle {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    opacity: 0.95;
+}
+
+.banner-cta {
+    background: white;
+    color: #ff6b35;
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    animation: buttonPulse 3s ease-in-out infinite;
+}
+
+.banner-cta:hover {
+    background: #f8f9fa;
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    color: #e55a2b;
+}
+
+/* Animations */
+@keyframes gradientShift {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+@keyframes bannerPulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 20px 40px rgba(255, 107, 53, 0.3);
+    }
+    50% {
+        transform: scale(1.02);
+        box-shadow: 0 25px 50px rgba(255, 107, 53, 0.5);
+    }
+}
+
+@keyframes keyBounce {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    25% {
+        transform: translateY(-10px) rotate(-5deg);
+    }
+    75% {
+        transform: translateY(-5px) rotate(5deg);
+    }
+}
+
+@keyframes shine {
+    0% {
+        transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    }
+    50% {
+        transform: translateX(100%) translateY(100%) rotate(45deg);
+    }
+    100% {
+        transform: translateX(200%) translateY(200%) rotate(45deg);
+    }
+}
+
+@keyframes buttonPulse {
+    0%, 100% {
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+    50% {
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .attention-banner {
+        margin: 20px 0;
+        padding: 25px 15px;
+    }
+    
+    .banner-title {
+        font-size: 1.4rem;
+    }
+    
+    .banner-subtitle {
+        font-size: 1rem;
+    }
+    
+    .banner-icon {
+        font-size: 2.5rem;
+    }
+    
+    .banner-cta {
+        padding: 12px 25px;
+        font-size: 1rem;
+    }
+}
