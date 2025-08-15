@@ -104,6 +104,10 @@
                     Pegue Sua Chave Agora
                 </a>
             </div>
+            <!-- Mascote Animado no Banner -->
+            <div class="banner-mascot">
+                <img src="assets/images/claude.png" alt="Mascote Clube Qualidade" class="mascot-coral mascot-animated">
+            </div>
         </div>
     </section>
 
@@ -373,5 +377,72 @@
 
 </script>
     <script src="js/script.js"></script>
+    <script src="js/mascote.js"></script>
+    
+    <!-- Configuração específica para página inicial -->
+    <script>
+        // Configuração personalizada para a landing page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Sobrescrever algumas frases para a página inicial
+            if (window.mascoteIA) {
+                window.mascoteIA.options.frasesContextuais.index = [
+                    "Bem-vindo ao Clube Qualidade! 👋",
+                    "Ana Evelyn e Pablo são seus mentores! 🌟",
+                    "Pegue sua chave para o primeiro emprego em QA! 🗝️",
+                    "5+ anos de experiência em QA e IA!",
+                    "Transforme sua carreira hoje mesmo!",
+                    "Clique no banner laranja para começar! ⬆️",
+                    "Produtos a partir de R$ 9,90! 💰"
+                ];
+                
+                // Reação especial ao banner chamativo
+                const bannerChamativo = document.querySelector('.attention-banner');
+                if (bannerChamativo) {
+                    bannerChamativo.addEventListener('mouseenter', function() {
+                        if (window.mascoteIA && !window.mascoteIA.balaoElement.classList.contains('ativo')) {
+                            window.mascoteIA.falar("Essa é sua chave para o sucesso! 🗝️✨", 4000);
+                        }
+                    });
+                    
+                    bannerChamativo.addEventListener('click', function() {
+                        if (window.mascoteIA) {
+                            window.mascoteIA.falar("Excelente escolha! Vamos aos produtos! 🚀", 3000);
+                        }
+                    });
+                }
+                
+                // Reação aos CTAs do hero
+                const heroCTAs = document.querySelectorAll('.hero-fixed-cta .btn');
+                heroCTAs.forEach(function(cta) {
+                    cta.addEventListener('click', function() {
+                        if (window.mascoteIA) {
+                            const texto = cta.textContent;
+                            if (texto.includes('Conteúdo')) {
+                                window.mascoteIA.falar("Ótima escolha! Vamos ver os produtos! 🛍️", 3000);
+                            } else if (texto.includes('História')) {
+                                window.mascoteIA.falar("Conheça nossa trajetória! 📖", 3000);
+                            }
+                        }
+                    });
+                });
+                
+                // Mensagem especial para seção sobre
+                const aboutSection = document.querySelector('#about');
+                if (aboutSection) {
+                    const observer = new IntersectionObserver(function(entries) {
+                        entries.forEach(function(entry) {
+                            if (entry.isIntersecting && window.mascoteIA) {
+                                if (!window.mascoteIA.balaoElement.classList.contains('ativo')) {
+                                    window.mascoteIA.falar("Ana e Pablo têm expertise comprovada! 👨‍💼👩‍💼", 4000);
+                                }
+                            }
+                        });
+                    }, { threshold: 0.3 });
+                    
+                    observer.observe(aboutSection);
+                }
+            }
+        });
+    </script>
 </body>
 </html>
