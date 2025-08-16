@@ -70,6 +70,40 @@ class ProductCarousel {
         this.bindEvents();
         this.bindTrackScrollListener();
         this.startAutoPlay();
+
+        // Add mobile drag hint affordance
+        if (this.isMobileDevice()) {
+            this.addDragHint();
+        }
+    }
+
+    addDragHint() {
+        if (!this.track) return;
+        // Create hint element and append to carousel container
+        const carousel = this.track.closest('.carousel') || this.track.parentElement;
+        if (!carousel) return;
+
+        // Avoid duplicate
+        if (carousel.querySelector('.drag-hint')) return;
+
+        const hint = document.createElement('div');
+        hint.className = 'drag-hint';
+        hint.innerHTML = `<span class="hand">🤚</span><span class="hint-text">Arraste</span>`;
+        carousel.appendChild(hint);
+
+        // Remove hint on first user scroll/touch
+        const removeHint = () => {
+            hint.style.opacity = '0';
+            hint.style.transform = 'translateY(6px)';
+            setTimeout(() => hint.remove(), 400);
+            this.track.removeEventListener('touchstart', removeHint);
+            this.track.removeEventListener('scroll', removeHint);
+            window.removeEventListener('mousemove', removeHint);
+        };
+
+        this.track.addEventListener('touchstart', removeHint, { passive: true });
+        this.track.addEventListener('scroll', removeHint, { passive: true });
+        window.addEventListener('mousemove', removeHint, { passive: true });
     }
     // Atualiza o dot ativo conforme o scroll no mobile
     bindTrackScrollListener() {
