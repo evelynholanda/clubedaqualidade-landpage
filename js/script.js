@@ -157,29 +157,62 @@ class ProductCarousel {
             }
         });
         
-        // Touch/swipe support
+        // Enhanced touch/swipe support for mobile
         let startX = 0;
         let endX = 0;
+        let startY = 0;
+        let endY = 0;
+        let isScrolling = false;
         
         if (this.track) {
             this.track.addEventListener('touchstart', (e) => {
                 startX = e.touches[0].clientX;
-            });
+                startY = e.touches[0].clientY;
+                isScrolling = false;
+            }, { passive: true });
+            
+            this.track.addEventListener('touchmove', (e) => {
+                if (!startX || !startY) return;
+                
+                const currentX = e.touches[0].clientX;
+                const currentY = e.touches[0].clientY;
+                
+                const diffX = Math.abs(currentX - startX);
+                const diffY = Math.abs(currentY - startY);
+                
+                // Determine if user is scrolling vertically
+                if (diffY > diffX) {
+                    isScrolling = true;
+                } else if (diffX > 10) {
+                    // Prevent page scroll when swiping horizontally
+                    e.preventDefault();
+                }
+            }, { passive: false });
             
             this.track.addEventListener('touchend', (e) => {
-                endX = e.changedTouches[0].clientX;
-                this.handleSwipe();
-            });
+                if (!isScrolling) {
+                    endX = e.changedTouches[0].clientX;
+                    endY = e.changedTouches[0].clientY;
+                    this.handleSwipe();
+                }
+                
+                // Reset values
+                startX = 0;
+                startY = 0;
+                endX = 0;
+                endY = 0;
+                isScrolling = false;
+            }, { passive: true });
         }
     }
     
     handleSwipe() {
-        const swipeThreshold = 30; // Mais sensível no mobile
-        const swipeDistance = startX - endX;
+        const swipeThreshold = 50; // Threshold otimizado para mobile
+        const swipeDistance = endX - startX;
         
         if (Math.abs(swipeDistance) > swipeThreshold) {
             // Pause auto-play on swipe
-            clearInterval(this.autoPlayInterval);
+            this.pauseAutoPlay();
             
             if (swipeDistance > 0) {
                 this.nextSlide();
@@ -187,47 +220,53 @@ class ProductCarousel {
                 this.prevSlide();
             }
             
-            // Restart auto-play after swipe
-            if (this.restartTimeout) {
-                clearTimeout(this.restartTimeout);
-            }
-            this.restartTimeout = setTimeout(() => {
-                this.startAutoPlay();
-            }, 12000); // Mais tempo após swipe
+            // Restart auto-play after swipe with longer delay
+            this.scheduleAutoPlayRestart(15000);
         }
     }
     
-    startAutoPlay() {
-        // Primeiro, sempre limpa qualquer interval existente
+    pauseAutoPlay() {
         if (this.autoPlayInterval) {
             clearInterval(this.autoPlayInterval);
             this.autoPlayInterval = null;
         }
         
-        // Limpa qualquer timeout de restart pendente
         if (this.restartTimeout) {
             clearTimeout(this.restartTimeout);
             this.restartTimeout = null;
         }
+    }
+    
+    scheduleAutoPlayRestart(delay = 10000) {
+        this.pauseAutoPlay();
+        this.restartTimeout = setTimeout(() => {
+            this.startAutoPlay();
+        }, delay);
+    }
+    
+    // Detect mobile devices
+    isMobileDevice() {
+        return window.innerWidth <= 768 || 'ontouchstart' in window;
+    }
+    
+    startAutoPlay() {
+        this.pauseAutoPlay();
+        
+        // Adjust autoplay speed based on device type
+        const autoPlayDelay = this.isMobileDevice() ? 10000 : 8000;
         
         this.autoPlayInterval = setInterval(() => {
             this.nextSlide();
-        }, 8000); // Change slide every 8 seconds
+        }, autoPlayDelay);
         
-        // Pause autoplay on hover and interaction
-        if (this.track) {
+        // Only add hover events on non-mobile devices
+        if (!this.isMobileDevice() && this.track) {
             this.track.addEventListener('mouseenter', () => {
-                clearInterval(this.autoPlayInterval);
+                this.pauseAutoPlay();
             });
             
             this.track.addEventListener('mouseleave', () => {
-                // Wait 3 seconds before restarting auto-play
-                if (this.restartTimeout) {
-                    clearTimeout(this.restartTimeout);
-                }
-                this.restartTimeout = setTimeout(() => {
-                    this.startAutoPlay();
-                }, 3000);
+                this.scheduleAutoPlayRestart(3000);
             });
         }
         
@@ -242,16 +281,11 @@ class ProductCarousel {
         interactionElements.forEach(element => {
             if (element) {
                 element.addEventListener('click', () => {
-                    clearInterval(this.autoPlayInterval);
-                    this.autoPlayInterval = null;
+                    this.pauseAutoPlay();
                     
-                    // Restart after 10 seconds of no interaction
-                    if (this.restartTimeout) {
-                        clearTimeout(this.restartTimeout);
-                    }
-                    this.restartTimeout = setTimeout(() => {
-                        this.startAutoPlay();
-                    }, 10000);
+                    // Longer delay on mobile for better UX
+                    const restartDelay = this.isMobileDevice() ? 15000 : 10000;
+                    this.scheduleAutoPlayRestart(restartDelay);
                 });
             }
         });
@@ -376,6 +410,9 @@ function hideLoading(element, originalText) {
 
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize hero carousel
+    new HeroCarousel();
+    
     // Initialize carousels
     new ProductCarousel({
         trackId: 'ebooksCarouselTrack',
@@ -433,24 +470,180 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
-const heroSlides = document.querySelectorAll('#heroCarousel .hero-slide');
-let heroIndex = 0;
-
-function showHeroSlide(index) {
-    heroSlides.forEach((slide, i) => {
-        slide.style.display = i === index ? 'grid' : 'none';
-    });
+// Hero Carousel with Statistics Functionality
+class HeroCarousel {
+    constructor() {
+        this.slides = document.querySelectorAll('.hero-slide');
+        this.statFloating = document.querySelector('.stat-floating');
+        this.currentIndex = 0;
+        this.autoPlayInterval = null;
+        
+        if (this.slides.length > 0) {
+            this.init();
+        }
+    }
+    
+    init() {
+        this.showSlide(0);
+        this.addStatInteractivity();
+        this.startAutoPlay();
+    }
+    
+    showSlide(index) {
+        this.slides.forEach((slide, i) => {
+            slide.classList.toggle('active', i === index);
+        });
+        this.currentIndex = index;
+    }
+    
+    nextSlide() {
+        const next = (this.currentIndex + 1) % this.slides.length;
+        this.showSlide(next);
+    }
+    
+    startAutoPlay() {
+        this.autoPlayInterval = setInterval(() => {
+            this.nextSlide();
+        }, 6000);
+    }
+    
+    addStatInteractivity() {
+        if (!this.statFloating) return;
+        
+        // Efeito de clique na estatística
+        this.statFloating.addEventListener('click', () => {
+            this.triggerStatBurst();
+        });
+        
+        // Efeito de hover
+        this.statFloating.addEventListener('mouseenter', () => {
+            this.statFloating.style.animationPlayState = 'paused';
+        });
+        
+        this.statFloating.addEventListener('mouseleave', () => {
+            this.statFloating.style.animationPlayState = 'running';
+        });
+        
+        // Contador animado ao entrar na viewport
+        this.animateCounter();
+    }
+    
+    triggerStatBurst() {
+        const statNumber = this.statFloating.querySelector('.stat-number-floating');
+        if (!statNumber) return;
+        
+        // Adiciona classe de burst temporariamente
+        this.statFloating.classList.add('stat-burst');
+        
+        // Remove classe após animação
+        setTimeout(() => {
+            this.statFloating.classList.remove('stat-burst');
+        }, 600);
+        
+        // Cria partículas de celebração
+        this.createConfetti();
+    }
+    
+    animateCounter() {
+        const statNumber = this.statFloating?.querySelector('.stat-number-floating');
+        if (!statNumber) return;
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    this.countUp(statNumber, 0, 75, 2000);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        observer.observe(this.statFloating);
+    }
+    
+    countUp(element, start, end, duration) {
+        const startTime = performance.now();
+        
+        const animate = (currentTime) => {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            
+            const current = Math.floor(start + (end - start) * this.easeOutCubic(progress));
+            element.textContent = current + '%';
+            
+            if (progress < 1) {
+                requestAnimationFrame(animate);
+            }
+        };
+        
+        requestAnimationFrame(animate);
+    }
+    
+    easeOutCubic(t) {
+        return 1 - Math.pow(1 - t, 3);
+    }
+    
+    createConfetti() {
+        const colors = ['#10b981', '#34d399', '#3b82f6', '#60a5fa', '#ff6b83'];
+        const rect = this.statFloating.getBoundingClientRect();
+        
+        for (let i = 0; i < 12; i++) {
+            const confetti = document.createElement('div');
+            confetti.style.cssText = `
+                position: fixed;
+                width: 8px;
+                height: 8px;
+                background: ${colors[Math.floor(Math.random() * colors.length)]};
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 10000;
+                left: ${rect.left + rect.width / 2}px;
+                top: ${rect.top + rect.height / 2}px;
+                animation: confettiFall 1.5s ease-out forwards;
+            `;
+            
+            const randomX = (Math.random() - 0.5) * 200;
+            const randomY = (Math.random() - 0.5) * 100;
+            
+            confetti.style.setProperty('--random-x', randomX + 'px');
+            confetti.style.setProperty('--random-y', randomY + 'px');
+            
+            document.body.appendChild(confetti);
+            
+            setTimeout(() => {
+                confetti.remove();
+            }, 1500);
+        }
+    }
 }
 
-function cycleHero() {
-    heroIndex = (heroIndex + 1) % heroSlides.length;
-    showHeroSlide(heroIndex);
+// CSS para o efeito burst da estatística
+const statBurstCSS = `
+.stat-burst {
+    animation: statExplode 0.6s ease-out !important;
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    showHeroSlide(heroIndex);
-    setInterval(cycleHero, 5500);
-});
+@keyframes statExplode {
+    0% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.3) rotate(5deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+@keyframes confettiFall {
+    0% {
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--random-x), var(--random-y)) rotate(360deg);
+        opacity: 0;
+    }
+}
+`;
+
+// Adiciona CSS dinâmico
+const styleSheet = document.createElement('style');
+styleSheet.textContent = statBurstCSS;
+document.head.appendChild(styleSheet);
 // Performance optimization: Lazy load images
 function lazyLoadImages() {
     const images = document.querySelectorAll('img[data-src]');

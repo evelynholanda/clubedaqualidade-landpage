@@ -1,0 +1,212 @@
+/* ===== OTIMIZAÇÕES ESPECÍFICAS PARA MOBILE ===== */
+
+/* Melhorias gerais de touch e scroll */
+* {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+}
+
+/* Smooth scroll para iOS */
+html {
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Carrosséis - Otimizações Mobile */
+@media (max-width: 768px) {
+    
+    /* Melhoria na área de toque dos carrosséis */
+    .carousel-track {
+        cursor: grab;
+        touch-action: pan-y pinch-zoom;
+        user-select: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+    }
+    
+    .carousel-track:active {
+        cursor: grabbing;
+    }
+    
+    /* Botões de navegação otimizados para touch */
+    .carousel-btn,
+    .about-btn {
+        min-height: 44px !important; /* Tamanho mínimo recomendado para touch */
+        min-width: 44px !important;
+        position: relative;
+        z-index: 10;
+    }
+    
+    /* Área de toque expandida para botões */
+    .carousel-btn::before,
+    .about-btn::before {
+        content: '';
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        right: -10px;
+        bottom: -10px;
+        z-index: -1;
+    }
+    
+    /* Dots com área de toque maior */
+    .dot,
+    .about-dot {
+        position: relative;
+        min-height: 44px !important;
+        min-width: 44px !important;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .dot::before,
+    .about-dot::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 20px;
+        height: 20px;
+        background: currentColor;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+    }
+    
+    .dot.active::before,
+    .about-dot.active::before {
+        transform: translate(-50%, -50%) scale(1.3);
+    }
+    
+    /* Prevenção de zoom duplo toque */
+    .carousel-controls,
+    .about-controls {
+        touch-action: manipulation;
+    }
+    
+    /* Melhoria na rolagem das seções */
+    .carousel-container {
+        scroll-margin-top: 80px;
+    }
+    
+    /* Performance - will-change para animações */
+    .carousel-track,
+    .product-card,
+    .carousel-btn,
+    .dot {
+        will-change: transform;
+    }
+    
+    /* Redução de motion para usuários sensíveis */
+    @media (prefers-reduced-motion: reduce) {
+        .carousel-track {
+            transition: none !important;
+        }
+        
+        .carousel-btn,
+        .dot,
+        .product-card {
+            transition: none !important;
+            animation: none !important;
+        }
+    }
+}
+
+/* Mobile pequeno - ajustes finais */
+@media (max-width: 480px) {
+    
+    /* Carrosséis mais compactos */
+    .carousel {
+        margin: 0 2px;
+    }
+    
+    /* Controles com espaçamento otimizado */
+    .carousel-controls {
+        padding: 0 10px;
+        gap: 0.5rem;
+    }
+    
+    /* Cards mais legíveis */
+    .product-title {
+        font-size: 1.4rem !important;
+        line-height: 1.2 !important;
+        margin-bottom: 0.75rem !important;
+    }
+    
+    .product-description {
+        font-size: 0.9rem !important;
+        line-height: 1.4 !important;
+    }
+    
+    /* Features list mais compacta */
+    .product-features li {
+        padding: 0.4rem 0 !important;
+        font-size: 0.9rem !important;
+    }
+    
+    /* Botões de compra mais destacados */
+    .buy-button {
+        font-weight: 700 !important;
+        letter-spacing: 0.5px !important;
+        box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3) !important;
+    }
+    
+    .buy-button:active {
+        transform: translateY(1px) !important;
+        box-shadow: 0 2px 8px rgba(16, 185, 129, 0.4) !important;
+    }
+}
+
+/* Orientação landscape em mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+    
+    .product-card {
+        grid-template-columns: 1fr 1.5fr !important;
+        max-height: 400px;
+    }
+    
+    .product-image {
+        min-height: 160px !important;
+    }
+    
+    .product-content {
+        padding: 1rem !important;
+    }
+    
+    .carousel-controls {
+        margin-top: 1rem !important;
+    }
+}
+
+/* Estados de loading para carrosséis */
+.carousel-loading {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.carousel-loading .carousel-track {
+    transition: none !important;
+}
+
+/* Accessibility - foco visível em mobile */
+@media (max-width: 768px) {
+    .carousel-btn:focus,
+    .dot:focus,
+    .about-btn:focus,
+    .about-dot:focus {
+        outline: 3px solid var(--primary-green) !important;
+        outline-offset: 3px !important;
+    }
+}
+
+/* Dark mode support para mobile */
+@media (max-width: 768px) and (prefers-color-scheme: dark) {
+    .carousel-btn {
+        border-color: rgba(255, 255, 255, 0.3) !important;
+    }
+    
+    .carousel-counter {
+        color: rgba(255, 255, 255, 0.9) !important;
+    }
+}

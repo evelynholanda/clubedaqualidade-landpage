@@ -5,6 +5,7 @@
       "Bash(ls:*)",
       "Bash(start index.html)"
     ],
-    "deny": []
+    "deny": [],
+    "defaultMode": "acceptEdits"
   }
 }

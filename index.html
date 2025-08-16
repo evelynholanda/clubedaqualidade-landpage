@@ -11,6 +11,7 @@
     
     <title>Ana Evelyn - Especialista Sênior em QA e IA</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/mobile-optimizations.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -39,49 +40,63 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1 class="hero-title">
-                    Transforme sua <span class="highlight">Carreira em QA</span> 
-                    com um Ecossistema Completo: Ebooks, Vídeo Aulas, Tutoriais, Agentes de IA e Mentoria
-                </h1>
-                <p class="hero-subtitle">
-                    Sou Ana Evelyn, Senior Software Engineer- QA e especialista na criação de Agentes de IA. 
-                    Com 5+ anos de experiência, ajudo profissionais e empresas a otimizar processos 
-                    através de automação inteligente e soluções inovadoras.
-                </p>
-                <div class="hero-stats">
-                    <div class="stat">
-                        <span class="stat-number">75%</span>
-                        <span class="stat-label">Otimização de Tarefas</span>
-                    </div>
-                    <div class="hero-image">
-                        <div class="hero-avatar">
-                            <img src="assets/images/ana-evelyn.jpg" alt="Ana Evelyn - Especialista em QA e IA" loading="lazy">
+        <!-- Destaque da estatística independente -->
+        <div class="hero-stat-highlight">
+            <div class="stat-floating">
+                <span class="stat-number-floating">75%</span>
+                <span class="stat-label-floating">Otimização de Tarefas</span>
+            </div>
+        </div>
+        
+        <div class="hero-carousel-container">
+            <!-- Slide 1 - Ana Evelyn -->
+            <div class="hero-slide active">
+                <div class="container">
+                    <div class="hero-content-grid">
+                        <div class="hero-text">
+                            <h1 class="hero-title">
+                                Transforme sua <span class="highlight">Carreira em QA</span> 
+                                com um Ecossistema Completo: Ebooks, Vídeo Aulas, Tutoriais, Agentes de IA e Mentoria
+                            </h1>
+                            <p class="hero-subtitle">
+                                Sou Ana Evelyn, Senior Software Engineer- QA e especialista na criação de Agentes de IA. 
+                                Com 5+ anos de experiência, ajudo profissionais e empresas a otimizar processos 
+                                através de automação inteligente e soluções inovadoras.
+                            </p>
+                        </div>
+                        <div class="hero-image">
+                            <div class="hero-avatar">
+                                <img src="assets/images/ana-evelyn.jpg" alt="Ana Evelyn - Especialista em QA e IA" loading="lazy">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            
+            <!-- Slide 2 - Pablo Andrade -->
             <div class="hero-slide">
                 <div class="container">
-                    <div class="hero-content">
-                        <h1 class="hero-title">
-                            Aumente sua <span class="highlight">Eficiência como QA</span> com IA e Automação
-                        </h1>
-                        <p class="hero-subtitle">
-                            Sou Pablo Andrade, Engenheiro de Qualidade com foco em QA Estratégico e produtividade com IA. 
-                            Com 3+ anos de experiência, venho ajudando equipes de QA a otimizar processos e aumentar a produtividade. 
-                            Colaboro com squads em soluções que integram IA e automações inteligentes.
-                        </p>
-                    </div>
-                    <div class="hero-image">
-                        <div class="hero-avatar">
-                            <img src="assets/images/pablo-andrade.jpg" alt="Pablo Andrade - QA e Automação" loading="lazy">
+                    <div class="hero-content-grid">
+                        <div class="hero-text">
+                            <h1 class="hero-title">
+                                Aumente sua <span class="highlight">Eficiência como QA</span> com IA e Automação
+                            </h1>
+                            <p class="hero-subtitle">
+                                Sou Pablo Andrade, Engenheiro de Qualidade com foco em QA Estratégico e produtividade com IA. 
+                                Com 3+ anos de experiência, venho ajudando equipes de QA a otimizar processos e aumentar a produtividade. 
+                                Colaboro com squads em soluções que integram IA e automações inteligentes.
+                            </p>
+                        </div>
+                        <div class="hero-image">
+                            <div class="hero-avatar">
+                                <img src="assets/images/pablo-andrade.jpg" alt="Pablo Andrade - QA e Automação" loading="lazy">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        
         <!-- Botões fixos fora do carrossel -->
         <div class="hero-fixed-cta">
             <a href="produtos.html" class="btn btn-primary">Acesse Meu Conteúdo</a>
