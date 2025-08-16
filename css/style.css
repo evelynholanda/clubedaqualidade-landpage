@@ -957,7 +957,7 @@ p {
     }
 
     .hero {
-        padding: 100px 0 60px;
+        padding: 100px 0 100px;
     }
 
     .hero-title {
@@ -1161,7 +1161,7 @@ p {
 /* Mobile Responsive */
 @media (max-width: 768px) {
     .attention-banner {
-        margin: 20px 0;
+        margin: 40px 0 20px;
         padding: 25px 15px;
     }
     
