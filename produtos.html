@@ -116,21 +116,66 @@
         .product-badge {
             display: inline-block;
             padding: 6px 12px;
-            background: var(--light-green);
-            color: var(--primary-green);
+            background: var(--light-green) !important;
+            color: white !important;
             border-radius: 20px;
             font-size: 0.875rem;
             font-weight: 600;
             margin-bottom: 1rem;
             width: fit-content;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+            -webkit-background-clip: border-box !important;
+            -webkit-text-fill-color: white !important;
+            background-clip: border-box !important;
         }
 
         .product-badge.highlight {
-            background: linear-gradient(45deg, #ff6b35, #f7931e) !important;
+            background: var(--light-green) !important;
             color: white !important;
-            animation: pulse-glow 2s ease-in-out infinite;
-            box-shadow: 0 0 20px rgba(255, 107, 53, 0.4);
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+            -webkit-background-clip: border-box !important;
+            -webkit-text-fill-color: white !important;
+            background-clip: border-box !important;
+        }
+
+        /* Especificidade máxima para todos os badges */
+        .product-card .product-content .product-badge,
+        .product-card .product-content .product-badge.highlight {
+            background: var(--light-green) !important;
+            color: white !important;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+            -webkit-background-clip: border-box !important;
+            -webkit-text-fill-color: white !important;
+            background-clip: border-box !important;
+        }
+
+        /* Máxima especificidade para sobrepor CSS inline dos cards */
+        .carousel-container .product-card .product-content .product-badge {
+            background: var(--light-green) !important;
+            color: white !important;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+            -webkit-background-clip: border-box !important;
+            -webkit-text-fill-color: white !important;
+            background-clip: border-box !important;
+        }
+
+        .carousel-container .product-card .product-content .product-badge.highlight {
+            background: var(--light-green) !important;
+            color: white !important;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+            -webkit-background-clip: border-box !important;
+            -webkit-text-fill-color: white !important;
+            background-clip: border-box !important;
+        }
+
+        /* Sobrepor COMPLETAMENTE a classe .highlight do CSS externo */
+        .product-badge.highlight {
+            background: var(--light-green) !important;
+            color: white !important;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+            -webkit-background-clip: border-box !important;
+            -webkit-text-fill-color: white !important;
+            background-clip: border-box !important;
         }
 
         @keyframes pulse-glow {
