@@ -52,6 +52,9 @@
         .carousel-track {
             display: flex;
             transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform;
+            backface-visibility: hidden;
+            transform: translateZ(0);
         }
 
         .product-card {
@@ -214,26 +217,80 @@
             background: linear-gradient(135deg, var(--primary-green), var(--light-green));
             color: white;
             border: none;
-            padding: clamp(12px, 3vw, 16px) clamp(20px, 5vw, 32px);
-            border-radius: 12px;
-            font-size: clamp(1rem, 3vw, 1.125rem);
+            padding: clamp(7px, 1.75vw, 9px) clamp(12px, 3vw, 18px);
+            border-radius: 8px;
+            font-size: clamp(0.875rem, 2.5vw, 1rem);
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
             text-align: center;
-            display: inline-block;
-            min-height: max(44px, 8vw);
-            min-width: max(120px, 20vw);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: max(44px, 6vw);
+            min-width: max(100px, 16vw);
+            max-width: 100%;
+            margin: 0.75rem auto 0;
             box-sizing: border-box;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
         }
 
         .buy-button:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+            background: linear-gradient(135deg, var(--light-green), var(--primary-green));
+        }
+
+        .buy-button:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+        }
+
+        .buy-button:focus {
+            outline: 3px solid rgba(16, 185, 129, 0.4);
+            outline-offset: 2px;
+        }
+
+        /* Melhor contraste para texto no botão */
+        .buy-button {
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Suporte a modo escuro */
+        @media (prefers-color-scheme: dark) {
+            .buy-button {
+                background: linear-gradient(135deg, #059669, #10b981);
+                box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+                text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            }
+            
+            .buy-button:hover {
+                background: linear-gradient(135deg, #10b981, #34d399);
+                box-shadow: 0 10px 25px rgba(16, 185, 129, 0.5);
+            }
+        }
+
+        /* Estados de alta precisão para dispositivos com mouse */
+        @media (hover: hover) and (pointer: fine) {
+            .buy-button:hover {
+                transform: translateY(-2px) scale(1.02);
+            }
+        }
+
+        /* Melhoria para dispositivos touch apenas */
+        @media (hover: none) and (pointer: coarse) {
+            .buy-button:hover {
+                transform: none;
+            }
+            
+            .buy-button:active {
+                transform: scale(0.96);
+                transition: transform 0.1s ease;
+            }
         }
 
         .carousel-controls {
@@ -387,28 +444,45 @@
 
             .carousel {
                 margin: 0 10px;
-                overflow: visible;
+                overflow: hidden;
+                max-width: 100%;
+                position: relative;
             }
 
             .product-card {
                 grid-template-columns: 1fr;
+                grid-template-rows: auto 1fr;
                 text-align: center;
                 margin: 0;
                 min-height: auto;
                 border-radius: 16px;
                 overflow: hidden;
+                width: 100%;
+                max-width: 100%;
+                min-width: 100%;
+                display: grid;
+                gap: 0;
+                flex-shrink: 0;
             }
 
             .product-image {
                 padding: 1.5rem;
                 min-height: 200px;
                 order: 1;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: linear-gradient(135deg, var(--primary-green), var(--primary-blue));
             }
 
             .product-content {
                 padding: clamp(1rem, 4vw, 1.5rem);
                 order: 2;
                 box-sizing: border-box;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                text-align: center;
             }
 
             .product-img {
@@ -417,8 +491,13 @@
             }
 
             .carousel-track {
-                transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-                padding: 0 10px;
+                transition: transform 0.4s cubic-bezier(0.2, 0, 0.2, 1);
+                padding: 0;
+                display: flex;
+                width: auto;
+                will-change: transform;
+                backface-visibility: hidden;
+                transform: translateZ(0);
             }
 
             .carousel-controls {
@@ -510,13 +589,24 @@
                 border-radius: 12px;
             }
 
-            .product-content {
-                padding: 1.25rem;
-            }
 
             .product-image {
-                padding: 1.25rem;
-                min-height: 180px;
+                padding: 1rem;
+                min-height: 160px;
+                order: 1;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: linear-gradient(135deg, var(--primary-green), var(--primary-blue));
+            }
+
+            .product-content {
+                padding: 1rem;
+                order: 2;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                text-align: center;
             }
 
             .product-img {
@@ -546,21 +636,59 @@
             }
 
             .dot {
-                width: 16px;
-                height: 16px;
+                width: 20px;
+                height: 20px;
+                padding: 12px;
+                position: relative;
+                cursor: pointer;
+                touch-action: manipulation;
+            }
+            
+            .dot::before {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                background: currentColor;
+                transition: all 0.3s ease;
             }
 
             .buy-button {
-                padding: clamp(12px, 3vw, 14px) clamp(20px, 5vw, 28px);
-                font-size: clamp(0.9rem, 3vw, 1rem);
-                width: 100%;
-                max-width: min(280px, 90vw);
-                margin: 0 auto;
-                min-height: max(44px, 10vw);
+                padding: clamp(8px, 2.5vw, 10px) clamp(16px, 4vw, 20px);
+                font-size: clamp(0.875rem, 3vw, 1rem);
+                width: auto;
+                max-width: min(200px, 75vw);
+                margin: 0.75rem auto 0;
+                min-height: max(44px, 8vw);
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 box-sizing: border-box;
+                font-weight: 600;
+                border-radius: 8px;
+                box-shadow: 0 3px 10px rgba(16, 185, 129, 0.25);
+                letter-spacing: 0.025em;
+                touch-action: manipulation;
+                -webkit-tap-highlight-color: transparent;
+                user-select: none;
+            }
+
+            /* Touch feedback para mobile */
+            .buy-button:active {
+                transform: scale(0.98);
+                box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+                transition: transform 0.1s ease;
+            }
+
+            /* Melhor contraste em mobile */
+            .buy-button {
+                background: linear-gradient(135deg, #0d9488, #10b981);
+                color: #ffffff;
+                text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
             }
 
             .section-header {

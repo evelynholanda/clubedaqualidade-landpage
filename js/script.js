@@ -207,7 +207,7 @@ class ProductCarousel {
     }
     
     handleSwipe() {
-        const swipeThreshold = 50; // Threshold otimizado para mobile
+        const swipeThreshold = this.isMobileDevice() ? 30 : 50; // Threshold mais sensível para mobile
         const swipeDistance = endX - startX;
         
         if (Math.abs(swipeDistance) > swipeThreshold) {
