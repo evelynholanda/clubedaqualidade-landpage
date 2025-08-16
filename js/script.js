@@ -89,8 +89,21 @@ class ProductCarousel {
     updateCarousel() {
         if (!this.track) return;
         
-        const translateX = -this.currentIndex * 100;
-        this.track.style.transform = `translateX(${translateX}%)`;
+        if (this.isMobileDevice()) {
+            // Mobile: usar scroll nativo
+            const cardWidth = this.cards[0]?.offsetWidth || 0;
+            const gap = 12; // gap definido no CSS mobile
+            const scrollPosition = this.currentIndex * (cardWidth + gap);
+            
+            this.track.parentElement.scrollTo({
+                left: scrollPosition,
+                behavior: 'smooth'
+            });
+        } else {
+            // Desktop: usar transform
+            const translateX = -this.currentIndex * 100;
+            this.track.style.transform = `translateX(${translateX}%)`;
+        }
         
         // Update counter
         if (this.counter) {
