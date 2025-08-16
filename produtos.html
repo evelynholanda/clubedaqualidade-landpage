@@ -44,9 +44,15 @@
             position: relative;
             max-width: min(1000px, 95vw);
             margin: 0 auto;
-            overflow: hidden;
             border-radius: 20px;
             box-sizing: border-box;
+        }
+
+        /* Desktop-only overflow hidden to keep transform carousel layout */
+        @media (min-width: 769px) {
+            .carousel {
+                overflow: hidden;
+            }
         }
 
         .carousel-track {
@@ -58,7 +64,6 @@
         }
 
         .product-card {
-            min-width: 100%;
             background: white;
             border-radius: 20px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
@@ -66,6 +71,13 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 0;
+        }
+
+        /* Desktop: each card takes full width when using transform-based carousel */
+        @media (min-width: 769px) {
+            .product-card {
+                min-width: 100%;
+            }
         }
 
         .product-image {

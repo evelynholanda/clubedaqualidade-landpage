@@ -45,16 +45,30 @@
         padding-bottom: 1.2rem !important;
     }
     .carousel-track > * {
-        min-width: 90vw !important;
+        /* Use a fixed flex-basis for predictable slide widths on mobile */
+        flex: 0 0 85vw !important;
         max-width: 95vw !important;
         flex-shrink: 0 !important;
         scroll-snap-align: start !important;
     }
     /* Corrige cards para não ocupar 100% no mobile */
     .product-card {
-        min-width: 90vw !important;
+        /* Match carousel children sizing so cards don't collapse or overflow */
+        flex: 0 0 85vw !important;
         max-width: 95vw !important;
         width: auto !important;
+    }
+    /* Allow the outer carousel container to show overflow on mobile so track can scroll */
+    .carousel {
+        overflow: visible !important;
+    }
+
+    /* Smooth native scrolling on iOS */
+    .carousel-track {
+        -webkit-overflow-scrolling: touch !important;
+        /* Use logical property to better support LTR/RTL and precise snappoints */
+        scroll-padding-inline: 8vw !important;
+        scroll-snap-type: x mandatory !important;
     }
     /* Esconde dots e controles no mobile */
     .carousel-controls, .about-controls, .dot, .about-dot {
@@ -70,29 +84,31 @@
     }
 }
 
-/* Smooth scroll para iOS */
-html {
-    -webkit-overflow-scrolling: touch;
-    /* Prevent horizontal overflow during zoom */
-    overflow-x: hidden;
-    width: 100%;
-    /* Better text scaling on zoom */
-    -webkit-text-size-adjust: 100%;
-    -moz-text-size-adjust: 100%;
-    text-size-adjust: 100%;
-}
+/* Smooth scroll and small-screen adjustments (scoped to mobile/tablet) */
+@media (max-width: 1024px) {
+    html {
+        -webkit-overflow-scrolling: touch;
+        /* Prevent horizontal overflow during zoom */
+        overflow-x: hidden;
+        width: 100%;
+        /* Better text scaling on zoom */
+        -webkit-text-size-adjust: 100%;
+        -moz-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+    }
 
-/* Body improvements for zoom */
-body {
-    overflow-x: hidden;
-    width: 100%;
-    max-width: 100vw;
-    box-sizing: border-box;
-}
+    /* Body improvements for zoom */
+    body {
+        overflow-x: hidden;
+        width: 100%;
+        max-width: 100vw;
+        box-sizing: border-box;
+    }
 
-/* Prevent zoom on form inputs while maintaining accessibility */
-input, select, textarea {
-    font-size: max(16px, 1rem); /* Prevents zoom on iOS while keeping accessible size */
+    /* Prevent zoom on form inputs while maintaining accessibility */
+    input, select, textarea {
+        font-size: max(16px, 1rem); /* Prevents zoom on iOS while keeping accessible size */
+    }
 }
 
 /* Carrosséis - Otimizações Mobile */
@@ -100,8 +116,9 @@ input, select, textarea {
     
     /* Melhoria na área de toque dos carrosséis */
     .carousel-track {
-        cursor: grab;
-        touch-action: pan-y pinch-zoom;
+    cursor: grab;
+    /* Allow horizontal pan for native swipe */
+    touch-action: pan-x pinch-zoom;
         user-select: none;
         -webkit-user-select: none;
         -moz-user-select: none;
@@ -109,10 +126,11 @@ input, select, textarea {
         /* Better performance during zoom */
         will-change: transform;
         transform: translateZ(0);
-        /* Prevent overflow during zoom */
-        width: 100%;
-        max-width: 100%;
-        overflow: hidden;
+    /* Allow horizontal scrolling on mobile; keep vertical scrolling normal */
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
         box-sizing: border-box;
     }
     
