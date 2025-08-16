@@ -410,6 +410,9 @@ function hideLoading(element, originalText) {
 
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize zoom handler for mobile responsiveness
+    new ZoomHandler();
+    
     // Initialize hero carousel
     new HeroCarousel();
     
@@ -758,10 +761,108 @@ class AboutCarousel {
     }
 }
 
+// Zoom Detection and Adjustment
+class ZoomHandler {
+    constructor() {
+        this.currentZoom = window.devicePixelRatio || 1;
+        this.isZooming = false;
+        this.init();
+    }
+    
+    init() {
+        this.detectZoomChanges();
+        this.optimizeForMobile();
+    }
+    
+    detectZoomChanges() {
+        // Monitor zoom via resize events
+        const checkZoom = () => {
+            const newZoom = window.devicePixelRatio || 1;
+            if (Math.abs(this.currentZoom - newZoom) > 0.1) {
+                this.currentZoom = newZoom;
+                this.adjustForZoom();
+            }
+        };
+        
+        window.addEventListener('resize', Utils.debounce(checkZoom, 200), { passive: true });
+        
+        // iOS specific zoom detection
+        if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+            document.addEventListener('gesturestart', () => {
+                this.isZooming = true;
+            }, { passive: true });
+            
+            document.addEventListener('gestureend', () => {
+                this.isZooming = false;
+                setTimeout(checkZoom, 100);
+            }, { passive: true });
+        }
+    }
+    
+    adjustForZoom() {
+        // Ensure touch targets remain accessible
+        this.ensureTouchTargets();
+        
+        // Recalculate carousel positions if needed
+        this.recalculateCarousels();
+    }
+    
+    ensureTouchTargets() {
+        const minSize = 44; // Minimum touch target size
+        const buttons = document.querySelectorAll('.buy-button, .carousel-btn, .dot');
+        
+        buttons.forEach(button => {
+            const rect = button.getBoundingClientRect();
+            if (rect.height < minSize || rect.width < minSize) {
+                button.style.minHeight = `${minSize}px`;
+                button.style.minWidth = `${minSize}px`;
+            }
+        });
+    }
+    
+    recalculateCarousels() {
+        // Trigger carousel recalculation after zoom
+        const carouselTracks = document.querySelectorAll('.carousel-track');
+        carouselTracks.forEach(track => {
+            const event = new Event('resize');
+            window.dispatchEvent(event);
+        });
+    }
+    
+    optimizeForMobile() {
+        // Add zoom-specific optimizations for mobile
+        if (this.isMobileDevice()) {
+            document.body.classList.add('mobile-zoom-optimized');
+            
+            // Prevent double-tap zoom on critical elements
+            const criticalElements = document.querySelectorAll('.buy-button, .product-price');
+            criticalElements.forEach(element => {
+                this.preventDoubleTapZoom(element);
+            });
+        }
+    }
+    
+    preventDoubleTapZoom(element) {
+        let lastTouchEnd = 0;
+        element.addEventListener('touchend', (event) => {
+            const now = Date.now();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, { passive: false });
+    }
+    
+    isMobileDevice() {
+        return window.innerWidth <= 768 || 'ontouchstart' in window;
+    }
+}
+
 // Export for potential use in other scripts
 window.AnaEvelynSite = {
     ProductCarousel,
     AboutCarousel,
     Utils,
+    ZoomHandler,
     trackButtonClick
 };
