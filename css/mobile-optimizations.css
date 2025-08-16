@@ -63,6 +63,24 @@
         overflow: visible !important;
     }
 
+    /* Ensure CTAs are on top of hero slides in mobile so buttons remain clickable */
+    .hero-fixed-cta {
+        position: relative !important;
+        z-index: 60 !important;
+        pointer-events: auto !important;
+    }
+
+    /* Lower the stacking of hero slides so they don't cover CTAs */
+    .hero-slide {
+        z-index: 10 !important;
+    }
+
+    /* Keep avatar inside slide but below CTAs */
+    .hero-avatar {
+        position: relative !important;
+        z-index: 20 !important;
+    }
+
     /* Smooth native scrolling on iOS */
     .carousel-track {
         -webkit-overflow-scrolling: touch !important;
