@@ -45,9 +45,16 @@
         padding-bottom: 1.2rem !important;
     }
     .carousel-track > * {
-        min-width: 80vw !important;
+        min-width: 90vw !important;
+        max-width: 95vw !important;
         flex-shrink: 0 !important;
         scroll-snap-align: start !important;
+    }
+    /* Corrige cards para não ocupar 100% no mobile */
+    .product-card {
+        min-width: 90vw !important;
+        max-width: 95vw !important;
+        width: auto !important;
     }
     /* Esconde dots e controles no mobile */
     .carousel-controls, .about-controls, .dot, .about-dot {
