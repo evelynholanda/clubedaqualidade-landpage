@@ -63,10 +63,33 @@ class ProductCarousel {
     }
     
     init() {
-        this.createDots();
+        if (!this.isMobileDevice()) {
+            this.createDots();
+        }
         this.updateCarousel();
         this.bindEvents();
+        this.bindTrackScrollListener();
         this.startAutoPlay();
+    }
+    // Atualiza o dot ativo conforme o scroll no mobile
+    bindTrackScrollListener() {
+        if (!this.track) return;
+        this.track.addEventListener('scroll', () => {
+            if (!this.isMobileDevice()) return;
+            let closestIdx = 0;
+            let minDist = Infinity;
+            this.cards.forEach((card, idx) => {
+                const dist = Math.abs(card.offsetLeft - this.track.scrollLeft);
+                if (dist < minDist) {
+                    minDist = dist;
+                    closestIdx = idx;
+                }
+            });
+            if (closestIdx !== this.currentIndex) {
+                this.currentIndex = closestIdx;
+                this.updateCarousel();
+            }
+        });
     }
     
     createDots() {
@@ -88,28 +111,21 @@ class ProductCarousel {
     
     updateCarousel() {
         if (!this.track) return;
-        
+
         if (this.isMobileDevice()) {
-            // Mobile: usar scroll nativo
-            const cardWidth = this.cards[0]?.offsetWidth || 0;
-            const gap = 12; // gap definido no CSS mobile
-            const scrollPosition = this.currentIndex * (cardWidth + gap);
-            
-            this.track.parentElement.scrollTo({
-                left: scrollPosition,
-                behavior: 'smooth'
-            });
+            // Mobile: não faz nada, swipe/scroll nativo
+            return;
         } else {
             // Desktop: usar transform
             const translateX = -this.currentIndex * 100;
             this.track.style.transform = `translateX(${translateX}%)`;
         }
-        
+
         // Update counter
         if (this.counter) {
             this.counter.textContent = `${this.currentIndex + 1} / ${this.totalCards}`;
         }
-        
+
         // Update dots
         const dots = this.dotsContainer?.querySelectorAll('.dot');
         if (dots) {
@@ -117,7 +133,7 @@ class ProductCarousel {
                 dot.classList.toggle('active', index === this.currentIndex);
             });
         }
-        
+
         // Update buttons
         if (this.prevBtn) {
             this.prevBtn.disabled = this.currentIndex === 0;
@@ -126,14 +142,7 @@ class ProductCarousel {
             this.nextBtn.disabled = this.currentIndex === this.totalCards - 1;
         }
     }
-    
-    goToSlide(index) {
-        if (index >= 0 && index < this.totalCards) {
-            this.currentIndex = index;
-            this.updateCarousel();
-        }
-    }
-    
+
     nextSlide() {
         if (this.currentIndex < this.totalCards - 1) {
             this.currentIndex++;
