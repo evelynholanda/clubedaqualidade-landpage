@@ -74,8 +74,12 @@ class ProductCarousel {
     // Atualiza o dot ativo conforme o scroll no mobile
     bindTrackScrollListener() {
         if (!this.track) return;
+        // Debounced scroll listener for mobile to update currentIndex and optionally snap
+        let scrollDebounce = null;
         this.track.addEventListener('scroll', () => {
             if (!this.isMobileDevice()) return;
+
+            // Update active index visually as user scrolls
             let closestIdx = 0;
             let minDist = Infinity;
             this.cards.forEach((card, idx) => {
@@ -89,7 +93,37 @@ class ProductCarousel {
                 this.currentIndex = closestIdx;
                 this.updateCarousel();
             }
+
+            // Debounce final snap to avoid fighting user's gesture
+            if (scrollDebounce) clearTimeout(scrollDebounce);
+            scrollDebounce = setTimeout(() => {
+                this.snapToClosest();
+            }, 120);
+        }, { passive: true });
+    }
+
+    // Snap the track to the closest card (fallback for browsers with flaky snap support)
+    snapToClosest() {
+        if (!this.track || !this.cards || this.cards.length === 0) return;
+        let closestIdx = 0;
+        let minDist = Infinity;
+        this.cards.forEach((card, idx) => {
+            const cardLeft = card.offsetLeft;
+            const dist = Math.abs(cardLeft - this.track.scrollLeft);
+            if (dist < minDist) {
+                minDist = dist;
+                closestIdx = idx;
+            }
         });
+        const targetCard = this.cards[closestIdx];
+        if (targetCard) {
+            // Smoothly scroll to the card's left position
+            this.track.scrollTo({ left: targetCard.offsetLeft, behavior: 'smooth' });
+            if (closestIdx !== this.currentIndex) {
+                this.currentIndex = closestIdx;
+                this.updateCarousel();
+            }
+        }
     }
     
     createDots() {
@@ -113,8 +147,8 @@ class ProductCarousel {
         if (!this.track) return;
 
         if (this.isMobileDevice()) {
-            // Mobile: não faz nada, swipe/scroll nativo
-            return;
+            // Mobile: rely on native scroll; ensure track transform reset for safety
+            this.track.style.transform = '';
         } else {
             // Desktop: usar transform
             const translateX = -this.currentIndex * 100;
@@ -179,45 +213,46 @@ class ProductCarousel {
             }
         });
         
-        // Enhanced touch/swipe support for mobile
-        let startX = 0;
-        let endX = 0;
-        let startY = 0;
-        let endY = 0;
-        let isScrolling = false;
-        
-        if (this.track) {
+        // Enhanced touch/swipe support for non-mobile devices only.
+        // On mobile, rely on native scroll/swipe. This prevents interfering with browser scrolling.
+        if (this.track && !this.isMobileDevice()) {
+            let startX = 0;
+            let endX = 0;
+            let startY = 0;
+            let endY = 0;
+            let isScrolling = false;
+
             this.track.addEventListener('touchstart', (e) => {
                 startX = e.touches[0].clientX;
                 startY = e.touches[0].clientY;
                 isScrolling = false;
             }, { passive: true });
-            
+
             this.track.addEventListener('touchmove', (e) => {
                 if (!startX || !startY) return;
-                
+
                 const currentX = e.touches[0].clientX;
                 const currentY = e.touches[0].clientY;
-                
+
                 const diffX = Math.abs(currentX - startX);
                 const diffY = Math.abs(currentY - startY);
-                
+
                 // Determine if user is scrolling vertically
                 if (diffY > diffX) {
                     isScrolling = true;
                 } else if (diffX > 10) {
-                    // Prevent page scroll when swiping horizontally
+                    // Prevent page scroll when swiping horizontally on non-mobile
                     e.preventDefault();
                 }
             }, { passive: false });
-            
+
             this.track.addEventListener('touchend', (e) => {
                 if (!isScrolling) {
                     endX = e.changedTouches[0].clientX;
                     endY = e.changedTouches[0].clientY;
                     this.handleSwipe();
                 }
-                
+
                 // Reset values
                 startX = 0;
                 startY = 0;
