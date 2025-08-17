@@ -110,15 +110,22 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
         }
 
-        .video-thumbnail {
+        .video-container {
             position: relative;
             width: 100%;
             height: 180px;
             overflow: hidden;
+            background: #f8f9fa;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .video-thumbnail {
+            position: relative;
+            width: 100%;
+            height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #f8f9fa;
         }
 
         .thumbnail-img {
@@ -133,40 +140,34 @@
             transform: scale(1.05);
         }
 
-        .play-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: all 0.3s ease;
-        }
-
-        .video-card:hover .play-overlay {
-            opacity: 1;
-        }
-
         .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             width: 60px;
             height: 60px;
             background: var(--primary-green);
+            border: none;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             font-size: 1.5rem;
-            transform: scale(0.8);
+            cursor: pointer;
+            z-index: 2;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .play-button:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+            background: var(--light-green);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
         }
 
         .video-card:hover .play-button {
-            transform: scale(1);
             background: var(--light-green);
         }
 
@@ -663,12 +664,14 @@
             <div class="videos-grid">
                 <!-- Agente JIRA Video -->
                 <div class="video-card" data-agent="jira">
-                    <div class="video-thumbnail">
-                        <img src="assets/images/jira_teste.jpeg" alt="Demonstração Agente JIRA" class="thumbnail-img">
-                        <div class="play-overlay">
-                            <div class="play-button">▶</div>
+                    <div class="video-container">
+                        <div class="video-thumbnail">
+                            <img src="assets/images/jira_teste.jpeg" alt="Demonstração Agente JIRA" class="thumbnail-img">
+                            <button class="play-button" data-video-url="https://www.youtube.com/embed/1R9-22lDrj8?autoplay=1">
+                                ▶
+                            </button>
+                            <div class="video-duration">2:30</div>
                         </div>
-                        <div class="video-duration">2:30</div>
                     </div>
                     <div class="video-info">
                         <div class="video-content">
@@ -681,12 +684,14 @@
 
                 <!-- Agente Swagger Video -->
                 <div class="video-card" data-agent="swagger">
-                    <div class="video-thumbnail">
-                        <img src="assets/images/apiswagger.jpeg" alt="Demonstração Agente Swagger" class="thumbnail-img">
-                        <div class="play-overlay">
-                            <div class="play-button">▶</div>
+                    <div class="video-container">
+                        <div class="video-thumbnail">
+                            <img src="assets/images/apiswagger.jpeg" alt="Demonstração Agente Swagger" class="thumbnail-img">
+                            <button class="play-button" data-video-url="">
+                                ▶
+                            </button>
+                            <div class="video-duration">3:15</div>
                         </div>
-                        <div class="video-duration">3:15</div>
                     </div>
                     <div class="video-info">
                         <div class="video-content">
@@ -699,12 +704,14 @@
 
                 <!-- Maestro Video -->
                 <div class="video-card" data-agent="maestro">
-                    <div class="video-thumbnail">
-                        <img src="assets/images/maestro.png" alt="Demonstração Maestro" class="thumbnail-img">
-                        <div class="play-overlay">
-                            <div class="play-button">▶</div>
+                    <div class="video-container">
+                        <div class="video-thumbnail">
+                            <img src="assets/images/maestro.png" alt="Demonstração Maestro" class="thumbnail-img">
+                            <button class="play-button" data-video-url="">
+                                ▶
+                            </button>
+                            <div class="video-duration">4:00</div>
                         </div>
-                        <div class="video-duration">4:00</div>
                     </div>
                     <div class="video-info">
                         <div class="video-content">
@@ -717,11 +724,13 @@
 
                 <!-- Próximo Agente -->
                 <div class="video-card coming-soon" data-agent="futuro">
-                    <div class="video-thumbnail">
-                        <div class="coming-soon-content">
-                            <div class="coming-soon-icon">🚀</div>
-                            <h4>Próximos Agentes</h4>
-                            <p>Em desenvolvimento</p>
+                    <div class="video-container">
+                        <div class="video-thumbnail">
+                            <div class="coming-soon-content">
+                                <div class="coming-soon-icon">🚀</div>
+                                <h4>Próximos Agentes</h4>
+                                <p>Em desenvolvimento</p>
+                            </div>
                         </div>
                     </div>
                     <div class="video-info">
@@ -1024,298 +1033,72 @@
         </div>
     </footer>
 
-    <!-- Modal para vídeos -->
-    <div id="videoModal" class="video-modal" style="display: none;">
-        <div class="video-modal-content">
-            <span class="video-modal-close">&times;</span>
-            <div class="video-modal-body">
-                <iframe id="videoPlayer" src="" frameborder="0" allowfullscreen></iframe>
-            </div>
-            <div class="video-modal-footer">
-                <h3 id="modalVideoTitle">Título do Vídeo</h3>
-                <p id="modalVideoDescription">Descrição do vídeo</p>
-                <a href="#" id="modalCTA" class="modal-cta-btn">Ver Este Agente na Loja</a>
-            </div>
-        </div>
-    </div>
 
     <script src="js/script.js"></script>
     <script src="js/mascote.js"></script>
     
-    <!-- Sistema de gerenciamento de vídeos -->
+    <!-- Sistema de reprodução de vídeos inline -->
     <script>
-        // Configuração dos vídeos dos agentes
-        const agentVideos = {
-            jira: {
-                title: "Agente JIRA em Ação",
-                description: "Veja como criamos cenários de teste automaticamente a partir dos critérios de aceite do JIRA. Este agente economiza até 2 horas por sprint!",
-                videoUrl: "", // URL do YouTube embed - será preenchida quando o vídeo estiver pronto
-                productLink: "produtos.html#agente-jira",
-                duration: "2:30"
-            },
-            swagger: {
-                title: "Agente Swagger Demonstração", 
-                description: "Demonstração completa de como nosso agente lê o Swagger.json, executa testes automaticamente e gera relatórios inteligentes.",
-                videoUrl: "", // URL do YouTube embed
-                productLink: "produtos.html#agente-swagger",
-                duration: "3:15"
-            },
-            maestro: {
-                title: "Maestro - Testes Mobile",
-                description: "Guia completo mostrando estratégias avançadas de testes mobile, do básico ao avançado com exemplos práticos.",
-                videoUrl: "", // URL do YouTube embed
-                productLink: "produtos.html#maestro",
-                duration: "4:00"
-            },
-            futuro: {
-                title: "Novos Agentes em Desenvolvimento",
-                description: "Fique por dentro dos próximos agentes que estamos desenvolvendo para automatizar ainda mais seu workflow.",
-                videoUrl: "",
-                productLink: "index.html#contact",
-                duration: "Em breve"
-            }
-        };
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('📱 Inicializando sistema de vídeos inline...');
+            
+            // Seleciona todos os botões de play da página
+            const playButtons = document.querySelectorAll('.play-button');
+            console.log('🔍 Encontrados', playButtons.length, 'botões de play');
 
-        // Sistema de modal de vídeo
-        class VideoModal {
-            constructor() {
-                this.modal = document.getElementById('videoModal');
-                this.player = document.getElementById('videoPlayer');
-                this.closeBtn = document.querySelector('.video-modal-close');
-                this.title = document.getElementById('modalVideoTitle');
-                this.description = document.getElementById('modalVideoDescription');
-                this.cta = document.getElementById('modalCTA');
-                
-                this.initEventListeners();
-            }
+            playButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    console.log('🎬 Botão de play clicado');
+                    
+                    // Pega o container de vídeo pai do botão clicado
+                    const videoContainer = button.closest('.video-container');
+                    console.log('🔍 Container encontrado:', videoContainer);
+                    
+                    // Pega a URL do vídeo do atributo data
+                    const videoUrl = button.dataset.videoUrl;
+                    console.log('🔍 URL do vídeo:', videoUrl);
 
-            initEventListeners() {
-                // Fechar modal
-                this.closeBtn.addEventListener('click', () => this.close());
-                this.modal.addEventListener('click', (e) => {
-                    if (e.target === this.modal) this.close();
-                });
+                    // Se não tiver URL, não faz nada
+                    if (!videoUrl || videoUrl.trim() === '') {
+                        console.log('⚠️ Nenhuma URL de vídeo encontrada');
+                        alert('Vídeo em produção! Em breve estará disponível.');
+                        return;
+                    }
 
-                // ESC para fechar
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape' && this.modal.classList.contains('active')) {
-                        this.close();
+                    console.log('✅ Criando iframe para:', videoUrl);
+                    
+                    // Cria o elemento iframe
+                    const iframe = document.createElement('iframe');
+                    iframe.setAttribute('src', videoUrl);
+                    iframe.setAttribute('frameborder', '0');
+                    iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+                    iframe.setAttribute('allowfullscreen', '');
+                    iframe.style.width = '100%';
+                    iframe.style.height = '100%';
+                    iframe.style.borderRadius = '8px';
+
+                    // Limpa o container (remove a thumbnail e o botão)
+                    videoContainer.innerHTML = '';
+                    
+                    // Adiciona o iframe no lugar
+                    videoContainer.appendChild(iframe);
+                    
+                    console.log('🎉 Vídeo carregado com sucesso!');
+
+                    // Notificar mascote se disponível
+                    if (window.mascoteIA) {
+                        setTimeout(() => {
+                            window.mascoteIA.falar('Curtindo o vídeo? 🎥 Clique no botão verde para saber mais!', 5000);
+                        }, 3000);
                     }
                 });
-
-                // Cliques nos cards de vídeo
-                document.querySelectorAll('.video-card').forEach(card => {
-                    card.addEventListener('click', (e) => {
-                        const agentId = card.dataset.agent;
-                        if (agentId && agentVideos[agentId]) {
-                            this.open(agentId);
-                        }
-                    });
-                });
-            }
-
-            open(agentId) {
-                const video = agentVideos[agentId];
-                
-                if (!video.videoUrl && agentId !== 'futuro') {
-                    // Se não tem vídeo ainda, mostrar mensagem
-                    this.showComingSoon(video);
-                    return;
-                }
-
-                if (agentId === 'futuro') {
-                    // Para "futuro", redirecionar para contato
-                    window.location.href = video.productLink;
-                    return;
-                }
-
-                // Configurar modal com vídeo
-                this.player.src = video.videoUrl;
-                this.title.textContent = video.title;
-                this.description.textContent = video.description;
-                this.cta.href = video.productLink;
-                this.cta.textContent = "Ver Este Agente na Loja";
-                
-                this.modal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-
-                // Notificar mascote
-                if (window.mascoteIA) {
-                    setTimeout(() => {
-                        window.mascoteIA.falar(`Curtindo o ${video.title}? 🎥 Clique no botão verde para saber mais!`, 5000);
-                    }, 3000);
-                }
-            }
-
-            showComingSoon(video) {
-                this.player.src = "";
-                this.title.textContent = video.title + " - Em Breve";
-                this.description.textContent = "Este vídeo está sendo produzido e estará disponível em breve. Enquanto isso, você pode conhecer mais sobre este agente na nossa loja.";
-                this.cta.href = video.productLink;
-                this.cta.textContent = "Conhecer Este Agente";
-                
-                this.modal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-
-                if (window.mascoteIA) {
-                    window.mascoteIA.falar("Vídeo em produção! 🎬 Mas você já pode conhecer o agente!", 4000);
-                }
-            }
-
-            close() {
-                this.modal.classList.remove('active');
-                this.player.src = "";
-                document.body.style.overflow = '';
-            }
-
-            // Método para adicionar vídeo facilmente
-            static addVideo(agentId, videoUrl) {
-                if (agentVideos[agentId]) {
-                    agentVideos[agentId].videoUrl = videoUrl;
-                    console.log(`✅ Vídeo adicionado para ${agentId}: ${videoUrl}`);
-                }
-            }
-        }
-
-        // Estilos do modal
-        const modalStyles = `
-            .video-modal {
-                display: none;
-                position: fixed;
-                z-index: 10000;
-                left: 0;
-                top: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(0, 0, 0, 0.9);
-                backdrop-filter: blur(5px);
-            }
-
-            .video-modal.active {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            .video-modal-content {
-                background: white;
-                border-radius: 16px;
-                max-width: 90vw;
-                max-height: 90vh;
-                width: 900px;
-                overflow: hidden;
-                position: relative;
-                box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-            }
-
-            .video-modal-close {
-                position: absolute;
-                top: 15px;
-                right: 25px;
-                font-size: 2rem;
-                color: white;
-                cursor: pointer;
-                z-index: 10001;
-                background: rgba(0, 0, 0, 0.5);
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                transition: all 0.3s ease;
-            }
-
-            .video-modal-close:hover {
-                background: rgba(0, 0, 0, 0.8);
-                transform: scale(1.1);
-            }
-
-            .video-modal-body {
-                position: relative;
-                width: 100%;
-                height: 500px;
-                background: #000;
-            }
-
-            .video-modal-body iframe {
-                width: 100%;
-                height: 100%;
-            }
-
-            .video-modal-footer {
-                padding: 2rem;
-                text-align: center;
-            }
-
-            .video-modal-footer h3 {
-                color: var(--dark-gray);
-                margin-bottom: 1rem;
-                font-size: 1.5rem;
-            }
-
-            .video-modal-footer p {
-                color: var(--medium-gray);
-                line-height: 1.6;
-                margin-bottom: 2rem;
-            }
-
-            .modal-cta-btn {
-                background: linear-gradient(135deg, var(--primary-green), var(--light-green));
-                color: white;
-                padding: 12px 24px;
-                border-radius: 8px;
-                text-decoration: none;
-                font-weight: 600;
-                transition: all 0.3s ease;
-                display: inline-block;
-            }
-
-            .modal-cta-btn:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
-            }
-
-            @media (max-width: 768px) {
-                .video-modal-content {
-                    margin: 20px;
-                    width: auto;
-                }
-
-                .video-modal-body {
-                    height: 250px;
-                }
-
-                .video-modal-footer {
-                    padding: 1.5rem;
-                }
-            }
-        `;
-
-        // Adicionar estilos do modal
-        const styleSheet = document.createElement('style');
-        styleSheet.textContent = modalStyles;
-        document.head.appendChild(styleSheet);
-
-        // Inicializar quando a página carregar
-        document.addEventListener('DOMContentLoaded', function() {
-            window.videoModal = new VideoModal();
-        });
-
-        // Função global para adicionar vídeos facilmente
-        window.addAgentVideo = function(agentId, youtubeUrl) {
-            // Converte URL normal do YouTube para embed
-            let embedUrl = youtubeUrl;
-            if (youtubeUrl.includes('youtube.com/watch?v=')) {
-                const videoId = youtubeUrl.split('v=')[1].split('&')[0];
-                embedUrl = `https://www.youtube.com/embed/${videoId}`;
-            } else if (youtubeUrl.includes('youtu.be/')) {
-                const videoId = youtubeUrl.split('youtu.be/')[1];
-                embedUrl = `https://www.youtube.com/embed/${videoId}`;
-            }
+            });
             
-            VideoModal.addVideo(agentId, embedUrl);
-        };
+            console.log('✅ Sistema de vídeos inline inicializado!');
+        });
     </script>
     
     <!-- Configuração específica para página de demonstrações -->

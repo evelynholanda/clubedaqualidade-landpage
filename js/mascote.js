@@ -95,9 +95,60 @@ class MascoteIA {
         // Aplicar posicionamento
         this.aplicarPosicionamento();
         
-        // HTML do mascote com cores Clube Qualidade
+        // HTML do mascote com sistema de chat interativo
         this.mascoteElement.innerHTML = `
-            <!-- Balão de fala -->
+            <!-- Chat Container -->
+            <div id="chatContainer" class="chat-container">
+                <!-- Header do Chat -->
+                <div class="chat-header">
+                    <div class="chat-title">
+                        <span class="chat-avatar">🤖</span>
+                        <div class="chat-info">
+                            <strong>Assistente IA</strong>
+                            <small>Clube Qualidade</small>
+                        </div>
+                    </div>
+                    <button id="chatToggle" class="chat-toggle">
+                        <span class="toggle-icon">−</span>
+                    </button>
+                </div>
+                
+                <!-- Área de mensagens -->
+                <div id="chatMessages" class="chat-messages">
+                    <div class="message bot-message">
+                        <div class="message-content">
+                            Olá! 👋 Como posso te ajudar hoje?
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Menu de perguntas rápidas -->
+                <div id="quickQuestions" class="quick-questions">
+                    <button class="quick-btn" data-question="ebooks">📚 Qual eBook é melhor?</button>
+                    <button class="quick-btn" data-question="agentes">🤖 Como funcionam os agentes?</button>
+                    <button class="quick-btn" data-question="precos">💰 Preços das mentorias?</button>
+                    <button class="quick-btn" data-question="iniciante">🎯 Sou iniciante, por onde começar?</button>
+                    <button class="quick-btn" data-question="contato">📞 Quero falar com vocês</button>
+                </div>
+                
+                <!-- Campo de input -->
+                <div class="chat-input-container">
+                    <input type="text" id="chatInput" class="chat-input" placeholder="Digite sua pergunta..." maxlength="200">
+                    <button id="chatSend" class="chat-send">
+                        <span>➤</span>
+                    </button>
+                </div>
+                
+                <!-- Indicador de digitação -->
+                <div id="typingIndicator" class="typing-indicator" style="display: none;">
+                    <span>Ana está digitando</span>
+                    <div class="typing-dots">
+                        <span>.</span><span>.</span><span>.</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Balão de fala (modo compacto) -->
             <div class="balao-fala" id="balaoFala" role="status" aria-live="polite">
                 Olá! Sou o assistente do Clube Qualidade! 🤖
             </div>
@@ -143,13 +194,28 @@ class MascoteIA {
                     <div class="pe"></div>
                 </div>
             </div>
+            
+            <!-- Badge de notificação -->
+            <div class="notification-badge" id="notificationBadge">!</div>
         `;
         
         // Adicionar ao body
         document.body.appendChild(this.mascoteElement);
         
-        // Referenciar balão
+        // Referenciar elementos
         this.balaoElement = this.mascoteElement.querySelector('#balaoFala');
+        this.chatContainer = this.mascoteElement.querySelector('#chatContainer');
+        this.chatMessages = this.mascoteElement.querySelector('#chatMessages');
+        this.chatInput = this.mascoteElement.querySelector('#chatInput');
+        this.chatSend = this.mascoteElement.querySelector('#chatSend');
+        this.chatToggle = this.mascoteElement.querySelector('#chatToggle');
+        this.quickQuestions = this.mascoteElement.querySelector('#quickQuestions');
+        this.typingIndicator = this.mascoteElement.querySelector('#typingIndicator');
+        this.notificationBadge = this.mascoteElement.querySelector('#notificationBadge');
+        
+        // Inicializar chat
+        this.initializeChat();
+        this.initializeKnowledgeBase();
     }
     
     aplicarPosicionamento() {
@@ -165,31 +231,27 @@ class MascoteIA {
     }
     
     configurarEventos() {
-        // Evento de clique principal
-        this.mascoteElement.addEventListener('click', (e) => {
+        // Evento de clique no avatar (abre/fecha chat)
+        const robotHead = this.mascoteElement.querySelector('.robo-cabeca');
+        robotHead.addEventListener('click', (e) => {
             e.preventDefault();
-            this.aoClicar();
+            this.toggleChat();
         });
         
-        // Evento de hover
-        this.mascoteElement.addEventListener('mouseenter', () => {
+        // Evento de hover no avatar
+        robotHead.addEventListener('mouseenter', () => {
             this.aoHover();
         });
         
         // Evento de saída do hover
-        this.mascoteElement.addEventListener('mouseleave', () => {
+        robotHead.addEventListener('mouseleave', () => {
             this.aoSairHover();
         });
         
         // Eventos de toque para mobile
-        this.mascoteElement.addEventListener('touchstart', (e) => {
+        robotHead.addEventListener('touchstart', (e) => {
             e.preventDefault();
-            this.aoClicar();
-        }, { passive: false });
-        
-        // Prevenir scroll em mobile quando tocar no mascote
-        this.mascoteElement.addEventListener('touchmove', (e) => {
-            e.preventDefault();
+            this.toggleChat();
         }, { passive: false });
     }
     
@@ -317,9 +379,275 @@ class MascoteIA {
             clique_numero: this.contadorCliques,
             pagina: this.paginaAtual
         });
+    }
+    
+    // Novo sistema de chat
+    initializeChat() {
+        this.chatHistory = [];
+        this.chatExpanded = false;
+        this.chatContainer.style.display = 'none';
         
-        // Ação personalizada baseada na página
-        this.acaoPersonalizada();
+        // Configurar eventos do chat
+        this.setupChatEvents();
+    }
+    
+    setupChatEvents() {
+        // Toggle do chat
+        this.chatToggle.addEventListener('click', () => {
+            this.toggleChat();
+        });
+        
+        // Enviar mensagem
+        this.chatSend.addEventListener('click', () => {
+            this.sendMessage();
+        });
+        
+        // Enter para enviar
+        this.chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                this.sendMessage();
+            }
+        });
+        
+        // Botões de perguntas rápidas
+        this.quickQuestions.addEventListener('click', (e) => {
+            if (e.target.classList.contains('quick-btn')) {
+                const question = e.target.dataset.question;
+                this.handleQuickQuestion(question);
+            }
+        });
+    }
+    
+    toggleChat() {
+        this.chatExpanded = !this.chatExpanded;
+        
+        if (this.chatExpanded) {
+            this.chatContainer.style.display = 'block';
+            this.balaoElement.style.display = 'none';
+            this.chatToggle.querySelector('.toggle-icon').textContent = '−';
+            this.notificationBadge.style.display = 'none';
+            this.chatInput.focus();
+        } else {
+            this.chatContainer.style.display = 'none';
+            this.balaoElement.style.display = 'block';
+            this.chatToggle.querySelector('.toggle-icon').textContent = '+';
+        }
+        
+        this.rastrearInteracao('chat_toggled', {
+            expanded: this.chatExpanded,
+            pagina: this.paginaAtual
+        });
+    }
+    
+    sendMessage() {
+        const message = this.chatInput.value.trim();
+        if (!message) return;
+        
+        // Adicionar mensagem do usuário
+        this.addMessage(message, 'user');
+        
+        // Limpar input
+        this.chatInput.value = '';
+        
+        // Mostrar indicador de digitação
+        this.showTypingIndicator();
+        
+        // Processar resposta
+        setTimeout(() => {
+            this.hideTypingIndicator();
+            const response = this.generateResponse(message);
+            this.addMessage(response.text, 'bot');
+            
+            if (response.action) {
+                setTimeout(() => {
+                    this.executeAction(response.action);
+                }, 1000);
+            }
+        }, 1500);
+        
+        this.rastrearInteracao('message_sent', {
+            message: message,
+            pagina: this.paginaAtual
+        });
+    }
+    
+    addMessage(text, sender) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${sender}-message`;
+        messageDiv.innerHTML = `
+            <div class="message-content">${text}</div>
+        `;
+        
+        this.chatMessages.appendChild(messageDiv);
+        this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
+        
+        // Salvar no histórico
+        this.chatHistory.push({
+            text: text,
+            sender: sender,
+            timestamp: new Date()
+        });
+    }
+    
+    showTypingIndicator() {
+        this.typingIndicator.style.display = 'block';
+        this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
+    }
+    
+    hideTypingIndicator() {
+        this.typingIndicator.style.display = 'none';
+    }
+    
+    handleQuickQuestion(questionType) {
+        const questions = {
+            'ebooks': '📚 Qual eBook é melhor para mim?',
+            'agentes': '🤖 Como funcionam os agentes de IA?',
+            'precos': '💰 Quanto custam as mentorias?',
+            'iniciante': '🎯 Sou iniciante, por onde começar?',
+            'contato': '📞 Quero falar com vocês'
+        };
+        
+        const questionText = questions[questionType];
+        if (questionText) {
+            this.addMessage(questionText, 'user');
+            
+            setTimeout(() => {
+                this.showTypingIndicator();
+                setTimeout(() => {
+                    this.hideTypingIndicator();
+                    const response = this.getQuickResponse(questionType);
+                    this.addMessage(response.text, 'bot');
+                    
+                    if (response.action) {
+                        setTimeout(() => {
+                            this.executeAction(response.action);
+                        }, 1000);
+                    }
+                }, 1000);
+            }, 500);
+        }
+    }
+    
+    initializeKnowledgeBase() {
+        this.knowledgeBase = {
+            // eBooks
+            ebooks: {
+                keywords: ['ebook', 'livro', 'claude', 'landing', 'página', 'maestro', 'mobile'],
+                responses: [
+                    {
+                        text: "📚 Temos eBooks incríveis! Para iniciantes, recomendo o **Claude Code** (R$ 9,90) - ensina automação com IA. Para quem quer criar páginas que convertem, o **Landing Page** é perfeito. E para testes mobile, o **Maestro** é nosso best-seller!",
+                        action: { type: 'redirect', url: 'produtos.html#ebooks' }
+                    }
+                ]
+            },
+            
+            // Agentes IA
+            agentes: {
+                keywords: ['agente', 'automação', 'ia', 'jira', 'swagger', 'testes'],
+                responses: [
+                    {
+                        text: "🤖 Os agentes de IA automatizam suas tarefas repetitivas! Temos o **Agente JIRA** que cria cenários automaticamente, e o **Agente Swagger** que testa APIs sozinho. Eles economizam 75% do seu tempo!",
+                        action: { type: 'redirect', url: 'demonstracoes.html' }
+                    }
+                ]
+            },
+            
+            // Preços e mentorias
+            precos: {
+                keywords: ['preço', 'valor', 'custo', 'mentoria', 'consultoria'],
+                responses: [
+                    {
+                        text: "💰 Os eBooks começam em **R$ 9,90**. As mentorias têm valores personalizados conforme sua necessidade. A **primeira consulta é gratuita** para entendermos seu caso!",
+                        action: { type: 'contact' }
+                    }
+                ]
+            },
+            
+            // Iniciantes
+            iniciante: {
+                keywords: ['iniciante', 'começar', 'primeiro', 'emprego', 'carreira'],
+                responses: [
+                    {
+                        text: "🎯 Para iniciantes, recomendo começar com o eBook **Claude Code** (R$ 9,90) para aprender automação. Depois, o **Maestro para Mobile** te dará uma base sólida. Ana e Pablo estão aqui para te guiar!",
+                        action: { type: 'redirect', url: 'produtos.html#iniciantes' }
+                    }
+                ]
+            },
+            
+            // Contato
+            contato: {
+                keywords: ['contato', 'falar', 'whatsapp', 'ajuda', 'suporte'],
+                responses: [
+                    {
+                        text: "📞 Claro! Você pode falar conosco por:\n• **WhatsApp**: (81) 98196-9163\n• **Email**: evelynholanda@gmail.com\n• **Instagram**: @clubequalidade\n\nA primeira conversa é sempre gratuita! 😊",
+                        action: { type: 'contact' }
+                    }
+                ]
+            }
+        };
+    }
+    
+    generateResponse(message) {
+        const messageLower = message.toLowerCase();
+        
+        // Buscar na base de conhecimento
+        for (const [category, data] of Object.entries(this.knowledgeBase)) {
+            if (data.keywords.some(keyword => messageLower.includes(keyword))) {
+                const response = data.responses[Math.floor(Math.random() * data.responses.length)];
+                return response;
+            }
+        }
+        
+        // Resposta padrão
+        return {
+            text: "Interessante! 🤔 Para te ajudar melhor, que tal usar os botões de perguntas rápidas acima? Ou me conte mais sobre o que você precisa em QA e automação!",
+            action: null
+        };
+    }
+    
+    getQuickResponse(questionType) {
+        const responses = {
+            ebooks: {
+                text: "📚 **Nossos eBooks mais populares:**\n\n• **Claude Code** (R$ 9,90) - Automação com IA\n• **Landing Page** (R$ 29,90) - Páginas que convertem\n• **Maestro Mobile** (R$ 49,90) - Testes mobile completo\n\nQual área te interessa mais? Posso explicar qualquer um deles!",
+                action: { type: 'continue', message: "Quer saber mais sobre algum eBook específico? Digite qual te interessou!" }
+            },
+            agentes: {
+                text: "🤖 **Nossos Agentes IA fazem mágica:**\n\n• **Agente JIRA**: Lê tickets e cria cenários automaticamente\n• **Agente Swagger**: Testa todas as APIs sem supervisão\n• **Economia de 75% do tempo** em tarefas repetitivas\n\nTem alguma dúvida específica sobre os agentes?",
+                action: { type: 'continue', message: "Para ver demonstrações dos agentes, me pergunte sobre um específico ou digite 'demonstrações'!" }
+            },
+            precos: {
+                text: "💰 **Nossos preços:**\n\n• **eBooks**: R$ 9,90 a R$ 49,90\n• **Agentes IA**: Sob consulta (customizados)\n• **Mentorias**: Valores personalizados\n• **Primeira consulta**: GRATUITA! 🎁\n\nQuer saber o preço de algo específico?",
+                action: { type: 'continue', message: "Digite qual produto te interessa e te dou mais detalhes sobre preços!" }
+            },
+            iniciante: {
+                text: "🎯 **Roadmap para iniciantes:**\n\n1️⃣ Comece com **Claude Code** (R$ 9,90)\n2️⃣ Pratique com **Maestro Mobile** \n3️⃣ Agende uma mentoria gratuita\n4️⃣ Ana e Pablo te guiam no resto!\n\n**Sua chave para o primeiro emprego em QA! 🗝️**",
+                action: { type: 'continue', message: "Tem alguma dúvida sobre como começar? Posso te ajudar com o primeiro passo!" }
+            },
+            contato: {
+                text: "📞 **Vamos conversar! Escolha a forma:**\n\n🔸 **WhatsApp**: (81) 98196-9163\n🔸 **Email**: evelynholanda@gmail.com  \n🔸 **Instagram**: @clubequalidade\n\n**Primeira conversa sempre gratuita!** ☕",
+                action: { type: 'contact' }
+            }
+        };
+        
+        return responses[questionType] || responses.contato;
+    }
+    
+    executeAction(action) {
+        switch(action.type) {
+            case 'redirect':
+                // Em vez de redirecionar imediatamente, oferecer opção
+                this.addMessage(`🔗 Quer ir para a página específica? <a href="${action.url}" target="_blank" style="color: var(--primary-green); text-decoration: underline;">Clique aqui</a> ou continue conversando comigo!`, 'bot');
+                break;
+            case 'contact':
+                this.addMessage("💬 Use os links de contato acima ou clique em qualquer seção 'Contato' no site!", 'bot');
+                break;
+            case 'continue':
+                // Apenas adiciona uma mensagem de continuação da conversa
+                setTimeout(() => {
+                    this.addMessage(action.message, 'bot');
+                }, 2000);
+                break;
+        }
     }
     
     acaoPersonalizada() {
