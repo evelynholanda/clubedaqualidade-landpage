@@ -3,7 +3,8 @@
     "allow": [
       "Bash(mkdir:*)",
       "Bash(ls:*)",
-      "Bash(start index.html)"
+      "Bash(start index.html)",
+      "Bash(start demonstracoes.html)"
     ],
     "deny": [],
     "defaultMode": "acceptEdits"

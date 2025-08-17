@@ -1,0 +1,1448 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=3.0, user-scalable=yes, viewport-fit=cover">
+    <meta name="description" content="Demonstrações dos Agentes de IA - Veja como nossos agentes podem automatizar seu trabalho e multiplicar sua produtividade em QA e testes.">
+    <meta name="keywords" content="Demonstrações IA, Agentes QA, Automação Testes, Ana Evelyn">
+    <meta property="og:title" content="Demonstrações - Agentes de IA em Ação">
+    <meta property="og:description" content="Veja como nossos Agentes de IA podem automatizar seu trabalho e multiplicar sua produtividade">
+    <meta property="og:type" content="website">
+    
+    <title>Demonstrações - Ana Evelyn | Agentes de IA em Ação</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/mobile-optimizations.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos específicos para página de demonstrações */
+        .demo-hero {
+            padding: 120px 0 80px;
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #1e40af 100%);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .demo-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="circuit" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="white" opacity="0.1"/><line x1="0" y1="10" x2="20" y2="10" stroke="white" stroke-width="0.5" opacity="0.1"/><line x1="10" y1="0" x2="10" y2="20" stroke="white" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23circuit)"/></svg>');
+        }
+
+        .demo-hero h1 {
+            font-size: 3.5rem;
+            color: white;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .demo-hero p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            color: rgba(255, 255, 255, 0.9);
+            position: relative;
+            z-index: 1;
+        }
+
+        .demo-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .demo-stat {
+            text-align: center;
+        }
+
+        .demo-stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--light-green);
+            display: block;
+        }
+
+        .demo-stat-label {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 0.5rem;
+        }
+
+        /* Seção de vídeos dos agentes */
+        .agents-videos-section {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .video-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .video-thumbnail {
+            position: relative;
+            width: 100%;
+            height: 180px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8f9fa;
+        }
+
+        .thumbnail-img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+            border-radius: 8px;
+        }
+
+        .video-card:hover .thumbnail-img {
+            transform: scale(1.05);
+        }
+
+        .play-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .video-card:hover .play-overlay {
+            opacity: 1;
+        }
+
+        .play-button {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            transform: scale(0.8);
+            transition: all 0.3s ease;
+        }
+
+        .video-card:hover .play-button {
+            transform: scale(1);
+            background: var(--light-green);
+        }
+
+        .video-duration {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .video-info {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+        }
+
+        .video-content {
+            flex-grow: 1;
+        }
+
+        .video-title {
+            font-size: 1.25rem;
+            color: var(--dark-gray);
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+            min-height: 2.6rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .video-description {
+            color: var(--medium-gray);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+            min-height: 3rem;
+        }
+
+        .video-badge {
+            display: inline-block;
+            background: var(--primary-green);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-top: auto;
+            align-self: flex-start;
+        }
+
+        /* Card "Em breve" */
+        .video-card.coming-soon {
+            border: 2px dashed var(--medium-gray);
+            opacity: 0.8;
+        }
+
+        .coming-soon-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            background: linear-gradient(135deg, var(--light-gray), #f3f4f6);
+            color: var(--medium-gray);
+            text-align: center;
+        }
+
+        .coming-soon-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .coming-soon-content h4 {
+            color: var(--dark-gray);
+            margin-bottom: 0.5rem;
+        }
+
+        .coming-soon-content p {
+            color: var(--medium-gray);
+            font-size: 0.9rem;
+        }
+
+        /* Galeria de agentes */
+        .agents-gallery {
+            padding: 80px 0;
+            background: var(--light-gray);
+        }
+
+        .agents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .agent-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .agent-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .agent-header {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-green), var(--light-green));
+            color: white;
+            position: relative;
+        }
+
+        .agent-header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" width="10" height="10" patternUnits="userSpaceOnUse"><circle cx="5" cy="5" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>');
+        }
+
+        .agent-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .agent-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .agent-subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .agent-content {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .agent-description {
+            color: var(--medium-gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+
+        .agent-features {
+            list-style: none;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .agent-features li {
+            padding: 0.5rem 0;
+            color: var(--dark-gray);
+            display: flex;
+            align-items: center;
+        }
+
+        .agent-features li::before {
+            content: "🚀";
+            margin-right: 0.75rem;
+        }
+
+        .agent-demo-btn {
+            background: linear-gradient(135deg, var(--primary-green), var(--light-green));
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            font-size: 0.95rem;
+            margin-top: auto;
+        }
+
+        .agent-demo-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+        }
+
+        /* Como funciona */
+        .how-it-works {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+            padding: 2rem 1rem;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-green), var(--light-green));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 1rem;
+        }
+
+        .step-title {
+            font-size: 1.25rem;
+            color: var(--dark-gray);
+            margin-bottom: 1rem;
+        }
+
+        .step-description {
+            color: var(--medium-gray);
+            line-height: 1.6;
+        }
+
+        /* Conectores entre steps */
+        .step:not(:last-child)::after {
+            content: '→';
+            position: absolute;
+            top: 50%;
+            right: -1rem;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            color: var(--primary-green);
+            opacity: 0.3;
+        }
+
+        /* Prova social */
+        .social-proof {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid var(--primary-green);
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            font-size: 4rem;
+            color: var(--primary-green);
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            opacity: 0.3;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            color: var(--medium-gray);
+            line-height: 1.6;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--dark-gray);
+        }
+
+        .testimonial-role {
+            color: var(--medium-gray);
+            font-size: 0.9rem;
+        }
+
+        .results-highlight {
+            background: var(--light-green);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* CTA Final */
+        .final-cta {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--primary-green), var(--primary-blue));
+            color: white;
+            text-align: center;
+        }
+
+        .final-cta h2 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .final-cta p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 16px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .cta-btn.primary {
+            background: white;
+            color: var(--primary-green);
+            border-color: white;
+        }
+
+        .cta-btn.primary:hover {
+            background: var(--light-gray);
+        }
+
+        /* Responsivo */
+        @media (max-width: 768px) {
+            .demo-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .demo-stats {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .videos-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .video-card {
+                margin: 0 auto;
+                max-width: 400px;
+            }
+
+            .agents-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .step:not(:last-child)::after {
+                content: '↓';
+                right: 50%;
+                top: auto;
+                bottom: -1rem;
+                transform: translateX(50%);
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .videos-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1025px) {
+            .videos-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav container">
+            <div class="nav-brand">
+                <h2>Clube Qualidade</h2>
+                <span class="nav-tagline">QA & IA Expert</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Início</a></li>
+                <li><a href="index.html#about" class="nav-link">Sobre</a></li>
+                <li><a href="produtos.html" class="nav-link">Produtos</a></li>
+                <li><a href="demonstracoes.html" class="nav-link">Demonstrações</a></li>
+                <li><a href="index.html#contact" class="nav-link">Contato</a></li>
+            </ul>
+            <button class="nav-toggle" aria-label="Abrir menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="demo-hero">
+        <div class="container">
+            <h1>Veja como nossos <span class="highlight">Agentes de IA</span> podem automatizar seu trabalho e multiplicar sua produtividade</h1>
+            <p>
+                Descubra o poder da automação inteligente em ação. Nossos agentes de IA transformam horas de trabalho manual 
+                em minutos de execução automática, gerando resultados precisos e consistentes.
+            </p>
+            
+            <div class="demo-stats">
+                <div class="demo-stat">
+                    <span class="demo-stat-number">75%</span>
+                    <span class="demo-stat-label">Redução de Tempo</span>
+                </div>
+                <div class="demo-stat">
+                    <span class="demo-stat-number">100%</span>
+                    <span class="demo-stat-label">Automação</span>
+                </div>
+                <div class="demo-stat">
+                    <span class="demo-stat-number">0</span>
+                    <span class="demo-stat-label">Erros Humanos</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vídeos dos Agentes -->
+    <section class="agents-videos-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Veja em Ação</span>
+                <h2 class="section-title">Demonstrações dos Nossos Agentes</h2>
+                <p class="section-subtitle">
+                    Cada agente tem sua própria demonstração mostrando como funciona na prática
+                </p>
+            </div>
+
+            <div class="videos-grid">
+                <!-- Agente JIRA Video -->
+                <div class="video-card" data-agent="jira">
+                    <div class="video-thumbnail">
+                        <img src="assets/images/jira_teste.jpeg" alt="Demonstração Agente JIRA" class="thumbnail-img">
+                        <div class="play-overlay">
+                            <div class="play-button">▶</div>
+                        </div>
+                        <div class="video-duration">2:30</div>
+                    </div>
+                    <div class="video-info">
+                        <div class="video-content">
+                            <h3 class="video-title">Agente JIRA em Ação</h3>
+                            <p class="video-description">Veja como criamos cenários de teste automaticamente a partir dos critérios de aceite</p>
+                        </div>
+                        <span class="video-badge">Automação JIRA</span>
+                    </div>
+                </div>
+
+                <!-- Agente Swagger Video -->
+                <div class="video-card" data-agent="swagger">
+                    <div class="video-thumbnail">
+                        <img src="assets/images/apiswagger.jpeg" alt="Demonstração Agente Swagger" class="thumbnail-img">
+                        <div class="play-overlay">
+                            <div class="play-button">▶</div>
+                        </div>
+                        <div class="video-duration">3:15</div>
+                    </div>
+                    <div class="video-info">
+                        <div class="video-content">
+                            <h3 class="video-title">Agente Swagger Demonstração</h3>
+                            <p class="video-description">Testes de API completamente automatizados com relatórios inteligentes</p>
+                        </div>
+                        <span class="video-badge">Testes API</span>
+                    </div>
+                </div>
+
+                <!-- Maestro Video -->
+                <div class="video-card" data-agent="maestro">
+                    <div class="video-thumbnail">
+                        <img src="assets/images/maestro.png" alt="Demonstração Maestro" class="thumbnail-img">
+                        <div class="play-overlay">
+                            <div class="play-button">▶</div>
+                        </div>
+                        <div class="video-duration">4:00</div>
+                    </div>
+                    <div class="video-info">
+                        <div class="video-content">
+                            <h3 class="video-title">Maestro - Testes Mobile</h3>
+                            <p class="video-description">Do básico ao avançado em testes mobile com estratégias comprovadas</p>
+                        </div>
+                        <span class="video-badge">Testes Mobile</span>
+                    </div>
+                </div>
+
+                <!-- Próximo Agente -->
+                <div class="video-card coming-soon" data-agent="futuro">
+                    <div class="video-thumbnail">
+                        <div class="coming-soon-content">
+                            <div class="coming-soon-icon">🚀</div>
+                            <h4>Próximos Agentes</h4>
+                            <p>Em desenvolvimento</p>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <div class="video-content">
+                            <h3 class="video-title">Novos Agentes Chegando</h3>
+                            <p class="video-description">Estamos desenvolvendo mais agentes para automatizar seu workflow</p>
+                        </div>
+                        <span class="video-badge">Em Breve</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galeria de Agentes -->
+    <section class="agents-gallery">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Conheça Nossos Agentes</span>
+                <h2 class="section-title">Cada Agente Resolve um Problema Específico</h2>
+                <p class="section-subtitle">
+                    Agentes especializados para automatizar diferentes aspectos do seu workflow de QA
+                </p>
+            </div>
+
+            <div class="agents-grid">
+                <!-- Agente JIRA -->
+                <div class="agent-card">
+                    <div class="agent-header">
+                        <span class="agent-icon">📋</span>
+                        <h3 class="agent-title">Agente JIRA</h3>
+                        <p class="agent-subtitle">Criação Automática de Cenários</p>
+                    </div>
+                    <div class="agent-content">
+                        <p class="agent-description">
+                            Conecta-se ao JIRA, lê critérios de aceite e Definition of Done, gera todos os cenários de teste 
+                            e cria subtasks automaticamente. 100% automatizado e sem erros.
+                        </p>
+                        <ul class="agent-features">
+                            <li>Leitura automática de tickets</li>
+                            <li>Geração inteligente de cenários</li>
+                            <li>Criação de subtasks [QA]</li>
+                            <li>Integração completa com JIRA</li>
+                        </ul>
+                        <a href="index.html#contact" class="agent-demo-btn contact-btn">💬 Entre em Contato</a>
+                    </div>
+                </div>
+
+                <!-- Agente Swagger -->
+                <div class="agent-card">
+                    <div class="agent-header">
+                        <span class="agent-icon">🔧</span>
+                        <h3 class="agent-title">Agente Swagger</h3>
+                        <p class="agent-subtitle">Testes Automatizados de API</p>
+                    </div>
+                    <div class="agent-content">
+                        <p class="agent-description">
+                            Lê o Swagger.json, executa todos os testes automaticamente, conecta ao banco de dados 
+                            e gera relatório inteligente com botão para retestar falhas.
+                        </p>
+                        <ul class="agent-features">
+                            <li>Leitura automática do Swagger</li>
+                            <li>Execução de testes ponta a ponta</li>
+                            <li>Conexão com banco de dados</li>
+                            <li>Relatórios interativos</li>
+                        </ul>
+                        <a href="index.html#contact" class="agent-demo-btn contact-btn">💬 Entre em Contato</a>
+                    </div>
+                </div>
+
+                <!-- Agente Gerenciamento -->
+                <div class="agent-card">
+                    <div class="agent-header">
+                        <span class="agent-icon">📊</span>
+                        <h3 class="agent-title">Agente de Gerenciamento</h3>
+                        <p class="agent-subtitle">Alternativa ao TestLink</p>
+                    </div>
+                    <div class="agent-content">
+                        <p class="agent-description">
+                            Gerenciador de testes completo com IA. Organiza, executa e acompanha todos os seus 
+                            casos de teste com inteligência artificial integrada.
+                        </p>
+                        <ul class="agent-features">
+                            <li>Organização inteligente de testes</li>
+                            <li>Execução automatizada</li>
+                            <li>Rastreamento de resultados</li>
+                            <li>Interface intuitiva</li>
+                        </ul>
+                        <a href="index.html#contact" class="agent-demo-btn contact-btn">💬 Entre em Contato</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Como Funciona -->
+    <section class="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Processo Simples</span>
+                <h2 class="section-title">Como Funciona o Acesso aos Agentes</h2>
+                <p class="section-subtitle">
+                    Um processo simples e seguro para você começar a usar nossos agentes imediatamente
+                </p>
+            </div>
+
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">Compra Aprovada</h3>
+                    <p class="step-description">
+                        Faça sua compra com segurança através da Hotmart. 
+                        Pagamento processado de forma rápida e segura.
+                    </p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">Receba seu Acesso</h3>
+                    <p class="step-description">
+                        Receba por email as credenciais e instruções completas 
+                        para acessar seus agentes personalizados.
+                    </p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">Comece a Usar</h3>
+                    <p class="step-description">
+                        Configure seus agentes em minutos e comece a automatizar 
+                        suas tarefas imediatamente.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Prova Social -->
+    <section class="social-proof">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Resultados Comprovados</span>
+                <h2 class="section-title">O que Nossos Clientes Estão Alcançando</h2>
+                <p class="section-subtitle">
+                    Resultados reais de profissionais que já estão usando nossos agentes de IA
+                </p>
+            </div>
+
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">
+                        "O agente de JIRA revolucionou nosso processo! Antes levávamos 2 horas para criar todos os cenários de um sprint. 
+                        Agora <span class="results-highlight">são apenas 10 minutos</span> e com muito mais qualidade."
+                    </p>
+                    <div class="testimonial-author">Marcus Silva</div>
+                    <div class="testimonial-role">QA Lead na TechCorp</div>
+                </div>
+
+                <div class="testimonial-card">
+                    <p class="testimonial-text">
+                        "Com o agente de Swagger, conseguimos <span class="results-highlight">automatizar 90% dos nossos testes de API</span>. 
+                        O relatório interativo nos permite identificar problemas instantaneamente."
+                    </p>
+                    <div class="testimonial-author">Ana Costa</div>
+                    <div class="testimonial-role">Senior QA Engineer</div>
+                </div>
+
+                <div class="testimonial-card">
+                    <p class="testimonial-text">
+                        "Implementamos os agentes em nossa squad e <span class="results-highlight">reduzimos 60% do tempo gasto em testes manuais</span>. 
+                        A qualidade melhorou significativamente!"
+                    </p>
+                    <div class="testimonial-author">Carlos Mendes</div>
+                    <div class="testimonial-role">DevOps Engineer</div>
+                </div>
+
+                <div class="testimonial-card">
+                    <p class="testimonial-text">
+                        "O agente de gerenciamento substitui perfeitamente o TestLink. Interface mais moderna e 
+                        <span class="results-highlight">funcionalidades que economizam 3+ horas por dia</span>."
+                    </p>
+                    <div class="testimonial-author">Fernanda Lima</div>
+                    <div class="testimonial-role">Test Manager</div>
+                </div>
+
+                <div class="testimonial-card">
+                    <p class="testimonial-text">
+                        "Antes eu passava horas criando cenários de teste. Com os agentes da Ana, 
+                        <span class="results-highlight">foco no que realmente importa: a estratégia de testes</span>."
+                    </p>
+                    <div class="testimonial-author">Roberto Santos</div>
+                    <div class="testimonial-role">QA Analyst</div>
+                </div>
+
+                <div class="testimonial-card">
+                    <p class="testimonial-text">
+                        "ROI impressionante! Em apenas 1 mês já recuperamos o investimento e 
+                        <span class="results-highlight">aumentamos nossa produtividade em 200%</span>."
+                    </p>
+                    <div class="testimonial-author">Luísa Pereira</div>
+                    <div class="testimonial-role">Head of QA</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Final -->
+    <section class="final-cta">
+        <div class="container">
+            <h2>Pronto para Transformar seu Workflow com IA?</h2>
+            <p>
+                Não perca mais tempo com tarefas manuais repetitivas. Nossos agentes de IA estão prontos 
+                para automatizar seu trabalho e multiplicar sua produtividade hoje mesmo.
+            </p>
+            
+            <div class="cta-buttons">
+                <a href="produtos.html" class="cta-btn primary">Explorar Todos os Agentes</a>
+                <a href="index.html#contact" class="cta-btn">Falar com Especialista</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <!-- Ana Evelyn Profile -->
+                <div class="professional-profile">
+                    <h3>Ana Evelyn</h3>
+                    <p>Especialista como QA e Software Engineer, Criadora de Agentes de IA, Criadora de Ebooks e Mentorias</p>
+                    <p>Transformando carreiras através da Automação inteligente</p>
+                    
+                    <div class="contact-info">
+                        <h4>Contato</h4>
+                        <p><img src="assets/images/gmail.jpg" alt="Email" style="width: 16px; height: 16px; margin-right: 6px; border-radius: 3px; vertical-align: middle;"> evelynholanda@gmail.com</p>
+                        <p>📱 (81) 98196-9163</p>
+                        <p><img src="assets/images/linkedin.jpg" alt="LinkedIn" style="width: 16px; height: 16px; margin-right: 6px; border-radius: 3px; vertical-align: middle;"> LinkedIn: /in/anaevelynqa</p>
+                    </div>
+                </div>
+
+                <!-- Pablo Andrade Profile -->
+                <div class="professional-profile">
+                    <h3>Pablo Andrade</h3>
+                    <p>Especialista em QA Estratégico e Automação com IA</p>
+                    <p>Transformação de carreiras com qualidade</p>
+                    
+                    <div class="contact-info">
+                        <h4>Contato</h4>
+                        <p><img src="assets/images/gmail.jpg" alt="Email" style="width: 16px; height: 16px; margin-right: 6px; border-radius: 3px; vertical-align: middle;"> pcraveirodeandrade@gmail.com</p>
+                        <p>📱 (81) 98363-7148</p>
+                        <p><img src="assets/images/linkedin.jpg" alt="LinkedIn" style="width: 16px; height: 16px; margin-right: 6px; border-radius: 3px; vertical-align: middle;"> LinkedIn: /in/pablo-andrade-577109218/</p>
+                    </div>
+                </div>
+
+                <!-- Central Links and Social -->
+                <div class="footer-links-social">
+                    <div class="useful-links">
+                        <h4>Links Úteis</h4>
+                        <ul>
+                            <li><a href="index.html">Início</a></li>
+                            <li><a href="index.html#about">Sobre</a></li>
+                            <li><a href="produtos.html">Produtos</a></li>
+                            <li><a href="demonstracoes.html">Demonstrações</a></li>
+                            <li><a href="index.html#contact">Contato</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="social-networks">
+                        <h4>Redes Sociais do Clube</h4>
+                        <div class="social-links">
+                            <a href="https://www.instagram.com/clubequalidade?igsh=aGhvaTJ5YmEwbWQ=" target="_blank" rel="noopener" 
+                               style="display: flex; align-items: center; color: var(--primary-green); text-decoration: none; margin-bottom: 0.5rem; font-size: 1rem; padding: 0.3rem; border-radius: 6px; transition: all 0.3s ease;" 
+                               onmouseover="this.style.backgroundColor='rgba(255,255,255,0.1)'; this.style.color='var(--light-green)'" 
+                               onmouseout="this.style.backgroundColor='transparent'; this.style.color='var(--primary-green)'">
+                                <img src="assets/images/insta.jpg" alt="Instagram" style="width: 18px; height: 18px; margin-right: 6px; border-radius: 3px;">
+                                @clubequalidade
+                            </a>
+                            <a href="mailto:clubequalidade@gmail.com" 
+                               style="display: flex; align-items: center; color: var(--primary-green); text-decoration: none; margin-bottom: 0.5rem; font-size: 1rem; padding: 0.3rem; border-radius: 6px; transition: all 0.3s ease;" 
+                               onmouseover="this.style.backgroundColor='rgba(255,255,255,0.1)'; this.style.color='var(--light-green)'" 
+                               onmouseout="this.style.backgroundColor='transparent'; this.style.color='var(--primary-green)'">
+                                <img src="assets/images/gmail.jpg" alt="Gmail" style="width: 18px; height: 18px; margin-right: 6px; border-radius: 3px;">
+                                clubequalidade@gmail.com
+                            </a>
+                            <a href="https://www.linkedin.com/in/clube-da-qualidade-448120379/" target="_blank" rel="noopener" 
+                               style="display: flex; align-items: center; color: var(--primary-green); text-decoration: none; margin-bottom: 0.5rem; font-size: 1rem; padding: 0.3rem; border-radius: 6px; transition: all 0.3s ease;" 
+                               onmouseover="this.style.backgroundColor='rgba(255,255,255,0.1)'; this.style.color='var(--light-green)'" 
+                               onmouseout="this.style.backgroundColor='transparent'; this.style.color='var(--primary-green)'">
+                                <img src="assets/images/linkedin.jpg" alt="LinkedIn" style="width: 18px; height: 18px; margin-right: 6px; border-radius: 3px;">
+                                Clube da Qualidade
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Clube da Qualidade. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal para vídeos -->
+    <div id="videoModal" class="video-modal" style="display: none;">
+        <div class="video-modal-content">
+            <span class="video-modal-close">&times;</span>
+            <div class="video-modal-body">
+                <iframe id="videoPlayer" src="" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div class="video-modal-footer">
+                <h3 id="modalVideoTitle">Título do Vídeo</h3>
+                <p id="modalVideoDescription">Descrição do vídeo</p>
+                <a href="#" id="modalCTA" class="modal-cta-btn">Ver Este Agente na Loja</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+    <script src="js/mascote.js"></script>
+    
+    <!-- Sistema de gerenciamento de vídeos -->
+    <script>
+        // Configuração dos vídeos dos agentes
+        const agentVideos = {
+            jira: {
+                title: "Agente JIRA em Ação",
+                description: "Veja como criamos cenários de teste automaticamente a partir dos critérios de aceite do JIRA. Este agente economiza até 2 horas por sprint!",
+                videoUrl: "", // URL do YouTube embed - será preenchida quando o vídeo estiver pronto
+                productLink: "produtos.html#agente-jira",
+                duration: "2:30"
+            },
+            swagger: {
+                title: "Agente Swagger Demonstração", 
+                description: "Demonstração completa de como nosso agente lê o Swagger.json, executa testes automaticamente e gera relatórios inteligentes.",
+                videoUrl: "", // URL do YouTube embed
+                productLink: "produtos.html#agente-swagger",
+                duration: "3:15"
+            },
+            maestro: {
+                title: "Maestro - Testes Mobile",
+                description: "Guia completo mostrando estratégias avançadas de testes mobile, do básico ao avançado com exemplos práticos.",
+                videoUrl: "", // URL do YouTube embed
+                productLink: "produtos.html#maestro",
+                duration: "4:00"
+            },
+            futuro: {
+                title: "Novos Agentes em Desenvolvimento",
+                description: "Fique por dentro dos próximos agentes que estamos desenvolvendo para automatizar ainda mais seu workflow.",
+                videoUrl: "",
+                productLink: "index.html#contact",
+                duration: "Em breve"
+            }
+        };
+
+        // Sistema de modal de vídeo
+        class VideoModal {
+            constructor() {
+                this.modal = document.getElementById('videoModal');
+                this.player = document.getElementById('videoPlayer');
+                this.closeBtn = document.querySelector('.video-modal-close');
+                this.title = document.getElementById('modalVideoTitle');
+                this.description = document.getElementById('modalVideoDescription');
+                this.cta = document.getElementById('modalCTA');
+                
+                this.initEventListeners();
+            }
+
+            initEventListeners() {
+                // Fechar modal
+                this.closeBtn.addEventListener('click', () => this.close());
+                this.modal.addEventListener('click', (e) => {
+                    if (e.target === this.modal) this.close();
+                });
+
+                // ESC para fechar
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && this.modal.classList.contains('active')) {
+                        this.close();
+                    }
+                });
+
+                // Cliques nos cards de vídeo
+                document.querySelectorAll('.video-card').forEach(card => {
+                    card.addEventListener('click', (e) => {
+                        const agentId = card.dataset.agent;
+                        if (agentId && agentVideos[agentId]) {
+                            this.open(agentId);
+                        }
+                    });
+                });
+            }
+
+            open(agentId) {
+                const video = agentVideos[agentId];
+                
+                if (!video.videoUrl && agentId !== 'futuro') {
+                    // Se não tem vídeo ainda, mostrar mensagem
+                    this.showComingSoon(video);
+                    return;
+                }
+
+                if (agentId === 'futuro') {
+                    // Para "futuro", redirecionar para contato
+                    window.location.href = video.productLink;
+                    return;
+                }
+
+                // Configurar modal com vídeo
+                this.player.src = video.videoUrl;
+                this.title.textContent = video.title;
+                this.description.textContent = video.description;
+                this.cta.href = video.productLink;
+                this.cta.textContent = "Ver Este Agente na Loja";
+                
+                this.modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+
+                // Notificar mascote
+                if (window.mascoteIA) {
+                    setTimeout(() => {
+                        window.mascoteIA.falar(`Curtindo o ${video.title}? 🎥 Clique no botão verde para saber mais!`, 5000);
+                    }, 3000);
+                }
+            }
+
+            showComingSoon(video) {
+                this.player.src = "";
+                this.title.textContent = video.title + " - Em Breve";
+                this.description.textContent = "Este vídeo está sendo produzido e estará disponível em breve. Enquanto isso, você pode conhecer mais sobre este agente na nossa loja.";
+                this.cta.href = video.productLink;
+                this.cta.textContent = "Conhecer Este Agente";
+                
+                this.modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+
+                if (window.mascoteIA) {
+                    window.mascoteIA.falar("Vídeo em produção! 🎬 Mas você já pode conhecer o agente!", 4000);
+                }
+            }
+
+            close() {
+                this.modal.classList.remove('active');
+                this.player.src = "";
+                document.body.style.overflow = '';
+            }
+
+            // Método para adicionar vídeo facilmente
+            static addVideo(agentId, videoUrl) {
+                if (agentVideos[agentId]) {
+                    agentVideos[agentId].videoUrl = videoUrl;
+                    console.log(`✅ Vídeo adicionado para ${agentId}: ${videoUrl}`);
+                }
+            }
+        }
+
+        // Estilos do modal
+        const modalStyles = `
+            .video-modal {
+                display: none;
+                position: fixed;
+                z-index: 10000;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.9);
+                backdrop-filter: blur(5px);
+            }
+
+            .video-modal.active {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .video-modal-content {
+                background: white;
+                border-radius: 16px;
+                max-width: 90vw;
+                max-height: 90vh;
+                width: 900px;
+                overflow: hidden;
+                position: relative;
+                box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            }
+
+            .video-modal-close {
+                position: absolute;
+                top: 15px;
+                right: 25px;
+                font-size: 2rem;
+                color: white;
+                cursor: pointer;
+                z-index: 10001;
+                background: rgba(0, 0, 0, 0.5);
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.3s ease;
+            }
+
+            .video-modal-close:hover {
+                background: rgba(0, 0, 0, 0.8);
+                transform: scale(1.1);
+            }
+
+            .video-modal-body {
+                position: relative;
+                width: 100%;
+                height: 500px;
+                background: #000;
+            }
+
+            .video-modal-body iframe {
+                width: 100%;
+                height: 100%;
+            }
+
+            .video-modal-footer {
+                padding: 2rem;
+                text-align: center;
+            }
+
+            .video-modal-footer h3 {
+                color: var(--dark-gray);
+                margin-bottom: 1rem;
+                font-size: 1.5rem;
+            }
+
+            .video-modal-footer p {
+                color: var(--medium-gray);
+                line-height: 1.6;
+                margin-bottom: 2rem;
+            }
+
+            .modal-cta-btn {
+                background: linear-gradient(135deg, var(--primary-green), var(--light-green));
+                color: white;
+                padding: 12px 24px;
+                border-radius: 8px;
+                text-decoration: none;
+                font-weight: 600;
+                transition: all 0.3s ease;
+                display: inline-block;
+            }
+
+            .modal-cta-btn:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+            }
+
+            @media (max-width: 768px) {
+                .video-modal-content {
+                    margin: 20px;
+                    width: auto;
+                }
+
+                .video-modal-body {
+                    height: 250px;
+                }
+
+                .video-modal-footer {
+                    padding: 1.5rem;
+                }
+            }
+        `;
+
+        // Adicionar estilos do modal
+        const styleSheet = document.createElement('style');
+        styleSheet.textContent = modalStyles;
+        document.head.appendChild(styleSheet);
+
+        // Inicializar quando a página carregar
+        document.addEventListener('DOMContentLoaded', function() {
+            window.videoModal = new VideoModal();
+        });
+
+        // Função global para adicionar vídeos facilmente
+        window.addAgentVideo = function(agentId, youtubeUrl) {
+            // Converte URL normal do YouTube para embed
+            let embedUrl = youtubeUrl;
+            if (youtubeUrl.includes('youtube.com/watch?v=')) {
+                const videoId = youtubeUrl.split('v=')[1].split('&')[0];
+                embedUrl = `https://www.youtube.com/embed/${videoId}`;
+            } else if (youtubeUrl.includes('youtu.be/')) {
+                const videoId = youtubeUrl.split('youtu.be/')[1];
+                embedUrl = `https://www.youtube.com/embed/${videoId}`;
+            }
+            
+            VideoModal.addVideo(agentId, embedUrl);
+        };
+    </script>
+    
+    <!-- Configuração específica para página de demonstrações -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Aguardar a inicialização do mascote
+            setTimeout(function() {
+                if (window.mascoteIA) {
+                    // Configurar frases específicas para demonstrações
+                    window.mascoteIA.options.frasesContextuais.demonstracoes = [
+                        "Bem-vindo às demonstrações! 🎯",
+                        "Veja nossos agentes em ação! 🤖",
+                        "Automação que realmente funciona! ⚡",
+                        "75% menos tempo, 100% mais qualidade!",
+                        "Quer ver um agente específico?",
+                        "Clique nos cards para saber mais! 👆",
+                        "Resultados comprovados por clientes reais! ⭐",
+                        "Pronto para automatizar seu workflow?"
+                    ];
+                    
+                    // Configurar interações específicas
+                    setupDemoInteracoes();
+                }
+            }, 1000);
+        });
+        
+        function setupDemoInteracoes() {
+            // Reação ao entrar na seção de agentes
+            const agentsSection = document.querySelector('.agents-gallery');
+            if (agentsSection) {
+                const observer = new IntersectionObserver(function(entries) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting && window.mascoteIA) {
+                            if (!window.mascoteIA.balaoElement.classList.contains('ativo')) {
+                                window.mascoteIA.falar("Estes são nossos agentes mais poderosos! 🚀 Clique para ver detalhes!", 5000);
+                            }
+                        }
+                    });
+                }, { threshold: 0.3 });
+                
+                observer.observe(agentsSection);
+            }
+            
+            // Interações com cards de agentes
+            const agentCards = document.querySelectorAll('.agent-card');
+            agentCards.forEach(function(card, index) {
+                card.addEventListener('mouseenter', function() {
+                    if (window.mascoteIA && !window.mascoteIA.balaoElement.classList.contains('ativo')) {
+                        const agentTitle = card.querySelector('.agent-title').textContent;
+                        let mensagem = "";
+                        
+                        if (agentTitle.includes('JIRA')) {
+                            mensagem = "Agente JIRA: Cenários automáticos em 10 minutos! 📋✨";
+                        } else if (agentTitle.includes('Swagger')) {
+                            mensagem = "Agente Swagger: Testa APIs automaticamente! 🔧⚡";
+                        } else if (agentTitle.includes('Gerenciamento')) {
+                            mensagem = "Melhor que TestLink! Gestão inteligente! 📊🎯";
+                        }
+                        
+                        if (mensagem) {
+                            window.mascoteIA.falar(mensagem, 4000);
+                        }
+                    }
+                });
+                
+                // Interação com botões de demonstração
+                const demoBtn = card.querySelector('.agent-demo-btn');
+                if (demoBtn) {
+                    demoBtn.addEventListener('click', function() {
+                        if (window.mascoteIA) {
+                            window.mascoteIA.falar("Vamos ver este agente na loja! 🛍️", 3000);
+                        }
+                    });
+                }
+            });
+            
+            // Reação aos depoimentos
+            const testimonials = document.querySelectorAll('.testimonial-card');
+            testimonials.forEach(function(testimonial) {
+                testimonial.addEventListener('mouseenter', function() {
+                    if (window.mascoteIA && Math.random() < 0.3) {
+                        const results = testimonial.querySelector('.results-highlight');
+                        if (results) {
+                            window.mascoteIA.falar(`${results.textContent} - Resultado real! 📈`, 4000);
+                        }
+                    }
+                });
+            });
+            
+            // Reação aos CTAs finais
+            const ctaBtns = document.querySelectorAll('.cta-btn');
+            ctaBtns.forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    if (window.mascoteIA) {
+                        const text = btn.textContent;
+                        if (text.includes('Explorar')) {
+                            window.mascoteIA.falar("Ótima escolha! Vamos à loja! 🛒", 3000);
+                        } else if (text.includes('Falar')) {
+                            window.mascoteIA.falar("Vamos conversar! Estou aqui para ajudar! 💬", 3000);
+                        }
+                    }
+                });
+            });
+            
+            // Mensagem especial ao rolar muito
+            let scrollTimeout;
+            window.addEventListener('scroll', function() {
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(function() {
+                    const scrollPosition = window.scrollY;
+                    const windowHeight = window.innerHeight;
+                    
+                    if (scrollPosition > windowHeight * 2 && window.mascoteIA) {
+                        if (!window.mascoteIA.balaoElement.classList.contains('ativo')) {
+                            const mensagensScroll = [
+                                "Gostou das demonstrações? 🤔",
+                                "Que tal começar com um agente? 🚀",
+                                "Posso te ajudar a escolher! 🤝",
+                                "Clique em mim para dicas! 👆"
+                            ];
+                            const mensagem = mensagensScroll[Math.floor(Math.random() * mensagensScroll.length)];
+                            window.mascoteIA.falar(mensagem, 5000);
+                        }
+                    }
+                }, 3000);
+            });
+        }
+    </script>
+</body>
+</html>
