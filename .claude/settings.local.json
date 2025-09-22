@@ -4,7 +4,9 @@
       "Bash(mkdir:*)",
       "Bash(ls:*)",
       "Bash(start index.html)",
-      "Bash(start demonstracoes.html)"
+      "Bash(start demonstracoes.html)",
+      "Bash(git fetch:*)",
+      "Bash(git add:*)"
     ],
     "deny": [],
     "defaultMode": "acceptEdits"
