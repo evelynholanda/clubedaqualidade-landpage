@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liderança de QA na Era da IA — 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --blue-50: #E6F1FB; --blue-100: #B5D4F4; --blue-200: #85B7EB;
+    --blue-400: #378ADD; --blue-600: #185FA5; --blue-800: #0C447C; --blue-900: #042C53;
+    --teal-50: #E1F5EE; --teal-100: #9FE1CB; --teal-200: #5DCAA5;
+    --teal-400: #1D9E75; --teal-600: #0F6E56; --teal-800: #085041;
+    --green-50: #EAF3DE; --green-100: #C0DD97; --green-200: #97C459;
+    --green-400: #639922; --green-600: #3B6D11; --green-800: #27500A;
+    --amber-50: #FAEEDA; --amber-100: #FAC775; --amber-200: #EF9F27;
+    --amber-400: #BA7517; --amber-600: #854F0B; --amber-800: #633806;
+    --red-50: #FCEBEB; --red-100: #F7C1C1; --red-200: #F09595;
+    --red-400: #E24B4A; --red-600: #A32D2D; --red-800: #791F1F;
+    --coral-50: #FAECE7; --coral-100: #F5C4B3; --coral-200: #F0997B;
+    --coral-400: #D85A30; --coral-600: #993C1D; --coral-800: #712B13;
+    --purple-50: #EEEDFE; --purple-100: #CECBF6; --purple-200: #AFA9EC;
+    --purple-400: #7F77DD; --purple-600: #534AB7; --purple-800: #3C3489;
+    --gray-50: #F1EFE8; --gray-100: #D3D1C7; --gray-200: #B4B2A9;
+    --gray-400: #888780; --gray-600: #5F5E5A; --gray-800: #444441;
+    --text-primary: #1a1a18;
+    --text-secondary: #5f5e5a;
+    --text-tertiary: #888780;
+    --bg: #ffffff;
+    --bg-secondary: #f7f6f1;
+    --border: #e2e0d8;
+    --border-light: #eeece6;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #f5f4ef;
+    color: var(--text-primary);
+    line-height: 1.6;
+    padding: 0;
+  }
+
+  .page-wrap {
+    max-width: 100%;
+    margin: 0;
+    padding: 48px 48px 80px;
+  }
+
+  /* ── HEADER ── */
+  .doc-header {
+    background: linear-gradient(135deg, #0C447C 0%, #185FA5 60%, #378ADD 100%);
+    border-radius: var(--radius-xl);
+    padding: 48px 48px 40px;
+    margin-bottom: 40px;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .doc-header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 260px; height: 260px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 50%;
+  }
+  .doc-header::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 40px;
+    width: 180px; height: 180px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 50%;
+  }
+  .header-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.18);
+    border: 1px solid rgba(255,255,255,0.25);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    color: rgba(255,255,255,0.9);
+  }
+  .doc-header h1 {
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 1.3;
+    margin-bottom: 14px;
+    position: relative;
+    z-index: 1;
+  }
+  .doc-header p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.82);
+    max-width: 580px;
+    line-height: 1.7;
+    position: relative;
+    z-index: 1;
+  }
+  .header-meta {
+    margin-top: 28px;
+    display: flex;
+    gap: 24px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.65);
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    padding-top: 16px;
+  }
+  .header-meta span { display: flex; align-items: center; gap: 6px; }
+
+  /* ── SECTION LABEL ── */
+  .section-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    margin-bottom: 14px;
+    margin-top: 40px;
+  }
+  .section-label:first-of-type { margin-top: 0; }
+
+  /* ── EVOLUTION BAR ── */
+  .evolution-bar {
+    display: flex;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin-bottom: 8px;
+    background: var(--bg);
+  }
+  .evo-step {
+    flex: 1;
+    padding: 12px 14px;
+    text-align: center;
+    border-right: 1px solid var(--border);
+    background: var(--bg);
+  }
+  .evo-step:last-child { border-right: none; }
+  .evo-step .evo-label { font-size: 12px; font-weight: 500; color: var(--text-primary); margin-bottom: 3px; }
+  .evo-step .evo-sub { font-size: 10px; color: var(--text-tertiary); line-height: 1.4; }
+  .evo-step.active { background: var(--blue-50); }
+  .evo-step.active .evo-label { color: var(--blue-800); }
+  .evo-step.active .evo-sub { color: var(--blue-600); }
+  .evo-badge {
+    display: inline-block;
+    font-size: 9px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    background: var(--blue-400);
+    color: #fff;
+    font-weight: 600;
+    margin-bottom: 5px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* ── METRIC CARDS ── */
+  .metric-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .metric-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 18px 16px;
+    text-align: center;
+  }
+  .metric-num { font-size: 28px; font-weight: 600; color: var(--blue-800); }
+  .metric-label { font-size: 11px; color: var(--text-tertiary); margin-top: 4px; line-height: 1.4; }
+
+  /* ── PILLAR CARDS ── */
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  .pillar-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 18px;
+  }
+  .pillar-icon {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+  .pillar-card h3 { font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 6px; }
+  .pillar-card p { font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
+  .pillar-card .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+  .tag {
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 10px;
+    font-weight: 500;
+  }
+  .tag-blue { background: var(--blue-50); color: var(--blue-800); }
+  .tag-green { background: var(--green-50); color: var(--green-600); }
+  .tag-amber { background: var(--amber-50); color: var(--amber-600); }
+  .tag-red { background: var(--red-50); color: var(--red-600); }
+  .tag-teal { background: var(--teal-50); color: var(--teal-600); }
+  .tag-purple { background: var(--purple-50); color: var(--purple-600); }
+
+  /* ── MCP FLOW ── */
+  .mcp-flow {
+    display: flex;
+    align-items: stretch;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+  .mcp-box {
+    flex: 1;
+    padding: 14px 12px;
+    text-align: center;
+    border-right: 1px solid var(--border);
+    background: var(--bg);
+  }
+  .mcp-box:last-child { border-right: none; }
+  .mcp-box .mbox-title { font-size: 12px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
+  .mcp-box .mbox-sub { font-size: 10px; color: var(--text-tertiary); line-height: 1.4; }
+  .mcp-arrow {
+    width: 20px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--bg-secondary);
+    border-right: 1px solid var(--border);
+    color: var(--text-tertiary);
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .mcp-box.highlight { background: var(--blue-50); }
+  .mcp-box.highlight .mbox-title { color: var(--blue-800); }
+
+  .mcp-note {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    line-height: 1.6;
+    padding: 12px 16px;
+    background: var(--gray-50);
+    border-radius: var(--radius-md);
+    border-left: 3px solid var(--gray-200);
+  }
+
+  /* ── STRATEGY GRID ── */
+  .strategy-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .strategy-item {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--bg);
+  }
+  .strategy-header {
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    border-bottom: 1px solid var(--border);
+  }
+  .strategy-body {
+    padding: 14px 16px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+  .strategy-body ul { padding-left: 16px; }
+  .strategy-body li { margin-bottom: 4px; }
+  .sh-blue { background: var(--blue-50); color: var(--blue-800); }
+  .sh-green { background: var(--green-50); color: var(--green-600); }
+  .sh-amber { background: var(--amber-50); color: var(--amber-600); }
+  .sh-red { background: var(--red-50); color: var(--red-600); }
+
+  /* ── ROLES ── */
+  .roles-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  .role-card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 16px;
+    background: var(--bg);
+  }
+  .role-num {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .role-card .role-title { font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
+  .role-card .role-old { font-size: 11px; color: var(--text-tertiary); text-decoration: line-through; margin-bottom: 8px; }
+  .role-card .role-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
+
+  /* ── SKILLS ── */
+  .skills-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .skills-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 18px;
+  }
+  .skills-card h3 {
+    font-size: 13px; font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-light);
+  }
+  .skill-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--border-light);
+    font-size: 12px;
+  }
+  .skill-row:last-child { border-bottom: none; }
+  .skill-name { color: var(--text-primary); }
+  .skill-level { display: flex; gap: 3px; }
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--border);
+  }
+  .dot.b { background: var(--blue-400); }
+  .dot.g { background: var(--green-400); }
+
+  /* ── ROADMAP ── */
+  .roadmap { display: flex; flex-direction: column; gap: 0; }
+  .roadmap-item { display: flex; gap: 14px; align-items: flex-start; }
+  .roadmap-dot-col {
+    display: flex; flex-direction: column; align-items: center;
+    width: 24px; flex-shrink: 0; padding-top: 4px;
+  }
+  .r-dot { width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; }
+  .r-line { width: 2px; flex: 1; background: var(--border-light); margin-top: 4px; min-height: 32px; }
+  .roadmap-content { flex: 1; padding-bottom: 28px; }
+  .r-phase { font-size: 11px; font-weight: 600; margin-bottom: 4px; }
+  .r-title { font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 6px; }
+  .r-items {
+    font-size: 12px; color: var(--text-secondary); line-height: 1.8;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 12px 14px;
+  }
+  .r-items ul { padding-left: 16px; }
+  .r-items li { margin-bottom: 3px; }
+
+  /* ── DETAIL PANELS ── */
+  .detail-panels { display: flex; flex-direction: column; gap: 14px; }
+  .detail-panel {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .detail-panel-header {
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .detail-panel-header .dph-icon {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+  .detail-item {
+    padding: 14px 18px;
+    border-right: 1px solid var(--border-light);
+    border-bottom: 1px solid var(--border-light);
+  }
+  .detail-item:nth-child(2n) { border-right: none; }
+  .detail-item:nth-last-child(-n+2) { border-bottom: none; }
+  .di-label {
+    font-size: 11px; font-weight: 600;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 5px;
+  }
+  .di-value { font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    background: var(--blue-50);
+    color: var(--blue-800);
+    padding: 1px 5px;
+    border-radius: 4px;
+  }
+
+  /* ── TOOLS TABLE ── */
+  .tools-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    font-size: 12px;
+  }
+  .tools-table th {
+    background: var(--gray-50);
+    padding: 10px 14px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--border);
+  }
+  .tools-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border-light);
+    color: var(--text-secondary);
+    vertical-align: middle;
+  }
+  .tools-table tr:last-child td { border-bottom: none; }
+  .tools-table tr:hover td { background: var(--bg-secondary); }
+  .tool-name { font-weight: 600; color: var(--text-primary); font-family: 'JetBrains Mono', monospace; font-size: 11px; }
+  .tool-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: 500;
+  }
+
+  /* ── HIGHLIGHT BOX ── */
+  .highlight-box {
+    border-radius: var(--radius-lg);
+    padding: 20px 24px;
+    margin-top: 8px;
+  }
+  .highlight-box h4 { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+  .highlight-box p { font-size: 13px; line-height: 1.7; }
+  .hb-blue { background: var(--blue-50); border: 1px solid var(--blue-100); color: var(--blue-900); }
+  .hb-amber { background: var(--amber-50); border: 1px solid var(--amber-100); color: var(--amber-800); }
+  .hb-green { background: var(--green-50); border: 1px solid var(--green-100); color: var(--green-800); }
+  .hb-teal { background: var(--teal-50); border: 1px solid var(--teal-100); color: var(--teal-800); }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 1px;
+    background: var(--border-light);
+    margin: 40px 0;
+  }
+
+  /* ── FOOTER ── */
+  .doc-footer {
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    color: var(--text-tertiary);
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    body { background: #fff; }
+    .page-wrap { padding: 24px; max-width: 100%; }
+    .doc-header { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    .metric-card, .pillar-card, .strategy-item, .role-card, .skills-card,
+    .detail-panel, .mcp-flow, .evolution-bar { break-inside: avoid; }
+    .section-label { margin-top: 28px; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <!-- HEADER -->
+  <div class="doc-header">
+    <div class="header-badge">Liderança de QA · Era da IA · 2026</div>
+    <h1>Do executor ao orquestrador —<br>a evolução do QA na era dos LLMs</h1>
+    <p>Um guia estratégico para líderes e seniores levarem novas práticas, ferramentas e mindset para as squads. Cobre LLM Testing, MCP, automação agentic, novos papéis e roadmap de adoção.</p>
+    <div class="header-meta">
+      <span>📅 Março 2026</span>
+      <span>🎯 Para QA Leads e Seniores</span>
+      <span>📋 Guia estratégico completo</span>
+      <span>🔬 Pesquisa baseada em fontes da indústria</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 1. EVOLUÇÃO DA DISCIPLINA                  -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="section-label">1 · Evolução da disciplina de QA</div>
+  <div class="evolution-bar">
+    <div class="evo-step">
+      <div class="evo-label">Manual</div>
+      <div class="evo-sub">Scripts e casos de teste escritos à mão</div>
+    </div>
+    <div class="evo-step">
+      <div class="evo-label">Automação</div>
+      <div class="evo-sub">Selenium, JUnit, frameworks tradicionais</div>
+    </div>
+    <div class="evo-step">
+      <div class="evo-label">Shift-left / right</div>
+      <div class="evo-sub">TDD, BDD, observabilidade em produção</div>
+    </div>
+    <div class="evo-step">
+      <div class="evo-label">AI-assisted</div>
+      <div class="evo-sub">Copilot, geração automática de testes</div>
+    </div>
+    <div class="evo-step active">
+      <div class="evo-badge">Agora · 2026</div>
+      <div class="evo-label">Agentic QA</div>
+      <div class="evo-sub">Agentes autônomos + MCP + orquestração</div>
+    </div>
+  </div>
+
+  <div class="highlight-box hb-blue" style="margin-bottom: 8px;">
+    <h4>A virada estrutural</h4>
+    <p>Por décadas, QA operou dentro de um paradigma previsível: sistemas determinísticos com entradas e saídas definidas. Em 2026, estamos validando <strong>tomada de decisão de IA</strong> — não mais comportamento de software. Determinismo vs. Probabilismo, Especificação vs. Interpretação, Validação vs. Julgamento. Esta mudança não é incremental — é estrutural.</p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 2. MÉTRICAS                                -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="section-label">2 · Impacto real da mudança — dados da indústria</div>
+  <div class="metric-row">
+    <div class="metric-card">
+      <div class="metric-num">85%</div>
+      <div class="metric-label">redução de esforço manual com AI agents (Tricentis, 2025)</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-num">60%</div>
+      <div class="metric-label">aumento de produtividade em QA teams com IA habilitada</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-num">70%</div>
+      <div class="metric-label">menos manutenção de scripts com automação inteligente e self-healing</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-num">40%</div>
+      <div class="metric-label">do código em produção já é gerado por IA (Tricentis CEO, 2025)</div>
+    </div>
+  </div>
+
+  <div class="highlight-box hb-amber" style="margin-top: 12px;">
+    <h4>⚠️ O alerta do mercado</h4>
+    <p>"A maioria dos times que coloca features LLM em produção em 2026 está testando-as menos rigorosamente do que testa formulários de login. Não é falta de intenção — é que a adoção de LLMs superou em velocidade a maturidade das práticas de teste." — ContextQA Engineering Blog, 2026</p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 3. PILARES ESTRATÉGICOS                    -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="section-label">3 · Pilares estratégicos para levar à squad</div>
+  <div class="pillars">
+    <div class="pillar-card">
+      <div class="pillar-icon" style="background: var(--blue-50);">🧠</div>
+      <h3>LLM Testing</h3>
+      <p>Testar sistemas não-determinísticos que produzem outputs probabilísticos. A mesma entrada pode gerar saídas diferentes — o pass/fail tradicional não funciona.</p>
+      <div class="tags">
+        <span class="tag tag-blue">Hallucination</span>
+        <span class="tag tag-red">Bias</span>
+        <span class="tag tag-amber">Safety</span>
+        <span class="tag tag-blue">Non-determinism</span>
+      </div>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-icon" style="background: var(--green-50);">🔌</div>
+      <h3>MCP + Automação</h3>
+      <p>Model Context Protocol — o "USB-C da IA". Protocolo aberto que conecta agentes de IA com ferramentas de teste de forma padronizada e em tempo real.</p>
+      <div class="tags">
+        <span class="tag tag-green">Playwright MCP</span>
+        <span class="tag tag-green">Claude Code</span>
+        <span class="tag tag-teal">Self-healing</span>
+      </div>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-icon" style="background: var(--amber-50);">🎯</div>
+      <h3>Novos Papéis</h3>
+      <p>AI Output Reviewer, Bias Evaluator, LLM Auditor — três novos papéis que redefinem o QA como AI assurance e governança de decisões automatizadas.</p>
+      <div class="tags">
+        <span class="tag tag-amber">Governance</span>
+        <span class="tag tag-amber">AI Assurance</span>
+        <span class="tag tag-amber">EU AI Act</span>
+      </div>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-icon" style="background: var(--red-50);">🔄</div>
+      <h3>CI/CD para LLMs</h3>
+      <p>Pipelines de avaliação contínua integrados com métricas específicas de qualidade de IA — não só testes funcionais, mas avaliação de comportamento.</p>
+      <div class="tags">
+        <span class="tag tag-red">DeepEval</span>
+        <span class="tag tag-red">Langfuse</span>
+        <span class="tag tag-red">Confident AI</span>
+      </div>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-icon" style="background: var(--blue-50);">📐</div>
+      <h3>Prompt Engineering QA</h3>
+      <p>Testar e versionar prompts como assets de software — com regressão automática, golden datasets e comparação de variantes em produção.</p>
+      <div class="tags">
+        <span class="tag tag-blue">Prompt library</span>
+        <span class="tag tag-blue">Regression</span>
+        <span class="tag tag-blue">A/B testing</span>
+      </div>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-icon" style="background: var(--green-50);">🏛️</div>
+      <h3>Liderança Orquestradora</h3>
+      <p>De gerente de scripts para arquiteto de confiança em sistemas autônomos. Definir objetivos, trust boundaries e quando humanos devem intervir.</p>
+      <div class="tags">
+        <span class="tag tag-green">Trust boundaries</span>
+        <span class="tag tag-green">PACT principles</span>
+        <span class="tag tag-teal">Human oversight</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 4. MCP                                     -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="section-label">4 · Como o MCP transforma a automação de testes</div>
+  <div class="mcp-flow">
+    <div class="mcp-box highlight">
+      <div class="mbox-title">Agente AI</div>
+      <div class="mbox-sub">Claude Code, Copilot, Cursor, Windsurf</div>
+    </div>
+    <div class="mcp-arrow">→</div>
+    <div class="mcp-box">
+      <div class="mbox-title">MCP Server</div>
+      <div class="mbox-sub">Protocolo padronizado (Anthropic, open standard)</div>
+    </div>
+    <div class="mcp-arrow">→</div>
+    <div class="mcp-box">
+      <div class="mbox-title">Playwright MCP</div>
+      <div class="mbox-sub">DOM snapshots semânticos + browser sessions</div>
+    </div>
+    <div class="mcp-arrow">→</div>
+    <div class="mcp-box">
+      <div class="mbox-title">Test Management</div>
+      <div class="mbox-sub">Jira, TestCollab, banco de dados, APIs</div>
+    </div>
+    <div class="mcp-arrow">→</div>
+    <div class="mcp-box">
+      <div class="mbox-title">Relatório Inteligente</div>
+      <div class="mbox-sub">Root cause analysis automático + dashboard</div>
+    </div>
+  </div>
+  <div class="mcp-note">
+    💡 <strong>O que muda na prática:</strong> o Playwright MCP usa o Model Context Protocol para transmitir snapshots do DOM e screenshots diretamente para a janela de contexto do agente AI. O agente lê o DOM semanticamente — roles, labels, estados — exatamente como tecnologias assistivas. Isso resulta em locators mais estáveis, testes mais resilientes a mudanças de UI, e a possibilidade de escrever testes em linguagem natural sem código manual. O mesmo chat pode usar Playwright MCP para ações no browser, um MCP de gestão de testes para registrar resultados, e um MCP de banco de dados para validar dados — tudo pelo mesmo protocolo unificado.
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 5. ESTRATÉGIAS DE TESTE                    -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="section-label">5 · Novas estratégias de testes automatizados</div>
+  <div class="strategy-grid">
+    <div class="strategy-item">
+      <div class="strategy-header sh-blue">🧑‍⚖️ LLM as a Judge — avaliador automático</div>
+      <div class="strategy-body">
+        <ul>
+          <li>Usa um LLM para avaliar as saídas de outro LLM em escala</li>
+          <li><strong>DAG (Deep Acyclic Graph):</strong> framework para criar métricas baseadas em decisão, produzindo scores determinísticos</li>
+          <li><strong>QAG:</strong> gera perguntas fechadas, obtém respostas do modelo, avalia e produz score com justificativa</li>
+          <li>Confiável para gates de CI quando >80% de concordância com benchmark humano (RAGTruth)</li>
+          <li>Ferramentas: <code>DeepEval</code>, <code>Confident AI</code>, <code>Giskard</code></li>
+        </ul>
+      </div>
+    </div>
+    <div class="strategy-item">
+      <div class="strategy-header sh-green">🔧 Self-healing tests com AI</div>
+      <div class="strategy-body">
+        <ul>
+          <li>Locators baseados em roles e labels semânticos — não seletores CSS frágeis</li>
+          <li>AI detecta mudanças de UI e atualiza seletores automaticamente</li>
+          <li>Playwright MCP lê o DOM via acessibilidade (igual leitores de tela)</li>
+          <li>Reduz manutenção de testes em até 70% comparado com automação tradicional</li>
+          <li>Intent-based automation: "preencher formulário de cadastro" sem especificar cada campo</li>
+        </ul>
+      </div>
+    </div>
+    <div class="strategy-item">
+      <div class="strategy-header sh-amber">📝 Testes de regressão para prompts</div>
+      <div class="strategy-body">
+        <ul>
+          <li>Versionar prompts como código no repositório (Langfuse Prompt Registry)</li>
+          <li>Cada mudança de prompt dispara pipeline de avaliação automática</li>
+          <li>Comparar outputs com golden dataset de respostas aprovadas</li>
+          <li>Detectar regressões de qualidade antes de ir para produção</li>
+          <li>A/B testing de variantes de prompt com métricas objetivas</li>
+        </ul>
+      </div>
+    </div>
+    <div class="strategy-item">
+      <div class="strategy-header sh-red">🛡️ Testes de segurança e alucinação</div>
+      <div class="strategy-body">
+        <ul>
+          <li><strong>MetaQA (ACM 2025):</strong> mutações metamórficas de prompts para detectar alucinações em modelos fechados sem acesso a probabilidades</li>
+          <li><strong>CLAP:</strong> treina classificadores leves nas ativações de atenção para flagear alucinações em tempo real</li>
+          <li><strong>RAGTruth benchmark:</strong> mais realista que HaluBench para calibrar juízes LLM em aplicações RAG de produção</li>
+          <li>Prompt injection, jailbreak, boundary testing e testes de viés</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- PIPELINE CI/CD -->
+  <div class="section-label" style="margin-top: 32px;">5.1 · Pipeline CI/CD em 3 tiers para LLMs</div>
+  <div class="detail-panels">
+    <div class="detail-panel">
+      <div class="detail-panel-header">
+        <div class="dph-icon" style="background: var(--blue-50); font-size: 14px;">1</div>
+        Tier 1 — Unit Evaluation (a cada PR)
+      </div>
+      <div class="detail-grid">
+        <div class="detail-item">
+          <div class="di-label">Escopo</div>
+          <div class="di-value">Avalia cada prompt individualmente contra critérios específicos. Custo baixo, execução rápida.</div>
+        </div>
+        <div class="detail-item">
+          <div class="di-label">Ferramentas</div>
+          <div class="di-value"><code>DeepEval</code> · <code>pytest</code> + LLM judge · <code>Confident AI</code> assertions</div>
+        </div>
+        <div class="detail-item">
+          <div class="di-label">Métricas típicas</div>
+          <div class="di-value">Fidelidade ao contexto, ausência de alucinação, aderência a formato esperado, tom/segurança</div>
+        </div>
+        <div class="detail-item">
+          <div class="di-label">Ação para a squad</div>
+          <div class="di-value">Começar com 1 assertion DeepEval por endpoint LLM crítico. Subir o bar incrementalmente por sprint.</div>
+        </div>
+      </div>
+    </div>
+    <div class="detail-panel">
+      <div class="detail-panel-header">
+        <div class="dph-icon" style="background: var(--amber-50); font-size: 14px;">2</div>
+        Tier 2 — Integration Evaluation (antes do merge na main)
+      </div>
+      <div class="detail-grid">
+        <div class="detail-item">
+          <div class="di-label">Escopo</div>
+          <div class="di-value">Testa fluxos completos end-to-end, incluindo RAG pipelines e integrações com contexto externo via MCP.</div>
+        </div>
+        <div class="detail-item">
+          <div class="di-label">Ferramentas</div>
+          <div class="di-value"><code>Langfuse</code> para tracing · <code>Giskard</code> para testes de comportamento · <code>Arize</code> para observabilidade</div>
+        </div>
+        <div class="detail-item">
+          <div class="di-label">Métricas típicas</div>
+          <div class="di-value">Latência ponta a ponta, coerência multi-turn, qualidade de recuperação RAG, custo por chamada</div>
+        </div>
+        <div class="detail-item">
+          <div class="di-label">Ação para a squad</div>
+          <div class="di-value">Mapear os 5 fluxos LLM mais críticos do produto. Criar golden dataset com 50 casos reais por fluxo.</div>
+        </div>
+      </div>
+    </div>
+    <div class="detail-panel">
+      <div class="detail-panel-header">
+        <div class="dph-icon" style="background: var(--red-50); font-size: 14px;">3</div>
+        Tier 3 — Production Monitoring (contínuo em produção)
+      </div>
+      <div class="detail-grid">
+        <div class="detail-item">
+          <div class="di-label">Escopo</div>
+          <div class="di-value">Monitoramento contínuo de qualidade em produção. Detecta drift de comportamento ao longo do tempo com alertas automáticos.</div>
+        </div>
+        <div class="detail-item">
+          <div class="di-label">Ferramentas</div>
+          <div class="di-value"><code>Langfuse</code> (traceability) · <code>Datadog</code> LLM obs. · <code>Helicone</code> · dashboards de qualidade</div>
+        </div>
+        <div class="detail-item">
+          <div class="di-label">O que monitorar</div>
+          <div class="di-value">Taxa de alucinação, latência por versão de prompt, satisfação do usuário, desvio de distribuição de outputs</div>
+        </div>
+        <div class="detail-item">
+          <div class="di-label">Insight chave</div>
+          <div class="di-value">Um declínio de 5% semana a semana revela-se como tendência em 6 semanas — antes de se tornar problema visível ao usuário.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 6. FERRAMENTAS                             -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="section-label">6 · Stack de ferramentas recomendado para 2026</div>
+  <table class="tools-table">
+    <thead>
+      <tr>
+        <th>Ferramenta</th>
+        <th>Categoria</th>
+        <th>Uso principal</th>
+        <th>Quando adotar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="tool-name">Playwright MCP</span></td>
+        <td><span class="tool-badge" style="background:var(--green-50);color:var(--green-600)">Automação</span></td>
+        <td>Testes E2E com agentes AI via DOM semântico. Testes em linguagem natural.</td>
+        <td>Imediato — substitui scripts manuais</td>
+      </tr>
+      <tr>
+        <td><span class="tool-name">Claude Code / Cursor</span></td>
+        <td><span class="tool-badge" style="background:var(--blue-50);color:var(--blue-700)">AI Agent</span></td>
+        <td>Geração e manutenção de testes via prompts. Integra com MCP servers.</td>
+        <td>Imediato — aumenta produtividade do time</td>
+      </tr>
+      <tr>
+        <td><span class="tool-name">DeepEval</span></td>
+        <td><span class="tool-badge" style="background:var(--red-50);color:var(--red-600)">LLM Testing</span></td>
+        <td>Framework open-source para testes de LLM com métricas predefinidas para CI/CD.</td>
+        <td>Semana 4–6 do roadmap</td>
+      </tr>
+      <tr>
+        <td><span class="tool-name">Langfuse</span></td>
+        <td><span class="tool-badge" style="background:var(--purple-50);color:var(--purple-600)">Observabilidade</span></td>
+        <td>Traceability de prompts em produção, versionamento, datasets de regressão e scoring.</td>
+        <td>Semana 1–3 do roadmap</td>
+      </tr>
+      <tr>
+        <td><span class="tool-name">Giskard</span></td>
+        <td><span class="tool-badge" style="background:var(--amber-50);color:var(--amber-600)">Qualidade AI</span></td>
+        <td>Testes automáticos de viés, robustez e segurança para modelos em produção.</td>
+        <td>Mês 2–3 para sistemas críticos</td>
+      </tr>
+      <tr>
+        <td><span class="tool-name">Arize / Phoenix</span></td>
+        <td><span class="tool-badge" style="background:var(--teal-50);color:var(--teal-600)">MLOps</span></td>
+        <td>Observabilidade para LLMs e sistemas RAG. Detecta drift de qualidade em produção.</td>
+        <td>Mês 3+ para sistemas em produção</td>
+      </tr>
+      <tr>
+        <td><span class="tool-name">Confident AI</span></td>
+        <td><span class="tool-badge" style="background:var(--red-50);color:var(--red-600)">LLM Testing</span></td>
+        <td>Avaliação escalável de LLMs com métricas DAG e QAG para scores determinísticos.</td>
+        <td>Mês 2 para squads com features LLM</td>
+      </tr>
+      <tr>
+        <td><span class="tool-name">Helicone / PromptLayer</span></td>
+        <td><span class="tool-badge" style="background:var(--blue-50);color:var(--blue-700)">Prompt Ops</span></td>
+        <td>Versionamento e analytics de prompts. Alternativa ao Langfuse para times menores.</td>
+        <td>Semana 4–6 para prompt versioning</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 7. NOVOS PAPÉIS                            -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="section-label">7 · Novos papéis para desenvolver na squad</div>
+  <div class="roles-row">
+    <div class="role-card">
+      <div class="role-num" style="background:var(--blue-50);color:var(--blue-800);">1</div>
+      <div class="role-title">AI Output Reviewer<br>→ Evaluation Engineer</div>
+      <div class="role-old">QA Manual Tester / QA Analyst</div>
+      <div class="role-desc">Não revisa manualmente: constrói sistemas de avaliação automática de outputs de IA. O foco muda de revisão manual para arquitetura de pipelines de qualidade. Skills: evaluation frameworks, métricas LLM, prompt engineering.</div>
+    </div>
+    <div class="role-card">
+      <div class="role-num" style="background:var(--amber-50);color:var(--amber-800);">2</div>
+      <div class="role-title">Bias Evaluator<br>→ Algorithmic Fairness Eng.</div>
+      <div class="role-old">QA Analyst / Test Engineer</div>
+      <div class="role-desc">Embutido no time de ML e produto. Garante equidade e ausência de viés nos outputs de IA — crítico em setores como contratação, crédito e atendimento. Trabalha diretamente com design e treinamento de modelos.</div>
+    </div>
+    <div class="role-card">
+      <div class="role-num" style="background:var(--red-50);color:var(--red-800);">3</div>
+      <div class="role-title">LLM Auditor<br>→ AI Assurance Architect</div>
+      <div class="role-old">QA Lead / Quality Manager</div>
+      <div class="role-desc">Dono da governança de IA na organização. Garante rastreabilidade de decisões, conformidade com regulamentações (EU AI Act), auditabilidade em produção e accountability de sistemas autônomos.</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 8. SKILLS                                  -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="section-label">8 · Skills que o líder precisa desenvolver no time</div>
+  <div class="skills-row">
+    <div class="skills-card">
+      <h3>🔧 Skills técnicas emergentes</h3>
+      <div class="skill-row">
+        <span class="skill-name">Prompt engineering para QA</span>
+        <div class="skill-level">
+          <div class="dot b"></div><div class="dot b"></div><div class="dot b"></div><div class="dot"></div><div class="dot"></div>
+        </div>
+      </div>
+      <div class="skill-row">
+        <span class="skill-name">LLM evaluation frameworks (DeepEval, Langfuse)</span>
+        <div class="skill-level">
+          <div class="dot b"></div><div class="dot b"></div><div class="dot b"></div><div class="dot b"></div><div class="dot"></div>
+        </div>
+      </div>
+      <div class="skill-row">
+        <span class="skill-name">MCP server configuration e integração</span>
+        <div class="skill-level">
+          <div class="dot b"></div><div class="dot b"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+        </div>
+      </div>
+      <div class="skill-row">
+        <span class="skill-name">Playwright + AI agents (testes por linguagem natural)</span>
+        <div class="skill-level">
+          <div class="dot b"></div><div class="dot b"></div><div class="dot b"></div><div class="dot"></div><div class="dot"></div>
+        </div>
+      </div>
+      <div class="skill-row">
+        <span class="skill-name">RAG testing e observabilidade de produção</span>
+        <div class="skill-level">
+          <div class="dot b"></div><div class="dot b"></div><div class="dot b"></div><div class="dot"></div><div class="dot"></div>
+        </div>
+      </div>
+      <div class="skill-row">
+        <span class="skill-name">Métricas de alucinação e viés (RAGTruth, MetaQA)</span>
+        <div class="skill-level">
+          <div class="dot b"></div><div class="dot b"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+        </div>
+      </div>
+    </div>
+    <div class="skills-card">
+      <h3>🎯 Skills de liderança na era agentic</h3>
+      <div class="skill-row">
+        <span class="skill-name">Definir trust boundaries para agentes</span>
+        <div class="skill-level">
+          <div class="dot g"></div><div class="dot g"></div><div class="dot g"></div><div class="dot g"></div><div class="dot g"></div>
+        </div>
+      </div>
+      <div class="skill-row">
+        <span class="skill-name">Orquestrar workflows humano-agente</span>
+        <div class="skill-level">
+          <div class="dot g"></div><div class="dot g"></div><div class="dot g"></div><div class="dot g"></div><div class="dot"></div>
+        </div>
+      </div>
+      <div class="skill-row">
+        <span class="skill-name">Drift detection (monitorar evolução do agente)</span>
+        <div class="skill-level">
+          <div class="dot g"></div><div class="dot g"></div><div class="dot g"></div><div class="dot"></div><div class="dot"></div>
+        </div>
+      </div>
+      <div class="skill-row">
+        <span class="skill-name">Definir e medir KPIs de qualidade de IA</span>
+        <div class="skill-level">
+          <div class="dot g"></div><div class="dot g"></div><div class="dot g"></div><div class="dot g"></div><div class="dot"></div>
+        </div>
+      </div>
+      <div class="skill-row">
+        <span class="skill-name">Ética e supervisão de AI outputs em produção</span>
+        <div class="skill-level">
+          <div class="dot g"></div><div class="dot g"></div><div class="dot g"></div><div class="dot g"></div><div class="dot g"></div>
+        </div>
+      </div>
+      <div class="skill-row">
+        <span class="skill-name">Construir cultura de qualidade whole-team com AI</span>
+        <div class="skill-level">
+          <div class="dot g"></div><div class="dot g"></div><div class="dot g"></div><div class="dot g"></div><div class="dot"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 9. O QUE PERMANECE HUMANO                  -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="section-label">9 · O que permanece fundamentalmente humano</div>
+  <div class="highlight-box hb-teal">
+    <h4>O maestro ainda é humano — a orquestra cresceu</h4>
+    <p>Com a ascensão dos agentes autônomos, o instinto é perguntar "o que sobra para o humano fazer?". A resposta é: as responsabilidades mais estratégicas e de maior valor. <strong>Estratégia e priorização</strong> (quais riscos de qualidade mais importam? os agentes otimizam dentro de restrições — os humanos as definem). <strong>Supervisão ética</strong> (humanos validam a severidade e garantem que nenhum dano não intencional ocorra). <strong>Tratamento de exceções</strong> (casos extremos e requisitos regulatórios precisam de julgamento além do reconhecimento de padrões). <strong>Construção de cultura</strong> (a qualidade do time todo emerge da liderança humana, não de agentes). <strong>Manutenção de contexto</strong> (por que estamos construindo isso? qual o impacto no usuário real?).</p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 10. ROADMAP                                -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="section-label">10 · Roadmap de adoção — o que levar para a squad e quando</div>
+  <div class="roadmap">
+    <div class="roadmap-item">
+      <div class="roadmap-dot-col">
+        <div class="r-dot" style="background:var(--blue-400)"></div>
+        <div class="r-line"></div>
+      </div>
+      <div class="roadmap-content">
+        <div class="r-phase" style="color:var(--blue-600)">Semanas 1–3 · Fundação e diagnóstico</div>
+        <div class="r-title">Inventário, baseline e cultura</div>
+        <div class="r-items">
+          <ul>
+            <li>Mapear todos os pontos de output LLM no produto (chatbots, sumarizações, recomendações, APIs com IA)</li>
+            <li>Criar golden dataset com 100 cenários reais por endpoint LLM crítico</li>
+            <li>Instalar Langfuse para observabilidade básica de prompts e outputs</li>
+            <li>Workshop de prompt engineering para todo o time de QA (2–4h)</li>
+            <li>Definir quais métricas de qualidade de IA são relevantes para o negócio</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="roadmap-item">
+      <div class="roadmap-dot-col">
+        <div class="r-dot" style="background:var(--green-400)"></div>
+        <div class="r-line"></div>
+      </div>
+      <div class="roadmap-content">
+        <div class="r-phase" style="color:var(--green-600)">Semanas 4–6 · Ferramentas e automação inteligente</div>
+        <div class="r-title">MCP + Playwright + AI-assisted testing</div>
+        <div class="r-items">
+          <ul>
+            <li>Configurar Playwright MCP no repositório principal</li>
+            <li>Conectar Claude Code ou Copilot ao pipeline CI da squad</li>
+            <li>Habilitar self-healing locators para reduzir manutenção de scripts</li>
+            <li>Primeiro smoke test gerado por linguagem natural (sem código manual)</li>
+            <li>Versionar prompts críticos no Langfuse Prompt Registry</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="roadmap-item">
+      <div class="roadmap-dot-col">
+        <div class="r-dot" style="background:var(--amber-400)"></div>
+        <div class="r-line"></div>
+      </div>
+      <div class="roadmap-content">
+        <div class="r-phase" style="color:var(--amber-600)">Mês 2 · Avaliação contínua e CI/CD para LLMs</div>
+        <div class="r-title">LLM testing no pipeline de entrega</div>
+        <div class="r-items">
+          <ul>
+            <li>Integrar DeepEval ou Confident AI no pipeline CI (Tier 1 — unit eval a cada PR)</li>
+            <li>Definir thresholds de qualidade: ex. taxa de alucinação &lt;5%, fidelidade ao contexto &gt;90%</li>
+            <li>Regressão automática a cada mudança de prompt contra golden dataset</li>
+            <li>LLM-as-judge para avaliar outputs em escala sem revisão manual</li>
+            <li>Primeiro dashboard de qualidade de IA visível para toda a squad</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="roadmap-item">
+      <div class="roadmap-dot-col">
+        <div class="r-dot" style="background:var(--red-400)"></div>
+        <div class="r-line"></div>
+      </div>
+      <div class="roadmap-content">
+        <div class="r-phase" style="color:var(--red-600)">Mês 3+ · Maturidade, governança e cultura</div>
+        <div class="r-title">AI Assurance como capacidade estratégica</div>
+        <div class="r-items">
+          <ul>
+            <li>Definir formalmente o papel de AI Assurance Architect na squad ou tribo</li>
+            <li>Implementar safety e bias testing para todos os endpoints com IA em produção</li>
+            <li>Criar runbook de trust boundaries: quais decisões o agente toma sozinho vs. quando escalar ao humano</li>
+            <li>Treinar 1 pessoa por novo papel (Evaluation Engineer, Fairness Engineer, AI Assurance Architect)</li>
+            <li>Monitoramento contínuo de drift de qualidade (Tier 3) com alertas automáticos</li>
+            <li>Revisão trimestral de KPIs de qualidade de IA com stakeholders de produto</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- 11. PRINCÍPIOS PACT                        -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="section-label">11 · Princípios PACT — framework de liderança agentic</div>
+  <div class="strategy-grid">
+    <div class="strategy-item">
+      <div class="strategy-header sh-blue">P — Proactive</div>
+      <div class="strategy-body">O líder de QA define proativamente os objetivos de qualidade, os riscos prioritários e os critérios de sucesso. Não espera bugs aparecerem — antecipa onde a IA pode falhar e prepara defesas antes do release.</div>
+    </div>
+    <div class="strategy-item">
+      <div class="strategy-header sh-green">A — Autonomous</div>
+      <div class="strategy-body">Agentes autônomos executam tarefas repetitivas, regressões, geração de dados de teste e monitoramento. O líder define o escopo de autonomia — quais decisões o agente pode tomar sem confirmação humana.</div>
+    </div>
+    <div class="strategy-item">
+      <div class="strategy-header sh-amber">C — Collaborative</div>
+      <div class="strategy-body">Humans e agentes trabalham juntos em workflows híbridos. O agente executa o que é previsível; o humano lida com exceções, decisões éticas e contexto de negócio. Nenhum substitui o outro.</div>
+    </div>
+    <div class="strategy-item">
+      <div class="strategy-header sh-red">T — Targeted</div>
+      <div class="strategy-body">Recursos de qualidade são alocados onde o risco é maior. Agentes geram inteligência de cobertura; líderes decidem onde focar o esforço humano. Qualidade cirúrgica, não distribuída uniformemente.</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SÍNTESE FINAL                              -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="section-label">Síntese · A mensagem central para levar à squad</div>
+  <div class="detail-panel">
+    <div class="detail-panel-header">
+      <div class="dph-icon" style="background:var(--blue-50);">💡</div>
+      O que muda de verdade — e o que não muda
+    </div>
+    <div class="detail-grid">
+      <div class="detail-item">
+        <div class="di-label">O que muda</div>
+        <div class="di-value">O QA deixa de ser executor de scripts e se torna orquestrador de sistemas de qualidade. O foco muda de "encontrar bugs" para "garantir que a IA toma boas decisões em escala".</div>
+      </div>
+      <div class="detail-item">
+        <div class="di-label">O que não muda</div>
+        <div class="di-value">A responsabilidade pela qualidade ainda é humana. A estratégia, a ética, o contexto de negócio e a cultura de qualidade não podem ser delegados a agentes autônomos.</div>
+      </div>
+      <div class="detail-item">
+        <div class="di-label">O risco de não agir</div>
+        <div class="di-value">Times que não evoluem para AI assurance terão LLMs em produção sem testes adequados, entregando alucinações, viés e outputs inseguros diretamente para usuários.</div>
+      </div>
+      <div class="detail-item">
+        <div class="di-label">O caminho</div>
+        <div class="di-value">Começar com observabilidade (Langfuse), adicionar avaliação automática (DeepEval), habilitar MCP + Playwright, e gradualmente construir a capacidade de AI Assurance na organização.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="doc-footer">
+    <span>Liderança de QA na Era da IA · Guia Estratégico 2026</span>
+    <span>Fontes: Tricentis, Xray Blog, QASource, ContextQA, TestGuild, Applitools, Confident AI · Março 2026</span>
+  </div>
+
+</div>
+</body>
+</html>

@@ -41,14 +41,6 @@
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <!-- Destaque da estatística independente -->
-        <div class="hero-stat-highlight">
-            <div class="stat-floating">
-                <span class="stat-number-floating">75%</span>
-                <span class="stat-label-floating">Otimização de Tarefas</span>
-            </div>
-        </div>
-        
         <div class="hero-carousel-container">
             <!-- Slide 1 - Ana Evelyn -->
             <div class="hero-slide active">
@@ -102,6 +94,58 @@
         <div class="hero-fixed-cta">
             <a href="produtos.html" class="btn btn-primary">Acesse Meu Conteúdo</a>
             <a href="#about" class="btn btn-secondary">Conheça Minha História</a>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+        <div class="container">
+            <div class="stats-bar-inner">
+                <div class="stat-item" data-reveal data-reveal-delay="1">
+                    <span class="stat-number">5+</span>
+                    <span class="stat-label">Anos de Experiência</span>
+                </div>
+                <div class="stat-item" data-reveal data-reveal-delay="2">
+                    <span class="stat-number">75%</span>
+                    <span class="stat-label">Otimização de Tarefas</span>
+                </div>
+                <div class="stat-item" data-reveal data-reveal-delay="3">
+                    <span class="stat-number">100+</span>
+                    <span class="stat-label">Profissionais Impactados</span>
+                </div>
+                <div class="stat-item" data-reveal data-reveal-delay="4">
+                    <span class="stat-number">4</span>
+                    <span class="stat-label">Produtos Disponíveis</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Featured Article -->
+    <section class="featured-article">
+        <div class="container">
+            <div class="featured-article-card">
+                <div class="featured-article-badge">Conteúdo Gratuito</div>
+                <div class="featured-article-body">
+                    <div class="featured-article-text">
+                        <span class="featured-article-tag">Guia Estratégico · Março 2026</span>
+                        <h2 class="featured-article-title">Liderança de QA na Era da IA</h2>
+                        <p class="featured-article-desc">
+                            Como levar LLM Testing, MCP e automação agentic para sua squad.
+                            Dados reais: <strong>85% de redução de esforço manual</strong> e
+                            <strong>60% mais produtividade</strong> com IA habilitada.
+                        </p>
+                        <div class="featured-article-tags">
+                            <span>Para QA Leads e Seniores</span>
+                            <span>Agentic QA</span>
+                            <span>Novos Papéis</span>
+                        </div>
+                    </div>
+                    <div class="featured-article-cta">
+                        <a href="qa-lideranca-ia-era.html" target="_blank" class="btn btn-primary">Ler o Guia Gratuito</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -232,13 +276,13 @@
         </div>
         
         <!-- About Carousel Controls -->
-        <div class="about-controls" style="display: flex; justify-content: center; align-items: center; gap: 1rem; margin-top: 2rem;">
-            <button class="about-btn" id="aboutPrevBtn" style="background: var(--primary-green); color: white; border: none; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; font-size: 1.25rem; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">❮</button>
-            <div class="about-dots" id="aboutDots" style="display: flex; gap: 0.5rem;">
-                <button class="about-dot active" data-slide="0" style="width: 12px; height: 12px; border-radius: 50%; background: var(--primary-green); cursor: pointer; transition: all 0.3s ease; border: none;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"></button>
-                <button class="about-dot" data-slide="1" style="width: 12px; height: 12px; border-radius: 50%; background: var(--medium-gray); cursor: pointer; transition: all 0.3s ease; border: none;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'"></button>
+        <div class="about-controls">
+            <button class="about-btn" id="aboutPrevBtn" aria-label="Anterior">❮</button>
+            <div class="about-dots" id="aboutDots">
+                <button class="about-dot active" data-slide="0" aria-label="Slide 1"></button>
+                <button class="about-dot" data-slide="1" aria-label="Slide 2"></button>
             </div>
-            <button class="about-btn" id="aboutNextBtn" style="background: var(--primary-green); color: white; border: none; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; font-size: 1.25rem; transition: all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">❯</button>
+            <button class="about-btn" id="aboutNextBtn" aria-label="Próximo">❯</button>
         </div>
       </div>
     </section>
@@ -255,37 +299,37 @@
                 </p>
                 
                 <div class="benefits-grid">
-                    <div class="benefit">
+                    <div class="benefit" data-reveal data-reveal-delay="1">
                         <div class="benefit-icon">⚡</div>
                         <h4>Automação Inteligente</h4>
                         <p>Economize dezenas de horas semanais com processos automatizados usando Claude e outras ferramentas de IA</p>
                     </div>
-                    
-                    <div class="benefit">
-                        <div class="benefit-icon">📊</div>
+
+                    <div class="benefit" data-reveal data-reveal-delay="2">
+                        <div class="benefit-icon">🤖</div>
                         <h4>Criar Agentes Específicos com IA</h4>
                         <p>Aprenda criar agentes e otimize processos diários para reduzir custos operacionais e melhorar eficiência</p>
                     </div>
-                    
-                    <div class="benefit">
-                        <div class="benefit-icon">🎯</div>
+
+                    <div class="benefit" data-reveal data-reveal-delay="3">
+                        <div class="benefit-icon">🛡️</div>
                         <h4>QA Estratégico</h4>
                         <p>Implemente cultura de qualidade desde o início do desenvolvimento</p>
                     </div>
 
-                    <div class="benefit">
-                        <div class="benefit-icon">🎯</div>
+                    <div class="benefit" data-reveal data-reveal-delay="1">
+                        <div class="benefit-icon">🧪</div>
                         <h4>Automação de Testes</h4>
                         <p>Implemente automação de testes com Cypress, Playwright e K6</p>
                     </div>
 
-                    <div class="benefit">
-                        <div class="benefit-icon">🎯</div>
-                        <h4>Mentoria de Testes Iniciantes e 50'</h4>
+                    <div class="benefit" data-reveal data-reveal-delay="2">
+                        <div class="benefit-icon">👥</div>
+                        <h4>Mentoria de Testes Iniciantes e 50+</h4>
                         <p>Seja um mentorado e siga a trilha que eu segui na migração de carreira 50+</p>
                     </div>
-                    
-                    <div class="benefit">
+
+                    <div class="benefit" data-reveal data-reveal-delay="3">
                         <div class="benefit-icon">🔬</div>
                         <h4>Testes Avançados</h4>
                         <p>Domine heurísticas avançadas e testes inteligentes com Inteligência Artificial</p>
@@ -360,25 +404,16 @@
                     <div class="social-networks">
                         <h4>Redes Sociais do Clube</h4>
                         <div class="social-links">
-                            <a href="https://www.instagram.com/clubequalidade?igsh=aGhvaTJ5YmEwbWQ=" target="_blank" rel="noopener" 
-                               style="display: flex; align-items: center; color: var(--primary-green); text-decoration: none; margin-bottom: 0.5rem; font-size: 1rem; padding: 0.3rem; border-radius: 6px; transition: all 0.3s ease;" 
-                               onmouseover="this.style.backgroundColor='rgba(255,255,255,0.1)'; this.style.color='var(--light-green)'" 
-                               onmouseout="this.style.backgroundColor='transparent'; this.style.color='var(--primary-green)'">
-                                <img src="assets/images/insta.jpg" alt="Instagram" style="width: 18px; height: 18px; margin-right: 6px; border-radius: 3px;">
+                            <a href="https://www.instagram.com/clubequalidade?igsh=aGhvaTJ5YmEwbWQ=" target="_blank" rel="noopener" class="social-link">
+                                <img src="assets/images/insta.jpg" alt="Instagram">
                                 @clubequalidade
                             </a>
-                            <a href="mailto:clubequalidade@gmail.com" 
-                               style="display: flex; align-items: center; color: var(--primary-green); text-decoration: none; margin-bottom: 0.5rem; font-size: 1rem; padding: 0.3rem; border-radius: 6px; transition: all 0.3s ease;" 
-                               onmouseover="this.style.backgroundColor='rgba(255,255,255,0.1)'; this.style.color='var(--light-green)'" 
-                               onmouseout="this.style.backgroundColor='transparent'; this.style.color='var(--primary-green)'">
-                                <img src="assets/images/gmail.jpg" alt="Gmail" style="width: 18px; height: 18px; margin-right: 6px; border-radius: 3px;">
+                            <a href="mailto:clubequalidade@gmail.com" class="social-link">
+                                <img src="assets/images/gmail.jpg" alt="Gmail">
                                 clubequalidade@gmail.com
                             </a>
-                            <a href="https://www.linkedin.com/in/clube-da-qualidade-448120379/" target="_blank" rel="noopener" 
-                               style="display: flex; align-items: center; color: var(--primary-green); text-decoration: none; margin-bottom: 0.5rem; font-size: 1rem; padding: 0.3rem; border-radius: 6px; transition: all 0.3s ease;" 
-                               onmouseover="this.style.backgroundColor='rgba(255,255,255,0.1)'; this.style.color='var(--light-green)'" 
-                               onmouseout="this.style.backgroundColor='transparent'; this.style.color='var(--primary-green)'">
-                                <img src="assets/images/linkedin.jpg" alt="LinkedIn" style="width: 18px; height: 18px; margin-right: 6px; border-radius: 3px;">
+                            <a href="https://www.linkedin.com/in/clube-da-qualidade-448120379/" target="_blank" rel="noopener" class="social-link">
+                                <img src="assets/images/linkedin.jpg" alt="LinkedIn">
                                 Clube da Qualidade
                             </a>
                         </div>
@@ -392,7 +427,6 @@
         </div>
     </footer>
 
-</script>
     <script src="js/script.js"></script>
     <script src="js/mascote.js"></script>
     
